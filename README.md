@@ -80,18 +80,65 @@ After editing any file in `js/js/` or `data/`, rebuild:
 python rebundle.py
 ```
 
-## Deployment & Updates
+## How to Update the Site (Step-by-Step)
 
-The site is hosted on GitHub Pages and updates automatically on every push.
+The site is hosted on GitHub Pages. Every time you push a change, the live site updates automatically within ~1 minute.
+
+### Prerequisites (one-time setup)
+
+Make sure you have these installed on your computer:
+- [Python 3](https://www.python.org/downloads/) — for running `rebundle.py`
+- [Git](https://git-scm.com/downloads/) — for pushing to GitHub
+- A GitHub account with access to this repository
+
+---
+
+### Option A — Easiest: Double-click `update.bat`
+
+A helper script is included. Just:
+
+1. Make your changes (edit files in `data/` or `js/js/`)
+2. Double-click **`update.bat`** in the project folder
+3. Type a short description when prompted (e.g. `Add 2024 data`) and press Enter
+4. Done — the site updates in about 1 minute
+
+---
+
+### Option B — Command line
+
+Open a terminal in the project folder and run:
 
 ```bash
-# After updating data or JS source files:
+# Step 1: Rebuild index.html from source files
 python rebundle.py
-git add index.html
-git commit -m "Update: describe your change"
+
+# Step 2: Stage, commit, and push
+git add index.html data/ js/
+git commit -m "Describe what you changed"
 git push
-# Site updates within ~1 minute
 ```
+
+---
+
+### What to edit for common updates
+
+| What you want to do | What to edit |
+|---|---|
+| Add / update country data | Replace files in `data/` (JSON) |
+| Fix a chart or layout | Edit the relevant file in `js/js/` |
+| Add a new tab or feature | Add a new file in `js/js/`, register it in `main.js` |
+| Change text or labels | Search for the text in `js/js/` files |
+
+After any edit, always run `python rebundle.py` before pushing — this step packs everything into `index.html`.
+
+---
+
+### Verify your update
+
+After pushing, wait ~1 minute then open the live site:
+**[https://jonebroom.github.io/prism-fdi/](https://jonebroom.github.io/prism-fdi/)**
+
+If the page looks wrong, check the [Actions tab](https://github.com/jonebroom/prism-fdi/actions) on GitHub for deployment status.
 
 ## Tech Stack
 
