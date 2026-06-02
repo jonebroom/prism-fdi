@@ -940,6 +940,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 
 /* ============ KPI CARDS ============ */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.kpi-grid-2{grid-template-columns:repeat(2,1fr)!important;}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 15px;}
 .kpi .kl{font-size:11px;color:var(--ink-soft);margin-bottom:7px;letter-spacing:.01em;}
 .kpi .kv{font-family:var(--mono);font-size:25px;font-weight:600;color:var(--ink);line-height:1;}
@@ -1055,7 +1056,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 }
 
 @media(max-width:480px){
-  .kpi-grid{grid-template-columns:1fr;}
+  .kpi-grid,.kpi-grid-2{grid-template-columns:1fr!important;}
   .topbar{gap:8px;padding:0 12px;}
   .search-box{width:140px;}
   .brand .mark{font-size:17px;}

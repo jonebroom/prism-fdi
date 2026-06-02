@@ -34,7 +34,7 @@
     // country-specific
     if(c){
       chips.push(`${cn}'s FDI screening mechanism evolved?`);
-      chips.push(`${cn}compared to the OECD average in strictness?`);
+      chips.push(`${cn} compared to the OECD average in strictness?`);
       const r=P.rec(c,yr);
       if(r&&r.coverage) chips.push(`Which countries share the same "${(UI.COVERAGE[r.coverage]||{cn:r.coverage}).cn}" coverage type as ${cn}?`);
     }
@@ -82,8 +82,8 @@
       const existing=document.getElementById('aiKeyForm');
       if(existing){ existing.remove(); return; }
       const cfg=loadCfg();
-      const inp=(id,ph,val,type='text')=>`<input id="${id}" type="${type}" placeholder="${ph}" value="${esc(val||'')}" style="width:100%;padding:5px 9px;border:1px solid var(--border);border-radius:6px;font-size:11.5px;background:var(--bg-panel);color:var(--ink);font-family:monospace;box-sizing:border-box;">`;
-      const s=(id,opts,val)=>`<select id="${id}" style="width:100%;padding:5px 9px;border:1px solid var(--border);border-radius:6px;font-size:11.5px;background:var(--bg-panel);color:var(--ink);">${opts.map(o=>`<option value="${o.v}"${o.v===val?' selected':''}>${o.l}</option>`).join('')}</select>`;
+      const inp=(id,ph,val,type='text')=>`<input id="${id}" type="${type}" placeholder="${ph}" value="${esc(val||'')}" style="width:100%;padding:5px 9px;border:1px solid var(--line-strong);border-radius:6px;font-size:11.5px;background:var(--panel);color:var(--ink);font-family:monospace;box-sizing:border-box;">`;
+      const s=(id,opts,val)=>`<select id="${id}" style="width:100%;padding:5px 9px;border:1px solid var(--line-strong);border-radius:6px;font-size:11.5px;background:var(--panel);color:var(--ink);">${opts.map(o=>`<option value="${o.v}"${o.v===val?' selected':''}>${o.l}</option>`).join('')}</select>`;
       const PROVIDERS=[
         {v:'anthropic',l:'Anthropic (Claude)'},
         {v:'openai',l:'OpenAI'},
@@ -103,17 +103,17 @@
       };
       const form=document.createElement('div');
       form.id='aiKeyForm';
-      form.style.cssText='padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:7px;';
+      form.style.cssText='padding:10px 14px;background:var(--paper-2);border-bottom:1px solid var(--line-strong);display:flex;flex-direction:column;gap:7px;';
       form.innerHTML=`
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
           <div><div style="font-size:10px;color:var(--ink-faint);margin-bottom:3px">Provider</div>${s('aiProvider',PROVIDERS,cfg.provider)}</div>
-          <div id="aiModelWrap"><div style="font-size:10px;color:var(--ink-faint);margin-bottom:3px">Model</div><input id="aiModel" placeholder="Model name" value="${esc(cfg.model||'')}" style="width:100%;padding:5px 9px;border:1px solid var(--border);border-radius:6px;font-size:11.5px;background:var(--bg-panel);color:var(--ink);font-family:monospace;box-sizing:border-box;"></div>
+          <div id="aiModelWrap"><div style="font-size:10px;color:var(--ink-faint);margin-bottom:3px">Model</div><input id="aiModel" placeholder="Model name" value="${esc(cfg.model||'')}" style="width:100%;padding:5px 9px;border:1px solid var(--line-strong);border-radius:6px;font-size:11.5px;background:var(--panel);color:var(--ink);font-family:monospace;box-sizing:border-box;"></div>
         </div>
         <div id="aiBaseUrlWrap" style="display:none"><div style="font-size:10px;color:var(--ink-faint);margin-bottom:3px">Base URL</div>${inp('aiBaseUrl','https://...  (v1/chat/completions prefix)',cfg.baseUrl)}</div>
         <div><div style="font-size:10px;color:var(--ink-faint);margin-bottom:3px">API Key</div>${inp('aiKeyInput','sk-... (leave empty to clear)',cfg.key,'password')}</div>
         <div style="display:flex;gap:6px;">
-          <button id="aiKeySave" style="flex:1;padding:5px;border-radius:6px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:12px;">Save</button>
-          <button id="aiKeyClear" style="padding:5px 10px;border-radius:6px;background:none;border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--ink-soft);">Clear</button>
+          <button id="aiKeySave" style="flex:1;padding:5px;border-radius:6px;background:var(--clay);color:#fff;border:none;cursor:pointer;font-size:12px;">Save</button>
+          <button id="aiKeyClear" style="padding:5px 10px;border-radius:6px;background:none;border:1px solid var(--line-strong);cursor:pointer;font-size:12px;color:var(--ink-soft);">Clear</button>
         </div>`;
       el.querySelector('.ai-head').insertAdjacentElement('afterend', form);
       const updateForm=()=>{

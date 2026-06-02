@@ -91,7 +91,7 @@
           <div style="background:rgba(255,255,255,.07);padding:6px 8px;border-radius:6px;"><div style="font-size:9.5px;color:#8a93a8;margin-bottom:2px">Sectors</div><div style="font-size:16px;font-weight:700;color:#f0f2f6;font-family:var(--mono)">${P.sectorCount(r)}<span style="font-size:10px;font-weight:400;color:#8a93a8">/${P.DATA.sectorNames.length}</span></div></div>
         </div>
         <div style="font-size:11px;color:#8a93a8;margin-bottom:11px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${m.c};margin-right:5px;vertical-align:middle"></span>${m.cn}${r.year_established?' · Est. '+r.year_established:''}</div>
-        <button id="ovCardGo" style="width:100%;padding:7px;border-radius:7px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">View Details →</button>`;
+        <button id="ovCardGo" style="width:100%;padding:7px;border-radius:7px;background:var(--clay);color:#fff;border:none;cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">View Details →</button>`;
       document.getElementById('ovCardClose').onclick=e=>{e.stopPropagation();mapCard.style.display='none';};
       document.getElementById('ovCardGo').onclick=()=>{mapCard.style.display='none';UI.selectCountry(c);UI.switchTab('country');};
     });
@@ -220,7 +220,7 @@
         <span class="mono" style="font-size:11px;color:var(--ink-soft);width:18px;text-align:right">${v}</span></div>`;
     }).join('');
     document.getElementById('ovSnap').innerHTML=`
-      <div class="kpi-grid" style="grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+      <div class="kpi-grid kpi-grid-2" style="gap:10px;margin-bottom:16px;">
         <div class="kpi accent"><div class="kl">Countries with mechanism</div><div class="kv">${withMech}<span class="u">/ ${active.length}</span></div></div>
         <div class="kpi"><div class="kl">Avg. Strictness</div><div class="kv">${(strictSum/nStrict).toFixed(1)}<span class="u">/13</span></div></div>
         <div class="kpi"><div class="kl">Avg. Sectors Covered</div><div class="kv">${nSec?(sumSec/nSec).toFixed(0):'—'}<span class="u">/${P.DATA.sectorNames.length}</span></div></div>
