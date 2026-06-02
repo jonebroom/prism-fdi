@@ -23,6 +23,7 @@
   let currentTab='overview';
   function switchTab(name){
     if(name===currentTab) return;
+    stopPlay();
     currentTab=name;
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
     document.querySelectorAll('.tabpane').forEach(p=>p.classList.toggle('active',p.id==='pane-'+name));
@@ -121,6 +122,7 @@
 
   // ---------- DRAWER ----------
   function openDrawer(title, meta, html){
+    closeScreener(); closeInfoDrawer();
     document.getElementById('drawerTitle').innerHTML=title;
     document.getElementById('drawerMeta').innerHTML=meta||'';
     document.getElementById('drawerBody').innerHTML=html;
@@ -134,6 +136,7 @@
 
   // ---------- SCREENER DRAWER ----------
   function openScreener(preCountry){
+    closeDrawer(); closeInfoDrawer();
     const body = document.getElementById('screenerBody');
     if(body && !body.hasChildNodes()) window.PRISM_SCREENER.mount(body);
     // pre-fill country if provided
@@ -154,6 +157,7 @@
 
   // ---------- INFO DRAWER ----------
   function openInfoDrawer(){
+    closeDrawer(); closeScreener();
     document.getElementById('infoDrawer').classList.add('open');
     document.getElementById('infoScrim').classList.add('open');
   }
