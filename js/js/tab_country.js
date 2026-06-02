@@ -193,7 +193,7 @@
   ];
   function drawFlags(c,r){
     if(!r){ root.querySelector('#cFlags').innerHTML='<div class="empty">No data</div>'; return; }
-    root.querySelector('#cFlags').innerHTML=`<div class="row2" style="grid-template-columns:repeat(2,1fr)">`+
+    root.querySelector('#cFlags').innerHTML=`<div class="row2">`+
       FLAG_GROUPS.map(g=>`<div class="fieldgroup">
         <div class="fg-h">${g.h}</div>
         <div class="flag-grid">${g.keys.map(k=>{const on=!!r[k];return `<div class="flag ${on?'yes':'no'}"><span class="fc">${on?'✓':'✕'}</span><span class="ft">${P.PROC_LABELS[k]||k}</span></div>`;}).join('')}</div>
@@ -260,8 +260,8 @@
     const rawText=doc?(doc.chunks&&doc.chunks.length?doc.chunks.join('\n\n'):doc.full_text_preview):null;
     const truncated=doc&&doc.char_count>(rawText?.length||0)+50;
     const fileLink=doc?(doc.ext==='.pdf'
-      ?`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" download="${escapeHtml(doc.filename)}" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none">↓ Download PDF</a>`
-      :`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none">↗ View Source</a>`):'';
+      ?`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" download="${escapeHtml(doc.filename)}" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↓ Download PDF</a>`
+      :`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↗ View Source</a>`):'';
     const detail=`
       <div class="dr-section">
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">

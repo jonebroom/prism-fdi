@@ -4,7 +4,7 @@
 (function(){
   'use strict';
   const P=window.PRISM, UI=window.PRISM_UI;
-  let chart, root, selYear=2020;
+  let chart, root, selYear=null;
 
   const TYPES=[
     {key:'new_law',label:'New Law',cls:'law',color:'#4f6f9e'},
@@ -75,6 +75,7 @@
   }
 
   function drawList(){
+    if(selYear===null) selYear=P.STATE.year;
     const evs=P.DATA.changes.data.filter(c=>c.year===selYear)
       .sort((a,b)=>a.country.localeCompare(b.country));
     root.querySelector('#chgYrTitle').textContent=selYear+' Legislative Events';
@@ -132,8 +133,8 @@
     const truncated=doc&&doc.char_count>(rawText?.length||0)+50;
     const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const fileLink=doc?(doc.ext==='.pdf'
-      ?`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" download="${esc(doc.filename)}" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none">↓ Download PDF</a>`
-      :`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none">↗ View Source</a>`):'';
+      ?`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" download="${esc(doc.filename)}" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↓ Download PDF</a>`
+      :`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↗ View Source</a>`):'';
     const detail=`
       <div class="dr-section">
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
@@ -170,6 +171,7 @@
     UI.openDrawer(displayName, `${e.country} · ${e.year}`, detail);
   }
 
-  function update(){ drawChart(); drawList(); }
+  function update(){ selYear=P.STATE.year; drawChart(); drawList(); }
+  P.on('year',()=>{ if(UI.activeTab()==='changes'){ selYear=P.STATE.year; drawList(); highlight(); } });
   window.PRISM_UI&&window.PRISM_UI.register('changes',{mount,update});
 })();

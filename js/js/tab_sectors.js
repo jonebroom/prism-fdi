@@ -136,6 +136,7 @@ const CAT_CN={'Defense':'Defense','Physical/Conventional Critical Infrastructure
   }
 
   function update(){ stopRace(); drawHeat(); drawBars(); }
+  P.on('tab',t=>{ if(t!=='sectors') stopRace(); });
   P.on('year',()=>{ if(UI.activeTab()==='sectors'&&!raceTimer){drawHeat();drawBars();} });
   P.on('filter',()=>{ if(UI.activeTab()==='sectors'){stopRace();drawHeat();drawBars();} });
   window.PRISM_UI&&window.PRISM_UI.register('sectors',{mount,update});
