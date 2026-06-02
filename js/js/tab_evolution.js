@@ -151,9 +151,9 @@
       tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(UI.cnShort(p.data.country))+
         P.tipRow(scatterDim==='threshold'?'Threshold':'Timeframe',p.value[0]+(scatterDim==='threshold'?'%':' days'))+
         P.tipRow('Strictness',p.value[1]+'/13')+P.tipRow('Sectors',p.value[2])}),
-      grid:{left:46,right:24,top:18,bottom:42},
+      grid:{left:56,right:24,top:36,bottom:42},
       xAxis:P.EC.axis({type:'value',name:scatterDim==='threshold'?'Threshold (%)':'Timeframe (days)',nameLocation:'middle',nameGap:28,scale:true}),
-      yAxis:P.EC.axis({type:'value',name:'Strictness',max:13,min:0}),
+      yAxis:P.EC.axis({type:'value',name:'Strictness (0–13)',max:13,min:0,nameLocation:'middle',nameGap:40,nameRotate:90}),
       series:[{type:'scatter',data:pts,symbolSize:d=>8+d[2]/P.DATA.sectorNames.length*22,
         itemStyle:{opacity:.78,borderColor:'#fff',borderWidth:1},emphasis:{scale:1.25}}]
     },true);
