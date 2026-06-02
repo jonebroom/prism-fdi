@@ -69,19 +69,20 @@
   function openPolicy(id){
     const d=P.DATA.policy.docs.find(x=>x.id===id); if(!d)return;
     const q=input().value.trim();
-    // join all chunks; fall back to preview if no chunks
     const raw=(d.chunks&&d.chunks.length)?d.chunks.join('\n\n'):d.full_text_preview;
-    let text=esc(raw);
-    if(q&&q.length>2){ const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'); text=text.replace(re,'<mark>$1</mark>'); }
+    const re=q&&q.length>2?new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'):null;
+    const highlight=s=>re?s.replace(re,'<mark>$1</mark>'):s;
+    const paras=raw.split(/\n{2,}/).map(p=>p.replace(/\n/g,' ').trim()).filter(p=>p)
+      .map(p=>`<p>${highlight(esc(p))}</p>`).join('');
     const truncated=d.char_count>(raw.length+50);
     UI.openDrawer(d.title||d.filename,
       `${UI.cnShort((d.country||'').trim())} · ${d.char_count.toLocaleString()} chars · ${d.filename}`,
-      `<div class="dr-section"><div class="policy-text">${text}${truncated?'\n\n<span style="color:var(--ink-faint);font-size:11px">… Excerpt shown; full document: '+d.char_count.toLocaleString()+' chars</span>':''}</div></div>
+      `<div class="dr-section"><div class="policy-text">${paras}${truncated?'<p style="color:var(--ink-faint);font-size:11px">… Excerpt shown; full document: '+d.char_count.toLocaleString()+' chars</p>':''}</div></div>
        <div class="dr-section" style="margin-top:16px;display:flex;gap:8px;">
          <button class="ai-chip" style="flex:1;text-align:center" onclick="window.PRISM_AI.askAbout('Summarize the core screening mechanism of this regulation: ${(d.title||d.filename).replace(/'/g,'').replace(/\\/g,'').replace(/"/g,'')}')">Summarize with AI →</button>
          ${(d.ext==='.pdf'||!d.ext)
-           ?`<a href="policy_files/policy_files/${encodeURIComponent(d.filename)}" download="${esc(d.filename)}" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">↓ Download PDF</a>`
-           :`<a href="policy_files/policy_files/${encodeURIComponent(d.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">↗ View Source</a>`
+           ?`<a href="policy_files/policy_files/${encodeURIComponent(d.filename)}" download="${esc(d.filename)}" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap;">↓ Download PDF</a>`
+           :`<a href="policy_files/policy_files/${encodeURIComponent(d.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none;white-space:nowrap;">↗ View Source</a>`
          }
        </div>`);
   }

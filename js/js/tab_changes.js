@@ -132,6 +132,7 @@
     const rawText=doc?(doc.chunks&&doc.chunks.length?doc.chunks.join('\n\n'):doc.full_text_preview):null;
     const truncated=doc&&doc.char_count>(rawText?.length||0)+50;
     const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const toParas=s=>s.split(/\n{2,}/).map(p=>p.replace(/\n/g,' ').trim()).filter(p=>p).map(p=>`<p>${esc(p)}</p>`).join('');
     const fileLink=doc?(doc.ext==='.pdf'
       ?`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" download="${esc(doc.filename)}" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↓ Download PDF</a>`
       :`<a href="policy_files/policy_files/${encodeURIComponent(doc.filename)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;border:1px solid var(--line-strong);font-size:12px;color:var(--ink-soft);text-decoration:none">↗ View Source</a>`):'';
@@ -159,7 +160,7 @@
         </div>
       </div>
       ${rawText?`<div class="dr-section"><h3>Policy Text${truncated?' (excerpt)':''} · ${doc.char_count.toLocaleString()} chars</h3>
-        <div class="policy-text">${esc(rawText)}${truncated?'\n\n<span style="color:var(--ink-faint);font-size:11px">… Full document: '+doc.char_count.toLocaleString()+' chars</span>':''}</div>
+        <div class="policy-text">${toParas(rawText)}${truncated?'<p style="color:var(--ink-faint);font-size:11px">… Full document: '+doc.char_count.toLocaleString()+' chars</p>':''}</div>
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">${fileLink}
           <button class="ai-chip" style="flex:1;text-align:center" onclick="window.PRISM_AI.askAbout('Summarize the core screening mechanism of this regulation: ${(e.name||'').replace(/'/g,'').replace(/\\/g,'').replace(/"/g,'')}')">Summarize with AI →</button>
         </div></div>`

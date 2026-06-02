@@ -283,7 +283,7 @@
         </div>
       </div>
       ${rawText?`<div class="dr-section"><h3>Policy Text${truncated?' (excerpt)':''} · ${doc.char_count.toLocaleString()} chars</h3>
-        <div class="policy-text">${escapeHtml(rawText)}${truncated?'\n\n<span style="color:var(--ink-faint);font-size:11px">… Full document: '+doc.char_count.toLocaleString()+' chars</span>':''}</div>
+        <div class="policy-text">${toParas(rawText)}${truncated?'<p style="color:var(--ink-faint);font-size:11px">… Full document: '+doc.char_count.toLocaleString()+' chars</p>':''}</div>
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">${fileLink}
           <button class="ai-chip" style="flex:1;text-align:center" onclick="window.PRISM_AI.askAbout('Summarize the core screening mechanism of this regulation: ${rg.regulation.replace(/'/g,'').replace(/\\/g,'').replace(/"/g,'')}')">Summarize with AI →</button>
         </div></div>`
@@ -299,6 +299,7 @@
 
   function shorten(s,n){ if(!s)return '—'; return s.length>n?s.slice(0,n-1)+'…':s; }
   function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function toParas(s){ return (s||'').split(/\n{2,}/).map(p=>p.replace(/\n/g,' ').trim()).filter(p=>p).map(p=>`<p>${escapeHtml(p)}</p>`).join(''); }
 
   P.on('country',()=>{ if(UI.activeTab()==='country')update(); });
   P.on('year',()=>{ if(UI.activeTab()==='country')update(); });
