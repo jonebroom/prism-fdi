@@ -5,7 +5,7 @@
   'use strict';
 
   const DATA = { ts:null, events:null, changes:null, yearly:null, countries:null, policy:null, search:null,
-                 sectorNames:[], aggrNames:[], years:[], yearMin:2007, yearMax:2024,
+                 sectorNames:[], aggrNames:[], years:[], yearMin:2007, yearMax:2023,
                  byCountryYear:new Map(), byCountry:new Map() };
 
   const STATE = {
