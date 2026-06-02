@@ -55,11 +55,11 @@
             </div>
           </div>
           <div class="scr-field">
-            <label class="scr-label">Investor Origin</label>
+            <label class="scr-label">Your Country</label>
             <select class="scr-select" id="scrOrigin">
-              <option value="any">Any / Not sure</option>
-              <option value="eu">EU / EEA investor</option>
-              <option value="non-eu">Non-EU investor</option>
+              <option value="">— Select country —</option>
+              <option value="__unknown">Unknown / Not disclosed</option>
+              ${P.DATA.countries.map(c=>`<option value="${c.country}" data-eu="${c.eu_eea||0}">${c.country}</option>`).join('')}
             </select>
           </div>
           <button class="scr-btn" id="scrRun">Check this deal →</button>
@@ -91,7 +91,14 @@
     const country = document.getElementById('scrCountry').value;
     const sectorVal = document.getElementById('scrSector').value;
     const stakeRaw = parseFloat(document.getElementById('scrStake').value);
-    const origin = document.getElementById('scrOrigin').value;
+    const originEl = document.getElementById('scrOrigin');
+    const originCountry = originEl.value;  // country name, '' or '__unknown'
+    // Derive EU/EEA status from the selected investor country
+    const selectedOpt = originEl.options[originEl.selectedIndex];
+    const isEuInvestor = selectedOpt && selectedOpt.dataset.eu === '1';
+    const origin = originCountry === '' || originCountry === '__unknown'
+      ? 'any'
+      : isEuInvestor ? 'eu' : 'non-eu';
     const resultEl = document.getElementById('scrResult');
 
     if(!country){ showError(resultEl,'Please select a target country.'); return; }
