@@ -1223,197 +1223,155 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 <div class="drawer-scrim" id="infoScrim"></div>
 <aside class="drawer info-drawer" id="infoDrawer">
   <div class="drawer-head">
-    <div><h2>Platform Guide</h2><div class="meta">PRISM ISM Database · Reference &amp; Notes</div></div>
+    <div><h2>Platform Guide</h2><div class="meta">How to use PRISM · Plain-language reference</div></div>
     <button class="drawer-close" id="infoClose">✕</button>
   </div>
   <div class="drawer-body" id="infoBody">
 
-    <!-- DATA SOURCES -->
+    <!-- WHAT IS THIS -->
     <div class="info-section">
-      <div class="info-section-title">Data Sources</div>
+      <div class="info-section-title">What is this platform?</div>
       <div class="info-section-body">
-        <p>The PRISM ISM (Investment Screening Mechanism) Database covers <strong>38 countries</strong> over <strong>2007–2023</strong>. Data is compiled from official government sources, legislation texts, OECD/IMF policy reviews, and the authors' primary research.</p>
-        <p>Each country-year record captures whether a formal FDI screening mechanism was in place and its key procedural and substantive features.</p>
+        <p><strong>PRISM</strong> is a research database that tracks how 38 countries regulate foreign investment — specifically, whether they require government approval before a foreign company can acquire a local business or asset, and how strict those rules are.</p>
+        <p>It covers the period <strong>2007–2023</strong> and is built from official legislation, government announcements, and policy documents. The data reflects the state of each country's rules <em>as of each year</em> — not just the year a law was passed.</p>
         <div class="inforows" style="margin-top:10px">
-          <div class="inforow"><span class="ir-k">Country coverage</span><span class="ir-v">38 economies</span></div>
-          <div class="inforow"><span class="ir-k">Time span</span><span class="ir-v">2007 – 2023</span></div>
-          <div class="inforow"><span class="ir-k">Unit of observation</span><span class="ir-v">Country × Year</span></div>
-          <div class="inforow"><span class="ir-k">Country groups</span><span class="ir-v">OECD · EU/EEA · Five Eyes</span></div>
+          <div class="inforow"><span class="ir-k">Countries covered</span><span class="ir-v">38 (OECD, EU, Five Eyes)</span></div>
+          <div class="inforow"><span class="ir-k">Years covered</span><span class="ir-v">2007 – 2023</span></div>
+          <div class="inforow"><span class="ir-k">Data updated to</span><span class="ir-v">End of 2023</span></div>
+          <div class="inforow"><span class="ir-k">Data source</span><span class="ir-v">Official legislation + OECD/IMF reviews + primary research</span></div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 01: OVERVIEW -->
+    <!-- WHO IS IT FOR -->
     <div class="info-section">
-      <div class="info-section-title">01 · Overview</div>
+      <div class="info-section-title">Who is this for &amp; what can I do?</div>
       <div class="info-section-body">
         <div class="chart-entry">
-          <div class="chart-name">Global FDI Screening Mechanism Distribution</div>
-          <div class="chart-desc">World choropleth map. Country shading reflects the selected dimension (strictness score, sectors covered, review threshold, or timeframe) in the chosen year. Darker fill = higher value. Hover for a tooltip with the country's value; click to jump to the Country tab for detailed analysis. Use the dimension selector above the map to switch metrics.</div>
+          <div class="chart-name">I'm planning a cross-border acquisition or investment</div>
+          <div class="chart-desc">Use <strong>⚡ Check Deal</strong> (top right) to get a quick read on whether your target country is likely to require government approval. Then go to the <strong>Country tab</strong> to see the full picture: who reviews it, how long it takes, what sectors are covered, and which laws apply.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">Global Trend</div>
-          <div class="chart-desc">Dual-axis area + bar chart spanning 2007–2023. The shaded area (left axis) tracks how many countries in the filtered set have each selected feature active that year. The bar layer (right axis) shows the count of entirely new mechanisms enacted globally per year. Two vertical dashed lines mark 2019 (pre-pandemic) and 2020 (post-pandemic onset) as structural reference points.</div>
+          <div class="chart-name">I need to understand a specific country's rules</div>
+          <div class="chart-desc">Click any country on the map, or use the <strong>search bar</strong> (or press <kbd>/</kbd>) to jump straight to a country. The <strong>Country tab</strong> shows you the current mechanism in plain terms — filing requirements, review authority, timeframe, and which sectors are covered — plus the full history of how the rules have changed over time.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">Annual Snapshot</div>
-          <div class="chart-desc">Ranked bar chart of all currently filtered countries sorted by the selected dimension for the active year. Each bar is colored by the country's coverage type (Sectoral / Cross-sectoral / Mixed / Asset-based). Provides a quick cross-country ranking at a glance without needing to open individual country pages.</div>
+          <div class="chart-name">I want to compare rules across multiple countries</div>
+          <div class="chart-desc">The <strong>Compare tab</strong> lines up all countries side by side on key dimensions. The <strong>Overview map</strong> gives a global picture at a glance. Use the year slider on the left to see how the landscape looked in any year from 2007 to 2023.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">I'm researching policy trends or doing due diligence</div>
+          <div class="chart-desc">The <strong>Evolution tab</strong> shows how rules have tightened globally over time. The <strong>Changes tab</strong> lists every new law and amendment by year — click any entry to read the original legislative text. The <strong>Sectors tab</strong> shows which industries have become subject to screening, and when.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">I have a specific question about the data</div>
+          <div class="chart-desc">Click <strong>Ask AI</strong> (top right) to ask questions in plain language — for example: "Which countries require pre-approval for tech sector deals?" or "How has Germany's screening changed since 2018?"</div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 02: COUNTRY -->
+    <!-- KEY CONCEPTS -->
     <div class="info-section">
-      <div class="info-section-title">02 · Country</div>
+      <div class="info-section-title">Key concepts explained</div>
       <div class="info-section-body">
         <div class="chart-entry">
-          <div class="chart-name">Multi-Dimensional Radar</div>
-          <div class="chart-desc">Spider / radar chart with 8 axes corresponding to the core procedural dimensions (NS Test, Formal Call-in, Fines, Mitigation, Interagency Review, Net Benefit Test, Enhanced Gov. Control, Ownership Review). Each axis is binary (0 or 1). Up to three series are plotted simultaneously: the selected country in the current year, the OECD average for that year, and optionally the same country in a comparison year (choose via the "Compare year" dropdown).</div>
+          <div class="chart-name">What does "screening mechanism" mean?</div>
+          <div class="chart-desc">A formal government process that reviews — and can block or impose conditions on — foreign acquisitions of domestic companies or assets. Not every country has one, and those that do vary greatly in scope and strictness.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">Key Indicators</div>
-          <div class="chart-desc">KPI card panel showing the country's headline metrics for the selected year: strictness score (out of 13), number of sectors covered, equity review threshold (%), review timeframe (days), and coverage type. Values are extracted directly from the country-year record.</div>
+          <div class="chart-name">What is the "strictness score" (0–13)?</div>
+          <div class="chart-desc">A simple count of how many of 13 specific powers or requirements the country's screening mechanism includes — things like whether it can impose conditions, levy fines, or review minority stakes. A score of 0 means no mechanism (or a very bare one); 13 means all features are present. It measures <em>procedural strength</em>, not how likely a deal is to be blocked.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">Procedural Requirements &amp; Coverage</div>
-          <div class="chart-desc">Checklist grid of all 13 strictness indicators plus supplementary coverage fields (greenfield, real estate, export control / dual-use). Each cell shows ✓ (present) or ✗ (absent) for the selected year. Allows a complete at-a-glance audit of which powers the mechanism holds.</div>
+          <div class="chart-name">What is the "review threshold"?</div>
+          <div class="chart-desc">The minimum equity stake (ownership percentage) that triggers a mandatory review. For example, a 10% threshold means acquiring 10% or more of a company may require government approval. Some countries set different thresholds for sensitive sectors.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">Regulation Timeline</div>
-          <div class="chart-desc">Horizontal bubble timeline of all regulations recorded for the country, ordered chronologically. Bubble size encodes the number of sectors the regulation covers; bubble color encodes coverage type. Hover for the regulation title and date; click to open a side drawer with the full regulation metadata and policy text excerpt (where available).</div>
+          <div class="chart-name">What does "coverage type" mean?</div>
+          <div class="chart-desc">How broadly the screening rules apply:
+            <div class="inforows" style="margin-top:8px">
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#4f6f9e;flex-shrink:0"></span>Cross-sectoral</span><span class="ir-v txt">Applies to all industries — any foreign deal may be reviewed</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#bf6a4a;flex-shrink:0"></span>Sectoral</span><span class="ir-v txt">Only specific industries (e.g. defense, energy) are covered</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#7d5ba6;flex-shrink:0"></span>Mixed</span><span class="ir-v txt">A broad screen plus additional rules for high-risk sectors</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#c79a3e;flex-shrink:0"></span>Asset-based</span><span class="ir-v txt">Triggered by acquiring specific assets (land, infrastructure) rather than companies</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#9aa0aa;flex-shrink:0"></span>Draft / Not yet in force</span><span class="ir-v txt">Law is proposed or passed but not yet taking effect</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">What are "notification" and "pre-approval"?</div>
+          <div class="chart-desc"><strong>Notification</strong> means the investor must inform the government of the deal — but can often proceed while it is reviewed. <strong>Pre-approval</strong> (also called mandatory filing) means the investor must receive government clearance <em>before</em> closing the deal. Pre-approval is the stricter requirement.</div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 03: COMPARISON -->
+    <!-- THE 13 INDICATORS -->
     <div class="info-section">
-      <div class="info-section-title">03 · Comparison</div>
+      <div class="info-section-title">The 13 strictness indicators — plain language</div>
       <div class="info-section-body">
-        <div class="chart-entry">
-          <div class="chart-name">Multi-Country Parallel Coordinates</div>
-          <div class="chart-desc">Parallel coordinates plot showing all currently filtered countries in the active year. Each vertical axis represents one procedural or coverage dimension; each polyline is a country. Drag a range on any axis to filter displayed lines. Hover a line to highlight it and see the country label. Useful for identifying clusters of similar mechanisms and outliers. Countries are colored by group (OECD / EU / Five Eyes).</div>
+        <p style="margin-bottom:10px">These are the specific powers and requirements we check for in each country's law. Each one scores 1 point if present.</p>
+        <div class="inforows">
+          <div class="inforow"><span class="ir-k">Formal Call-in</span><span class="ir-v txt">Government can open a review on its own, even if the investor didn't file</span></div>
+          <div class="inforow"><span class="ir-k">Ownership Review</span><span class="ir-v txt">Review is triggered when an investor increases their ownership stake past a threshold</span></div>
+          <div class="inforow"><span class="ir-k">Filing Fees</span><span class="ir-v txt">Investors must pay a fee to submit a filing</span></div>
+          <div class="inforow"><span class="ir-k">Mitigation</span><span class="ir-v txt">Government can approve a deal but attach binding conditions (e.g. sell off certain assets, share data with authorities)</span></div>
+          <div class="inforow"><span class="ir-k">Fines</span><span class="ir-v txt">Financial penalties exist for deals completed without approval or in violation of conditions</span></div>
+          <div class="inforow"><span class="ir-k">National Security Test</span><span class="ir-v txt">The law explicitly names national security as a reason to block or review a deal</span></div>
+          <div class="inforow"><span class="ir-k">Net Benefit Test</span><span class="ir-v txt">The deal is assessed on whether it benefits the national economy — not just security (common in Canada)</span></div>
+          <div class="inforow"><span class="ir-k">Competition Test</span><span class="ir-v txt">The review also considers whether the deal harms market competition</span></div>
+          <div class="inforow"><span class="ir-k">Interagency Review</span><span class="ir-v txt">Multiple government ministries or agencies are formally involved in the decision (like CFIUS in the US)</span></div>
+          <div class="inforow"><span class="ir-k">Tiered Authority</span><span class="ir-v txt">Different levels of government sign off depending on deal size or sector (e.g. ministry for small deals, cabinet for large ones)</span></div>
+          <div class="inforow"><span class="ir-k">Local Representation</span><span class="ir-v txt">The acquired company must appoint local directors or legal representatives after the deal closes</span></div>
+          <div class="inforow"><span class="ir-k">Enhanced Gov. Control</span><span class="ir-v txt">Government retains a special veto share ("golden share") in strategic companies even after privatisation</span></div>
+          <div class="inforow"><span class="ir-k">Co-location</span><span class="ir-v txt">Sensitive data or infrastructure must be stored or operated within the country</span></div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 04: EVOLUTION -->
+    <!-- HOW TO USE THE TOOLS -->
     <div class="info-section">
-      <div class="info-section-title">04 · Evolution</div>
-      <div class="info-section-body">
-        <div class="chart-entry">
-          <div class="chart-name">Coverage Type Distribution</div>
-          <div class="chart-desc">Donut / pie chart for the active year showing the share of countries by coverage type (Sectoral, Cross-sectoral, Mixed, Asset-based, Draft, Passed). Click a segment to filter the other charts on the tab to that subset and see which countries belong to the selected type.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Notification × Pre-approval Matrix</div>
-          <div class="chart-desc">Bubble matrix where the X-axis is "notification requirement present" (yes/no) and the Y-axis is "pre-approval requirement present" (yes/no), creating four quadrants. Each bubble represents a cluster of countries sharing that combination; bubble size encodes the number of countries. Reveals the dominant procedural model for the selected year.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Coverage Type Evolution</div>
-          <div class="chart-desc">Stacked area chart running 2007–2023. Each band corresponds to a coverage type; height shows how many countries used that model each year. Read vertically to see the composition in any year; read horizontally to observe the structural shift — most visibly the rise of cross-sectoral mechanisms after 2019.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Strictness Distribution Over Time</div>
-          <div class="chart-desc">Line + range chart showing the mean strictness score (0–13) across filtered countries per year, with a shaded band from the 25th to 75th percentile. Tracks the overall tightening trend and the spread (heterogeneity) of strictness levels across countries.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Threshold vs Strictness</div>
-          <div class="chart-desc">Scatter plot for the active year. X-axis: equity ownership review threshold (%); Y-axis: strictness score (0–13). Each point is a country, colored by coverage type. Reveals whether countries with lower thresholds (more sensitive to minority stakes) also tend to score higher on procedural strictness. Click a point to navigate to that country's detail page.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Regulation Supersession Network</div>
-          <div class="chart-desc">Force-directed graph of regulatory succession. Each node is a piece of legislation; directed edges point from superseded laws to their replacements. Node color encodes country group; node size encodes the number of sectors covered. Click a node to open the Country tab for that country. Reveals reform chains and legislative lineage across the dataset.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 05: CHANGES -->
-    <div class="info-section">
-      <div class="info-section-title">05 · Changes</div>
-      <div class="info-section-body">
-        <div class="chart-entry">
-          <div class="chart-name">Global Legislative Activity</div>
-          <div class="chart-desc">Grouped bar chart counting new or amended mechanisms per year, segmented by event type (new enactment, amendment, expansion, etc.). Click any bar or bar segment to filter the event list below to that year and type. The 2019–2021 spike is clearly visible, reflecting the wave of reform triggered by heightened national security concerns.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Legislative Events</div>
-          <div class="chart-desc">Chronological list of all legislative events matching the year/type selected in the bar chart above (or all events if no filter is active). Each entry shows the country, regulation name, year, event type, and a brief description. Click an entry to open the regulation drawer with full metadata and policy text where available.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 06: SECTORS -->
-    <div class="info-section">
-      <div class="info-section-title">06 · Sectors</div>
-      <div class="info-section-body">
-        <div class="chart-entry">
-          <div class="chart-name">Sector Coverage Heatmap</div>
-          <div class="chart-desc">Matrix heatmap with sectors as rows and countries as columns. A dark cell means that sector is covered by the country's screening mechanism in the selected year; a light cell means it is not. Sort rows or columns using the controls above the chart to identify the most universally screened sectors (e.g. defense, energy) versus niche ones.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">Sector Coverage Ranking</div>
-          <div class="chart-desc">Horizontal bar chart ranking every sector by the number of countries that include it in their mechanism for the active year. Click ▶ Play to animate through the years and watch coverage expand across sectors over time. Useful for tracking which industries became strategically sensitive following policy shocks.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STRICTNESS INDICATORS -->
-    <div class="info-section">
-      <div class="info-section-title">Strictness Score — 13 Indicators</div>
-      <div class="info-section-body">
-        <p>Each country-year is coded on 13 binary indicators (1 = present, 0 = absent). The sum (0–13) is the overall strictness index used in all charts.</p>
-        <div class="inforows" style="margin-top:8px">
-          <div class="inforow"><span class="ir-k">Formal Call-in</span><span class="ir-v txt">Government can proactively open a review without investor filing</span></div>
-          <div class="inforow"><span class="ir-k">Ownership Review</span><span class="ir-v txt">Triggered by changes in equity ownership thresholds</span></div>
-          <div class="inforow"><span class="ir-k">Filing Fees</span><span class="ir-v txt">Mandatory fees payable when submitting a notification</span></div>
-          <div class="inforow"><span class="ir-k">Mitigation</span><span class="ir-v txt">Authority to impose binding remedies or behavioral conditions</span></div>
-          <div class="inforow"><span class="ir-k">Fines</span><span class="ir-v txt">Monetary penalties for non-compliance or attempted evasion</span></div>
-          <div class="inforow"><span class="ir-k">National Security Test</span><span class="ir-v txt">Explicit national security standard as the review criterion</span></div>
-          <div class="inforow"><span class="ir-k">Net Benefit Test</span><span class="ir-v txt">Broader economic benefit to the host country assessed</span></div>
-          <div class="inforow"><span class="ir-k">Competition Test</span><span class="ir-v txt">Antitrust / market competition dimension formally included</span></div>
-          <div class="inforow"><span class="ir-k">Interagency Review</span><span class="ir-v txt">Multiple government agencies formally participate in review</span></div>
-          <div class="inforow"><span class="ir-k">Tiered Authority</span><span class="ir-v txt">Different approval tiers (e.g. ministry vs. cabinet) by deal size</span></div>
-          <div class="inforow"><span class="ir-k">Local Representation</span><span class="ir-v txt">Requirement for local board directors or legal representatives</span></div>
-          <div class="inforow"><span class="ir-k">Enhanced Gov. Control</span><span class="ir-v txt">Special government shares or veto rights (golden share)</span></div>
-          <div class="inforow"><span class="ir-k">Co-location</span><span class="ir-v txt">Data storage or facility co-location requirements imposed</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COVERAGE TYPES -->
-    <div class="info-section">
-      <div class="info-section-title">Coverage Types</div>
+      <div class="info-section-title">Quick tips for using the platform</div>
       <div class="info-section-body">
         <div class="inforows">
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#bf6a4a;flex-shrink:0"></span>Sectoral</span><span class="ir-v txt">Screening limited to a defined list of sensitive sectors</span></div>
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#4f6f9e;flex-shrink:0"></span>Cross-sectoral</span><span class="ir-v txt">Applies economy-wide; all inbound FDI subject to review</span></div>
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#7d5ba6;flex-shrink:0"></span>Mixed</span><span class="ir-v txt">Combines a general cross-sectoral screen with sector-specific rules</span></div>
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#c79a3e;flex-shrink:0"></span>Asset-based</span><span class="ir-v txt">Triggered by acquisition of specific strategic assets (land, infrastructure)</span></div>
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#9aa0aa;flex-shrink:0"></span>Draft</span><span class="ir-v txt">Legislation proposed or in parliamentary process, not yet enacted</span></div>
-          <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:50%;background:#b0b6c0;flex-shrink:0"></span>Passed (not impl.)</span><span class="ir-v txt">Law enacted but implementing regulations not yet in force</span></div>
+          <div class="inforow"><span class="ir-k">Year slider (left panel)</span><span class="ir-v txt">Move it to see what any country's rules looked like in a specific year — all charts update instantly</span></div>
+          <div class="inforow"><span class="ir-k">▶ Play button</span><span class="ir-v txt">Animates through 2007–2023 automatically — watch how rules spread across the globe</span></div>
+          <div class="inforow"><span class="ir-k">Search bar (or press /)</span><span class="ir-v txt">Find a country or regulation instantly by name</span></div>
+          <div class="inforow"><span class="ir-k">⚡ Check Deal</span><span class="ir-v txt">Quick tool: enter a country, sector, and stake % to get an indicative screening assessment</span></div>
+          <div class="inforow"><span class="ir-k">Click any country (map)</span><span class="ir-v txt">Opens that country's full profile directly</span></div>
+          <div class="inforow"><span class="ir-k">Click a regulation (timeline)</span><span class="ir-v txt">Opens the original law text and key details in a side panel</span></div>
+          <div class="inforow"><span class="ir-k">Ask AI</span><span class="ir-v txt">Ask anything in plain English — the AI has access to all the data</span></div>
+          <div class="inforow"><span class="ir-k">Share a link</span><span class="ir-v txt">The URL updates as you navigate — copy it to share a specific country + year view</span></div>
         </div>
       </div>
     </div>
 
     <!-- FAQ -->
     <div class="info-section">
-      <div class="info-section-title">FAQ</div>
+      <div class="info-section-title">Common questions</div>
       <div class="info-section-body">
         <div class="faq-item">
-          <div class="faq-q">Why does a country show score 0 for a given year?</div>
-          <div class="faq-a">Either no formal screening mechanism existed that year, or it existed but none of the 13 features were coded as present. Check the Country tab Regulation Timeline for the legislative history.</div>
+          <div class="faq-q">Does this tell me definitively whether my deal needs approval?</div>
+          <div class="faq-a">No — PRISM gives you a well-researched starting point, not legal advice. Rules change, thresholds vary by sector, and many countries have exceptions not captured here. Always verify with the relevant government authority or legal counsel before proceeding.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">What does "OECD average" refer to on charts?</div>
-          <div class="faq-a">The unweighted mean across all OECD member countries in the dataset for that year. Only countries with an active mechanism in that year are included in the average.</div>
+          <div class="faq-q">A country shows no mechanism — does that mean my deal is free to proceed?</div>
+          <div class="faq-a">It means no formal FDI screening mechanism was recorded for that country and year. Other rules (antitrust, sector-specific regulations, general company law) may still apply. The absence of a screening mechanism is not a green light.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">How does the year filter interact with charts?</div>
-          <div class="faq-a">The year slider in the left rail controls the "active year" for all cross-sectional charts (map, snapshot, scatter, heatmap). Time-series charts (Global Trend, Strictness Distribution) always show the full 2007–2023 span and use the selected year only as a reference marker.</div>
+          <div class="faq-q">The strictness score looks low for a country I know is strict — why?</div>
+          <div class="faq-a">The score only measures whether specific procedural features exist in law — not how aggressively they are used in practice. A country with a score of 4 might block deals more frequently than one with a score of 9, depending on enforcement culture and political context.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Can I cite this data?</div>
-          <div class="faq-a">Please cite the PRISM ISM Database and contact the research team for the working paper reference.</div>
+          <div class="faq-q">Why does the year filter affect some charts but not others?</div>
+          <div class="faq-a">The year slider changes the "snapshot year" for cross-sectional views (map, country profiles, sector heatmap). Charts that show trends over time (like the Global Trend or Strictness Distribution) always show the full 2007–2023 range — the selected year is highlighted as a reference point.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How current is the data?</div>
+          <div class="faq-a">The database is complete through end of 2023. Laws enacted or amended in 2024 onward are not yet reflected. Always check official sources for the most recent rules.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I cite or download this data?</div>
+          <div class="faq-a">Please cite the PRISM ISM Database and contact the research team for the working paper reference and data access.</div>
         </div>
       </div>
     </div>
