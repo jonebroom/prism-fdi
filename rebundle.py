@@ -13,10 +13,11 @@ import gzip
 import base64
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "data"
-JS_DIR   = BASE_DIR / "js" / "js"
-HTML_PATH = BASE_DIR / "index.html"
+BASE_DIR      = Path(__file__).parent
+DATA_DIR      = BASE_DIR / "data"
+JS_DIR        = BASE_DIR / "js" / "js"
+TEMPLATE_PATH = BASE_DIR / "js" / "template.html"
+HTML_PATH     = BASE_DIR / "index.html"
 
 # JS 文件 UUID → 源文件名（固定映射，从 manifest 注释内容识别）
 JS_UUID_TO_FILE = {
@@ -127,6 +128,23 @@ def main():
 
     # 替换 HTML 中的 manifest 内容
     new_content = content[:manifest_match.start(1)] + new_manifest_json + content[manifest_match.end(1):]
+
+    # 更新 HTML template（若 js/template.html 存在）
+    if TEMPLATE_PATH.exists():
+        template_html = TEMPLATE_PATH.read_text(encoding="utf-8")
+        inner_json = json.dumps(template_html, ensure_ascii=False)
+        outer_json = json.dumps(inner_json, ensure_ascii=False).replace("<\/", "<\\/")
+        tmpl_match = re.search(
+            r'(<script type="__bundler/template">)(.*?)(</script>)',
+            new_content, re.DOTALL
+        )
+        if tmpl_match:
+            new_content = new_content[:tmpl_match.start(2)] + outer_json + new_content[tmpl_match.end(2):]
+            print("  OK template.html injected")
+        else:
+            print("  WARN: __bundler/template block not found, skipping")
+    else:
+        print("  SKIP template.html: file not found")
 
     # 写回
     HTML_PATH.write_text(new_content, encoding="utf-8")

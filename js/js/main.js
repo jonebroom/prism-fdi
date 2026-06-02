@@ -70,8 +70,24 @@
       UI.initWiring();
       window.PRISM_SEARCH.init();
       window.PRISM_AI.init();
+      // ---- URL param restore ----
+      const params=new URLSearchParams(location.search);
+      const urlYear=parseInt(params.get('year'));
+      const urlCountry=params.get('country');
+      const urlTab=params.get('tab');
+      if(urlYear && urlYear>=P.DATA.yearMin && urlYear<=P.DATA.yearMax) UI.setYear(urlYear);
+
       const ov=window.PRISM_TABS.overview;
       ov.mount(document.getElementById('pane-overview')); ov.mounted=true; ov.update();
+
+      if(urlTab && ['overview','country','compare','evolution','changes','sectors'].includes(urlTab)){
+        UI.switchTab(urlTab);
+      }
+      if(urlCountry){
+        const match=P.DATA.countries.find(c=>c.name===urlCountry||c.iso===urlCountry);
+        if(match){ UI.selectCountry(match.name); if(!urlTab) UI.switchTab('country'); }
+      }
+
       // reveal the dashboard immediately — map + search/policy data stream in afterward
       document.getElementById('loading').classList.add('hidden');
       loadMap();

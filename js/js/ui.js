@@ -7,6 +7,18 @@
   const TABS = {};            // name -> {mount, update, mounted}
   window.PRISM_TABS = TABS;
 
+  // ---------- URL SYNC ----------
+  function updateURL(){
+    try{
+      const p=new URLSearchParams();
+      if(currentTab && currentTab!=='overview') p.set('tab',currentTab);
+      if(P.STATE.year) p.set('year',P.STATE.year);
+      if(P.STATE.selectedCountry) p.set('country',P.STATE.selectedCountry);
+      const qs=p.toString();
+      history.replaceState(null,'',qs?('?'+qs):location.pathname);
+    }catch(_){}
+  }
+
   // ---------- TAB SWITCHING ----------
   let currentTab='overview';
   function switchTab(name){
@@ -21,6 +33,7 @@
     }
     document.getElementById('tabScroll').scrollTop=0;
     P.emit('tab',name);
+    updateURL();
   }
   function activeTab(){ return currentTab; }
 
@@ -73,8 +86,8 @@
     P.STATE.selectedCountry=country;
     buildCountryList();
     P.emit('country',country);
-    if(activeTab()!=='country' && activeTab()!=='overview'){ /* stay */ }
     if(activeTab()==='overview'){ switchTab('country'); }
+    updateURL();
   }
 
   // ---------- RAIL: year ----------
@@ -88,7 +101,7 @@
     sl.style.setProperty('--pct',pct+'%');
     document.getElementById('yearVal').textContent=y;
     P.emit('year',y);
-    if(!fromPlay) stopPlay();
+    if(!fromPlay){ stopPlay(); updateURL(); }
   }
   function startPlay(){
     const btn=document.getElementById('playBtn');
