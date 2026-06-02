@@ -1,0 +1,7 @@
+# 只部署 index.html，其余是源文件按需上传
+policy_files/
+可视化模板/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1443 @@
+{
+  "meta": {
+    "total_rows": 129
+  },
+  "data": [
+    {
+      "country": "Australia",
+      "year": 1975,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Australia",
+      "year": 2010,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Australia",
+      "year": 2015,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Australia",
+      "year": 2017,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Australia",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Australia",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Australia",
+      "year": 2022,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Austria",
+      "year": 2011,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Austria",
+      "year": 2013,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Austria",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Belgium",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Belgium",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 1985,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 2009,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 2015,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 2022,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Canada",
+      "year": 2023,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Czech Republic",
+      "year": 2021,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Denmark",
+      "year": 1990,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Denmark",
+      "year": 2012,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Denmark",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Estonia",
+      "year": 2012,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Estonia",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Estonia",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 1
+    },
+    {
+      "country": "Finland",
+      "year": 1992,
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Finland",
+      "year": 2012,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Finland",
+      "year": 2019,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "France",
+      "year": 2004,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "France",
+      "year": 2014,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "France",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "France",
+      "year": 2020,
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "France",
+      "year": 2022,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "France",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 3
+    },
+    {
+      "country": "Germany",
+      "year": 2013,
+      "new_law": 2,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Germany",
+      "year": 2017,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Germany",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Greece",
+      "year": 1990,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Hungary",
+      "year": 2018,
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Hungary",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Hungary",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Ireland",
+      "year": 2023,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Israel",
+      "year": 2019,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Israel",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2012,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2014,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 4,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    {
+      "country": "Italy",
+      "year": 2015,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2017,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    {
+      "country": "Italy",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2021,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Italy",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    {
+      "country": "Japan",
+      "year": 1960,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Japan",
+      "year": 1980,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Japan",
+      "year": 2017,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 0
+    },
+    {
+      "country": "Japan",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Japan",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2000,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2002,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2003,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2004,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2005,
+      "new_law": 0,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    {
+      "country": "Latvia",
+      "year": 2006,
+      "new_law": 0,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    {
+      "country": "Latvia",
+      "year": 2007,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2008,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2009,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2010,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2013,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2014,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2016,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Latvia",
+      "year": 2017,
+      "new_law": 0,
+      "new_amendment": 4,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    {
+      "country": "Latvia",
+      "year": 2018,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Latvia",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Lithuania",
+      "year": 2002,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Lithuania",
+      "year": 2018,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Luxembourg",
+      "year": 2023,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2006,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2008,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 1993,
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Mexico",
+      "year": 1995,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Mexico",
+      "year": 1996,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 1998,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 1999,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2001,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2011,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Mexico",
+      "year": 2012,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Mexico",
+      "year": 2014,
+      "new_law": 0,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    {
+      "country": "Netherlands",
+      "year": 1998,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Netherlands",
+      "year": 2000,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Netherlands",
+      "year": 2023,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 2
+    },
+    {
+      "country": "New Zealand",
+      "year": 1964,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "New Zealand",
+      "year": 1973,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "New Zealand",
+      "year": 1995,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "New Zealand",
+      "year": 2005,
+      "new_law": 2,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "New Zealand",
+      "year": 2018,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "New Zealand",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "New Zealand",
+      "year": 2021,
+      "new_law": 0,
+      "new_amendment": 6,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 6
+    },
+    {
+      "country": "New Zealand",
+      "year": 2022,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Norway",
+      "year": 2018,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Poland",
+      "year": 1920,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Poland",
+      "year": 2015,
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Poland",
+      "year": 2016,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "Poland",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Poland",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Portugal",
+      "year": 2014,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Portugal",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Slovak Republic",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Slovak Republic",
+      "year": 2023,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 1
+    },
+    {
+      "country": "Slovenia",
+      "year": 2020,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Spain",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "South Korea",
+      "year": 1998,
+      "new_law": 2,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "South Korea",
+      "year": 2008,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "South Korea",
+      "year": 2011,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "South Korea",
+      "year": 2012,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 0
+    },
+    {
+      "country": "South Korea",
+      "year": 2019,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "South Korea",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "South Korea",
+      "year": 2022,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "Sweden",
+      "year": 2023,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 1,
+      "total_new": 2
+    },
+    {
+      "country": "Turkey",
+      "year": 1982,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "United Kingdom",
+      "year": 2002,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "United Kingdom",
+      "year": 2018,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "United Kingdom",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    {
+      "country": "United Kingdom",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "USA",
+      "year": 2007,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "USA",
+      "year": 2018,
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    {
+      "country": "USA",
+      "year": 2020,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 2,
+      "total_new": 2
+    },
+    {
+      "country": "USA",
+      "year": 2022,
+      "new_law": 0,
+      "new_amendment": 0,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 1
+    }
+  ],
+  "global_yearly": {
+    "1920": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1960": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1964": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1973": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1975": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1980": {
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "1982": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1985": {
+      "new_law": 1,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1990": {
+      "new_law": 2,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "1992": {
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "1993": {
+      "new_law": 1,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "1995": {
+      "new_law": 1,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    "1996": {
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "1998": {
+      "new_law": 3,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "1999": {
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "2000": {
+      "new_law": 2,
+      "new_amendment": 0,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "2001": {
+      "new_law": 0,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 1
+    },
+    "2002": {
+      "new_law": 2,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    "2003": {
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "2004": {
+      "new_law": 0,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    "2005": {
+      "new_law": 2,
+      "new_amendment": 3,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 5
+    },
+    "2006": {
+      "new_law": 0,
+      "new_amendment": 4,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "2007": {
+      "new_law": 1,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 3
+    },
+    "2008": {
+      "new_law": 0,
+      "new_amendment": 4,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "2009": {
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "2010": {
+      "new_law": 0,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 2
+    },
+    "2011": {
+      "new_law": 2,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "2012": {
+      "new_law": 4,
+      "new_amendment": 1,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 5
+    },
+    "2013": {
+      "new_law": 2,
+      "new_amendment": 2,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "2014": {
+      "new_law": 1,
+      "new_amendment": 6,
+      "new_eo": 4,
+      "new_reg_impl": 0,
+      "total_new": 11
+    },
+    "2015": {
+      "new_law": 1,
+      "new_amendment": 4,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 6
+    },
+    "2016": {
+      "new_law": 0,
+      "new_amendment": 4,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 4
+    },
+    "2017": {
+      "new_law": 0,
+      "new_amendment": 8,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 8
+    },
+    "2018": {
+      "new_law": 3,
+      "new_amendment": 5,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 8
+    },
+    "2019": {
+      "new_law": 2,
+      "new_amendment": 8,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 11
+    },
+    "2020": {
+      "new_law": 2,
+      "new_amendment": 15,
+      "new_eo": 1,
+      "new_reg_impl": 2,
+      "total_new": 20
+    },
+    "2021": {
+      "new_law": 1,
+      "new_amendment": 7,
+      "new_eo": 0,
+      "new_reg_impl": 0,
+      "total_new": 8
+    },
+    "2022": {
+      "new_law": 9,
+      "new_amendment": 6,
+      "new_eo": 1,
+      "new_reg_impl": 0,
+      "total_new": 16
+    },
+    "2023": {
+      "new_law": 5,
+      "new_amendment": 4,
+      "new_eo": 0,
+      "new_reg_impl": 6,
+      "total_new": 15
+    }
+  }
+}
