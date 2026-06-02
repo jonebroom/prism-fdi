@@ -34,7 +34,7 @@
       </div>`;
     chart=echarts.init(el.querySelector('#chgChart'));
     root.querySelector('#chgLegend').innerHTML=TYPES.map(t=>`<div class="lg"><span class="sw" style="background:${t.color}"></span>${t.label}</div>`).join('');
-    chart.on('click',p=>{ if(p.name){ selYear=parseInt(p.name); drawList(); highlight(); } });
+    chart.on('click',p=>{ if(p.name){ selYear=parseInt(p.name); UI.setYear(selYear); drawList(); highlight(); } });
     window.addEventListener('resize',()=>chart&&chart.resize());
   }
 
