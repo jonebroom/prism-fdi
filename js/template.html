@@ -1005,6 +1005,62 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 .stack{display:flex;flex-direction:column;gap:16px;}
 @media(max-width:1200px){.row2,.row-2-1{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}}
 
+/* ============ MOBILE LAYOUT ============ */
+.btn-hamburger{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;font-size:18px;color:var(--ink-2);border:1px solid var(--line);background:transparent;flex-shrink:0;transition:background .14s;}
+.btn-hamburger:hover{background:var(--paper-2);}
+.rail-scrim{position:fixed;inset:0;background:oklch(0.25 0.02 250 / 0.32);opacity:0;pointer-events:none;transition:opacity .25s;z-index:55;}
+.rail-scrim.open{opacity:1;pointer-events:auto;}
+.rail-mobile-head{display:none;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);flex-shrink:0;}
+.rail-mobile-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.01em;}
+
+@media(max-width:768px){
+  /* app grid: hide rail column */
+  #app{grid-template-columns:1fr;grid-template-areas:"top""main";}
+
+  /* rail: off-canvas overlay from left */
+  .rail{
+    position:fixed;top:0;left:0;height:100vh;width:min(300px,85vw);
+    z-index:56;transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    box-shadow:var(--shadow-lg);
+  }
+  .rail.open{transform:none;}
+
+  /* hamburger + rail mobile header: show */
+  .btn-hamburger{display:flex;}
+  .rail-mobile-head{display:flex;}
+
+  /* topbar: hide sub-brand and shrink search */
+  .brand .sub{display:none;}
+  .search-box{width:180px;}
+  .search-box .kbd{display:none;}
+
+  /* screener + AI: icon only */
+  .scr-btn-text{display:none;}
+  .ai-btn-text{display:none;}
+  .btn-screener{padding:0 10px;}
+  .btn-ai{padding:0 10px;}
+
+  /* tabbar: scrollable, compact */
+  .tabbar{overflow-x:auto;gap:0;padding:0 10px;scrollbar-width:none;}
+  .tabbar::-webkit-scrollbar{display:none;}
+  .tab{padding:0 11px;font-size:12.5px;height:42px;}
+  .tab .tnum{display:none;}
+
+  /* content */
+  .tabpane{padding:14px 12px;}
+  .stack{gap:12px;}
+
+  /* kpi grid stays 2 cols on tablet, handled below */
+}
+
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr;}
+  .topbar{gap:8px;padding:0 12px;}
+  .search-box{width:140px;}
+  .brand .mark{font-size:17px;}
+}
+
 /* ============ AI DRAWER ============ */
 .ai-drawer{width:min(440px,94vw);}
 /* info button */
@@ -1132,10 +1188,12 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
   <div class="ls" id="loadStatus">Loading data…</div>
 </div>
 
+<div class="rail-scrim" id="railScrim"></div>
 <div id="app">
 
   <!-- ===== TOP BAR ===== -->
   <header class="topbar">
+    <button class="btn-hamburger" id="railOpen" title="Open country selector">☰</button>
     <div class="brand">
       <div class="mark"><span class="prism">PRISM</span> ISM Database</div>
       <div class="sub">FDI Screening Mechanism Data Platform · <b>38</b> countries · <b>2007–2023</b></div>
@@ -1147,13 +1205,17 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
       <span class="kbd">/</span>
       <div id="searchResults" class="search-results"></div>
     </div>
-    <button class="btn-screener" id="screenerOpen" title="Check if a deal requires screening">⚡ Check Deal</button>
-    <button class="btn-ai" id="aiOpen"><span class="dot"></span>Ask AI</button>
+    <button class="btn-screener" id="screenerOpen" title="Check if a deal requires screening">⚡ <span class="scr-btn-text">Check Deal</span></button>
+    <button class="btn-ai" id="aiOpen"><span class="dot"></span><span class="ai-btn-text">Ask AI</span></button>
     <button class="btn-info" id="infoOpen" title="Platform guide &amp; data notes">ℹ</button>
   </header>
 
   <!-- ===== CONTROL RAIL ===== -->
   <aside class="rail" id="rail">
+    <div class="rail-mobile-head">
+      <span class="rail-mobile-title">PRISM</span>
+      <button class="drawer-close" id="railClose" title="Close">✕</button>
+    </div>
     <div class="rail-section">
       <h3>Year <span class="cnt" id="yearCnt"></span></h3>
       <div class="year-display">

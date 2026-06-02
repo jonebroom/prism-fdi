@@ -89,6 +89,7 @@
     P.emit('country',country);
     if(activeTab()==='overview'){ switchTab('country'); }
     updateURL();
+    closeRail();
   }
 
   // ---------- RAIL: year ----------
@@ -155,6 +156,16 @@
     document.getElementById('screenerScrim').classList.remove('open');
   }
 
+  // ---------- RAIL (mobile overlay) ----------
+  function openRail(){
+    document.getElementById('rail').classList.add('open');
+    document.getElementById('railScrim').classList.add('open');
+  }
+  function closeRail(){
+    document.getElementById('rail').classList.remove('open');
+    document.getElementById('railScrim').classList.remove('open');
+  }
+
   // ---------- INFO DRAWER ----------
   function openInfoDrawer(){
     closeDrawer(); closeScreener();
@@ -200,13 +211,16 @@
     document.getElementById('infoOpen').onclick=openInfoDrawer;
     document.getElementById('infoClose').onclick=closeInfoDrawer;
     document.getElementById('infoScrim').onclick=closeInfoDrawer;
+    document.getElementById('railOpen').onclick=openRail;
+    document.getElementById('railClose').onclick=closeRail;
+    document.getElementById('railScrim').onclick=closeRail;
     document.addEventListener('keydown',e=>{
-      if(e.key==='Escape'){ closeDrawer(); closeInfoDrawer(); closeScreener(); P.emit('escape'); }
+      if(e.key==='Escape'){ closeDrawer(); closeInfoDrawer(); closeScreener(); closeRail(); P.emit('escape'); }
       if(e.key==='/' && document.activeElement.tagName!=='INPUT'){ e.preventDefault(); document.getElementById('globalSearch').focus(); }
     });
     buildGroups(); buildCountryList(); setYear(P.STATE.year);
   }
 
-  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer, openInfoDrawer, closeInfoDrawer, openScreener, closeScreener,
+  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer, openInfoDrawer, closeInfoDrawer, openScreener, closeScreener, openRail, closeRail,
     cnName, cnShort, COVERAGE, buildCountryList, initWiring, register:(n,o)=>{TABS[n]=o;} };
 })();
