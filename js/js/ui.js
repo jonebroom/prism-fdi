@@ -119,6 +119,16 @@
     document.getElementById('drawerScrim').classList.remove('open');
   }
 
+  // ---------- INFO DRAWER ----------
+  function openInfoDrawer(){
+    document.getElementById('infoDrawer').classList.add('open');
+    document.getElementById('infoScrim').classList.add('open');
+  }
+  function closeInfoDrawer(){
+    document.getElementById('infoDrawer').classList.remove('open');
+    document.getElementById('infoScrim').classList.remove('open');
+  }
+
   // ---------- Name lookup (English-only) ----------
   function cnName(c){ return c; }
   function cnShort(c){ return c; }
@@ -147,13 +157,16 @@
     document.getElementById('countrySearch').oninput=(e)=>{ countryFilter=e.target.value.toLowerCase(); buildCountryList(); };
     document.getElementById('drawerClose').onclick=closeDrawer;
     document.getElementById('drawerScrim').onclick=closeDrawer;
+    document.getElementById('infoOpen').onclick=openInfoDrawer;
+    document.getElementById('infoClose').onclick=closeInfoDrawer;
+    document.getElementById('infoScrim').onclick=closeInfoDrawer;
     document.addEventListener('keydown',e=>{
-      if(e.key==='Escape'){ closeDrawer(); P.emit('escape'); }
+      if(e.key==='Escape'){ closeDrawer(); closeInfoDrawer(); P.emit('escape'); }
       if(e.key==='/' && document.activeElement.tagName!=='INPUT'){ e.preventDefault(); document.getElementById('globalSearch').focus(); }
     });
     buildGroups(); buildCountryList(); setYear(P.STATE.year);
   }
 
-  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer,
+  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer, openInfoDrawer, closeInfoDrawer,
     cnName, cnShort, COVERAGE, buildCountryList, initWiring, register:(n,o)=>{TABS[n]=o;} };
 })();
