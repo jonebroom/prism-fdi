@@ -91,9 +91,9 @@
       return `<div class="evrow" data-i="${i}" style="cursor:pointer;">
         <div class="ev-yr">${e.year}</div>
         <div class="ev-body">
-          <div class="ev-name">${e.name||'(Unnamed event)'}${e.superceded?'<span class="chip super">Supersedes</span>':''}</div>
+          <div class="ev-name">${isWeakName(e.name)?`<span style="color:var(--ink-soft);font-style:italic">Reference: ${e.name||'(untitled)'}</span>`:e.name}${e.superceded?'<span class="chip super">Supersedes</span>':''}</div>
           ${e.explanation?`<div class="ev-exp">${e.explanation}</div>`:''}
-          <div class="ev-ctry">${UI.cnShort(e.country)} · ${e.country}</div>
+          <div class="ev-ctry">${e.country}</div>
         </div>
         <div class="ev-tag">${tags.join(' ')}</div>
       </div>`;
@@ -101,11 +101,23 @@
     root.querySelectorAll('.evrow').forEach(n=>n.onclick=()=>openChgDetail(evs[+n.dataset.i]));
   }
 
+  // Detect bare reference numbers / date strings that lack meaningful name
+  function isWeakName(name){
+    if(!name) return true;
+    if(/^\d{4}-\d{2}-\d{2}/.test(name)) return true;   // date string
+    if(/^\d+\/\d{4}$/.test(name)) return true;          // bare ref like 34/2020
+    if(name.trim().length < 6) return true;
+    return false;
+  }
+
   function openChgDetail(e){
-    // match event data for richer fields
-    const rg=(P.DATA.events&&P.DATA.events.data||[]).find(r=>
+    const weakName = isWeakName(e.name);
+    // Only attempt match if name is meaningful and long enough to be distinctive
+    const rg = weakName ? null : (P.DATA.events&&P.DATA.events.data||[]).find(r=>
       r.country&&r.country.trim()===e.country&&r.regulation&&e.name&&
-      (r.regulation===e.name||e.name.includes(r.regulation.slice(0,16))||r.regulation.includes(e.name.slice(0,16))));
+      (r.regulation===e.name||
+       (e.name.length>18 && e.name.includes(r.regulation.slice(0,18)))||
+       (e.name.length>18 && r.regulation.includes(e.name.slice(0,18)))));
     const cov=rg?(UI.COVERAGE[rg.coverage]||{cn:rg.coverage||'—',c:'#9aa0aa'}):{cn:'—',c:'#9aa0aa'};
     const tags=[];
     if(e.new_law)tags.push('<span class="chip law">New Law</span>');
@@ -130,6 +142,7 @@
           ${e.superceded?'<span class="chip super">Supersedes</span>':''}
         </div>
         ${e.explanation?`<div style="font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;padding:10px 12px;background:var(--bg);border-radius:8px;border-left:3px solid ${cov.c}">${esc(e.explanation)}</div>`:''}
+        ${rg?`<div style="font-size:11px;color:var(--ink-faint);margin-bottom:6px;font-style:italic">Mechanism data from matched regulation: "${esc(rg.regulation)}"</div>`:''}
         <div class="inforows">
           ${rg?`<div class="inforow"><span class="ir-k">Lead Authority</span><span class="ir-v txt">${esc(rg.lead_authority||'—')}</span></div>`:''}
           ${rg?`<div class="inforow"><span class="ir-k">Review Threshold</span><span class="ir-v">${rg.threshold!=null?(rg.threshold*100).toFixed(0)+'%':'—'}</span></div>`:''}
@@ -137,6 +150,7 @@
           ${rg?`<div class="inforow"><span class="ir-k">Strictness</span><span class="ir-v">${P.strictness(rg)} / 13</span></div>`:''}
           ${rg?`<div class="inforow"><span class="ir-k">Sectors Covered</span><span class="ir-v">${P.sectorCount(rg)} / ${P.DATA.sectorNames.length}</span></div>`:''}
           ${rg&&rg.ns_test?'<div class="inforow"><span class="ir-k">NS Test</span><span class="ir-v">✓ Yes</span></div>':''}
+          ${!rg?`<div class="inforow"><span class="ir-k" style="color:var(--ink-faint);font-style:italic">No matched regulation record — mechanism details unavailable for this entry</span></div>`:''}
           ${e.superceded?`<div class="inforow"><span class="ir-k">Supersedes</span><span class="ir-v txt">${esc(e.superceded)}</span></div>`:''}
         </div>
         <div style="display:flex;gap:8px;margin-top:14px;">
@@ -149,7 +163,11 @@
           <button class="ai-chip" style="flex:1;text-align:center" onclick="window.PRISM_AI.askAbout('Summarize the core screening mechanism of this regulation: ${(e.name||'').replace(/'/g,'').replace(/\\/g,'').replace(/"/g,'')}')">Summarize with AI →</button>
         </div></div>`
       :''}`;
-    UI.openDrawer(e.name||'Legislative Event', `${UI.cnShort(e.country)} · ${e.country} · ${e.year}`, detail);
+    // Display name: if bare ref/date, label it clearly
+    const displayName = weakName
+      ? (e.name ? `Reference: ${e.name}` : 'Legislative Event')
+      : (e.name || 'Legislative Event');
+    UI.openDrawer(displayName, `${e.country} · ${e.year}`, detail);
   }
 
   function update(){ drawChart(); drawList(); }
