@@ -60,6 +60,7 @@ prism-fdi/
     ├── tab_changes.js
     ├── tab_sectors.js
     ├── search.js
+    ├── screener.js     # Deal Screener
     └── ai.js           # AI assistant integration
 ```
 

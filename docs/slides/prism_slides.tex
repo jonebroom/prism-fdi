@@ -1,0 +1,704 @@
+%% ============================================================
+%%  用AI构建社科数据可视化网站 — PRISM项目实录
+%%  编译：xelatex prism_slides.tex（两遍）
+%% ============================================================
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{array}
+
+\usetikzlibrary{arrows.meta, positioning, shapes.rounded, calc}
+
+%% ─── PRISM 配色 ──────────────────────────────────────────────
+\definecolor{prismclay}{HTML}{bf6a4a}
+\definecolor{prismblue}{HTML}{4f6f9e}
+\definecolor{prismgreen}{HTML}{3f8a5e}
+\definecolor{prismamber}{HTML}{c79a3e}
+\definecolor{prismpaper}{HTML}{f2f0eb}
+\definecolor{prismink}{HTML}{2b3344}
+\definecolor{prismsoft}{HTML}{5a6477}
+\definecolor{prismline}{HTML}{d8dbe2}
+\definecolor{claybg}{HTML}{fdf0ec}
+\definecolor{bluebg}{HTML}{eef2f8}
+\definecolor{greenbg}{HTML}{ecf5f0}
+
+%% ─── Beamer 主题 ─────────────────────────────────────────────
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle continuation}{}
+
+% 背景
+\setbeamercolor{background canvas}{bg=prismpaper}
+
+% 标题栏
+\setbeamercolor{frametitle}{bg=prismink, fg=white}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamertemplate{frametitle}{%
+  \vspace{0.15cm}
+  \hspace{0.2cm}%
+  {\color{prismclay}\rule{3pt}{14pt}}%
+  \hspace{0.15cm}%
+  \insertframetitle
+  \vspace{0.1cm}
+}
+
+% 正文
+\setbeamercolor{normal text}{fg=prismink}
+\setbeamerfont{normal text}{size=\normalsize}
+
+% 小节标题（itemize bullet）
+\setbeamercolor{item}{fg=prismclay}
+\setbeamercolor{subitem}{fg=prismblue}
+\setbeamertemplate{itemize item}{\small\raisebox{0.15ex}{$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\small--}
+
+% 页脚
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.7\paperwidth, ht=2.5ex, dp=1ex, left, leftskip=4mm]{normal text}%
+      {\tiny\color{prismsoft} jonebroom.github.io/prism-fdi/}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.3\paperwidth, ht=2.5ex, dp=1ex, right, rightskip=4mm]{normal text}%
+      {\tiny\color{prismsoft}\insertframenumber{} / \inserttotalframenumber}%
+    \end{beamercolorbox}%
+  }%
+}
+
+% 块颜色
+\setbeamercolor{block title}{bg=prismblue, fg=white}
+\setbeamercolor{block body}{bg=bluebg, fg=prismink}
+\setbeamercolor{alertblock title}{bg=prismclay, fg=white}
+\setbeamercolor{alertblock body}{bg=claybg, fg=prismink}
+\setbeamercolor{exampleblock title}{bg=prismgreen, fg=white}
+\setbeamercolor{exampleblock body}{bg=greenbg, fg=prismink}
+
+%% ─── 代码样式 ────────────────────────────────────────────────
+\lstdefinestyle{pycode}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{prismblue}\bfseries,
+  commentstyle=\color{prismsoft},
+  stringstyle=\color{prismgreen},
+  backgroundcolor=\color{prismpaper},
+  frame=single, framerule=0.4pt, rulecolor=\color{prismline},
+  showstringspaces=false,
+  breaklines=true,
+  tabsize=2,
+}
+
+%% ─── 自定义命令 ──────────────────────────────────────────────
+\newcommand{\commit}[2]{%
+  \begin{tcolorbox}[colback=bluebg, colframe=prismblue,
+    left=4pt, right=4pt, top=2pt, bottom=2pt,
+    fontupper=\small\ttfamily, arc=2pt]
+  \textcolor{prismblue}{\faCodeBranch}\; \texttt{#1}\; {\normalfont\small\color{prismsoft}#2}
+  \end{tcolorbox}%
+}
+
+\newcommand{\imgbox}[2]{%
+  \begin{center}
+  \fbox{\parbox[c][#1][c]{0.9\linewidth}{\centering\color{prismsoft}\small 截图：#2}}
+  \end{center}%
+}
+
+%% ─── 元数据 ──────────────────────────────────────────────────
+\title{用AI构建社科数据可视化网站}
+\subtitle{PRISM FDI审查机制平台建设实录}
+\author{社科数据分析方法课学生}
+\date{2026年6月}
+\institute{jonebroom.github.io/prism-fdi/}
+
+%% ============================================================
+\begin{document}
+
+%% ─── 封面 ────────────────────────────────────────────────────
+{
+\setbeamertemplate{footline}{}
+\setbeamercolor{background canvas}{bg=prismink}
+\begin{frame}[plain]
+  \vspace{1.5cm}
+  \begin{center}
+    {\color{prismclay}\Huge\bfseries 用AI构建社科数据可视化网站}\\[0.5em]
+    {\color{white}\large PRISM FDI审查机制平台建设实录}\\[2em]
+    {\color{prismline}\rule{0.6\linewidth}{0.4pt}}\\[1em]
+    {\color{prismsoft}\normalsize 社科数据分析方法课 \quad 2026年6月}\\[0.4em]
+    {\color{prismblue}\small\faGlobe\; jonebroom.github.io/prism-fdi/}
+  \end{center}
+\end{frame}
+}
+
+%% ─── 1. 起点：我有一份数据集 ─────────────────────────────────
+\begin{frame}{起点：我有一份政策数据集}
+  \begin{columns}[T]
+    \begin{column}{0.52\linewidth}
+      \textbf{\color{prismclay}PRISM ISM Dataset（2023.12版）}\\[0.5em]
+      \begin{itemize}
+        \item \textbf{38个国家}的外商直接投资（FDI）审查机制
+        \item 时间跨度：\textbf{2007—2023年}（17年）
+        \item \textbf{13项程序性指标}逐年编码
+        \item 650条时间序列记录
+        \item 143项立法事件
+        \item 141份原始政策文本（PDF+HTML）
+      \end{itemize}
+      \vspace{0.8em}
+      \begin{alertblock}{问题}
+        这些数据存在Excel里，只有自己能看。\\
+        怎么让它变成别人也能\textbf{交互探索}的东西？
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.44\linewidth}
+      % 替换为数据集截图或Excel预览图
+      \imgbox{5cm}{数据集Excel截图或数据结构示意图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 2. 我的背景 vs 需要做的事 ──────────────────────────────
+\begin{frame}{我的背景 vs 我需要做的事}
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \begin{exampleblock}{\faCheck\; 我有}
+        \begin{itemize}
+          \item Python基础（数据处理）
+          \item 对数据的理解（知道要表达什么）
+          \item 研究问题驱动的动机
+        \end{itemize}
+      \end{exampleblock}
+      \vspace{0.5em}
+      \begin{alertblock}{\faTimes\; 我没有}
+        \begin{itemize}
+          \item HTML / CSS / JavaScript 经验
+          \item 前端图表库（ECharts等）使用经验
+          \item 网站部署经验
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.48\linewidth}
+      \begin{block}{传统路径}
+        \begin{itemize}
+          \item 学前端：≥ 6个月
+          \item 找合作者：协调成本高
+          \item 用现成工具（Tableau等）：灵活性差
+        \end{itemize}
+      \end{block}
+      \vspace{0.5em}
+      \begin{block}{我选择的路径}
+        \begin{center}
+          \Large\color{prismclay}\bfseries Claude Code\\
+          \normalsize AI辅助编程
+        \end{center}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 3. 什么是Claude Code ───────────────────────────────────
+\begin{frame}{工具：Claude Code 是什么？}
+  \begin{columns}[T]
+    \begin{column}{0.55\linewidth}
+      \textbf{\color{prismblue}Claude Code}是Anthropic官方的CLI编程助手\\[0.8em]
+      \begin{itemize}
+        \item 在\textbf{终端}里运行，不是网页对话框
+        \item 能直接\textbf{读写项目文件}
+        \item 能执行命令（\texttt{git}、\texttt{python}、\texttt{grep}…）
+        \item 跨文件理解整个代码库
+        \item 本次使用模型：\textbf{Claude Sonnet 4.6}
+      \end{itemize}
+      \vspace{0.8em}
+      \begin{tcolorbox}[colback=bluebg, colframe=prismblue, arc=3pt,
+        left=6pt, right=6pt, top=4pt, bottom=4pt]
+        \small
+        \textbf{工作方式}：我用中文描述需求\\
+        $\rightarrow$ Claude读懂代码上下文\\
+        $\rightarrow$ 直接修改文件\\
+        $\rightarrow$ 我在浏览器里验证效果
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      % 替换为Claude Code终端截图
+      \imgbox{6cm}{Claude Code 终端运行截图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 4. 关键架构决策 ────────────────────────────────────────
+\begin{frame}[fragile]{第一个决策：如何部署？}
+
+  \begin{block}{目标}
+    免费托管，不需要服务器，任何人打开URL就能用
+  \end{block}
+  \vspace{0.5em}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\linewidth}
+      \textbf{\color{prismclay}方案：单文件打包 + GitHub Pages}\\[0.5em]
+      \begin{itemize}
+        \item 所有JS、CSS、数据打包进\texttt{index.html}
+        \item 文件大小：\textbf{2.5 MB}（含全部数据）
+        \item \texttt{rebundle.py}：gzip压缩 $\to$ base64 $\to$ 嵌入HTML
+        \item 推送到GitHub = 网站自动更新（$\approx$1分钟）
+      \end{itemize}
+      \vspace{0.6em}
+      \begin{lstlisting}[style=pycode, caption=rebundle.py核心逻辑]
+def encode_file(path):
+    raw = path.read_bytes()
+    compressed = gzip.compress(raw, 9)
+    return base64.b64encode(compressed)
+      \end{lstlisting}
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      \vspace{0.4em}
+      \begin{tikzpicture}[
+        box/.style={rounded corners=3pt, draw=#1, fill=#1!15,
+                    text width=3cm, align=center, font=\small,
+                    inner sep=5pt},
+        arr/.style={-Stealth, thick, color=prismsoft}
+      ]
+        \node[box=prismblue] (data) {data/*.json\\JS/CSS};
+        \node[box=prismclay, below=0.6cm of data] (bundle) {rebundle.py};
+        \node[box=prismgreen, below=0.6cm of bundle] (html) {index.html\\(2.5 MB)};
+        \node[box=prismamber, below=0.6cm of html] (gh) {GitHub Pages\\\small\faGlobe 公开访问};
+        \draw[arr] (data) -- (bundle);
+        \draw[arr] (bundle) -- (html);
+        \draw[arr] (html) -- (gh);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 5. 数据预处理 ──────────────────────────────────────────
+\begin{frame}[fragile]{第一步：数据预处理（16:26前）}
+  \begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+      \textbf{任务}：把Excel数据集转成网页可用的JSON\\[0.5em]
+      \begin{itemize}
+        \item \texttt{preprocess.py}（628行）
+        \item 输入：PRISM ISM Dataset（Excel）
+        \item 输出：7个JSON文件
+      \end{itemize}
+      \vspace{0.5em}
+      \begin{tabular}{ll}
+        \toprule
+        \small 文件 & \small 内容 \\
+        \midrule
+        \small timeseries.json & \small 650条国家-年记录 \\
+        \small events.json & \small 143项立法事件 \\
+        \small changes.json & \small 230条立法变动 \\
+        \small countries.json & \small 国家分组信息 \\
+        \small policy\_texts.json & \small 141份政策文本 \\
+        \small search\_index.json & \small 全文检索索引 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.5em}
+      \begin{itemize}
+        \item AI处理了：缺失值填充、字段名标准化、\\ EU/EEA成员资格判断
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.47\linewidth}
+      \begin{lstlisting}[style=pycode, caption=AI生成的数据清洗片段]
+# 将threshold字段归一化到0-1
+def parse_threshold(val):
+    if pd.isna(val):
+        return None
+    # 处理"25%"和"0.25"两种格式
+    s = str(val).replace('%','').strip()
+    v = float(s)
+    return v/100 if v > 1 else v
+      \end{lstlisting}
+      \vspace{0.3em}
+      \begin{alertblock}{关键认识}
+        AI能写清洗逻辑，但我需要检查\\
+        输出结果是否符合数据含义
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 6. 基础界面框架 ────────────────────────────────────────
+\begin{frame}{第二步：界面框架（Initial commit 16:26）}
+  \begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+      \commit{d692818}{Initial commit: PRISM FDI Screening Platform}
+      \vspace{0.6em}
+      \textbf{Claude一次性生成了：}\\[0.4em]
+      \begin{itemize}
+        \item 左侧控制栏
+          \begin{itemize}
+            \item 年份滑块（2007—2023）
+            \item ▶ 播放时间轴动画
+            \item OECD / EU/EEA / Five Eyes 分组筛选
+            \item 国家列表（点击跳转）
+          \end{itemize}
+        \item 顶部导航栏（Logo + 搜索框）
+        \item 6个Tab框架（空内容占位）
+        \item 全局状态管理（\texttt{state.js}）
+      \end{itemize}
+      \vspace{0.5em}
+      \begin{block}{我做了什么}
+        描述布局需求、指定配色方案（\#bf6a4a等）、\\
+        确认各分组国家列表
+      \end{block}
+    \end{column}
+    \begin{column}{0.47\linewidth}
+      % 替换为Overview Tab或界面框架截图
+      \imgbox{6.5cm}{网站整体界面截图（Overview Tab）}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 7. 可视化模块 ──────────────────────────────────────────
+\begin{frame}{第三步：可视化模块（ECharts 5）}
+  \begin{columns}[T]
+    \begin{column}{0.42\linewidth}
+      \textbf{Overview Tab}
+      \begin{itemize}
+        \item 世界地图（按年份着色）
+        \item 全球趋势折线图（+柱状图）
+        \item 快照统计面板
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Country Tab}
+      \begin{itemize}
+        \item 程序特征雷达图（vs OECD均值）
+        \item KPI卡片（主管机构/门槛/时限）
+        \item 法规气泡时间线
+        \item 13项指标格格
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{tcolorbox}[colback=bluebg, colframe=prismblue, arc=3pt,
+        left=6pt, right=6pt, top=3pt, bottom=3pt]
+        \small
+        \textbf{ECharts}：百度开源图表库\\
+        我没用过，AI从零生成配置代码
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.55\linewidth}
+      % 替换为两张Tab截图并排
+      \begin{columns}
+        \begin{column}{0.5\linewidth}
+          \imgbox{3.2cm}{Overview地图截图}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+          \imgbox{3.2cm}{Country雷达图截图}
+        \end{column}
+      \end{columns}
+      \vspace{0.3em}
+      \begin{columns}
+        \begin{column}{0.5\linewidth}
+          \imgbox{3.2cm}{Changes立法图截图}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+          \imgbox{3.2cm}{Sectors热力图截图}
+        \end{column}
+      \end{columns}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 8. 复杂图表 ────────────────────────────────────────────
+\begin{frame}{第四步：高难度图表}
+  \begin{columns}[T]
+    \begin{column}{0.33\linewidth}
+      \begin{block}{Comparison Tab}
+        \textbf{平行坐标图}\\[0.3em]
+        \small 38国在严格程度、门槛、时限等多维指标上同时比较\\[0.3em]
+        拖动坐标轴区间 = 筛选国家子集
+      \end{block}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{block}{Evolution Tab}
+        \textbf{5张联动图表}\\[0.3em]
+        \small
+        • 覆盖类型演变面积图\\
+        • 严格程度分布带状图\\
+        • 通知×预审批气泡矩阵\\
+        • 法规替代关系网络图
+      \end{block}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{block}{Sectors Tab}
+        \textbf{动态赛马图}\\[0.3em]
+        \small 各行业被覆盖国家数随年份竞争增长\\[0.3em]
+        + 行业覆盖热力图（36行业×38国）
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+      \imgbox{3.8cm}{Evolution法规替代网络图截图}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \imgbox{3.8cm}{Sectors赛马图截图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 9. Deal Screener ───────────────────────────────────────
+\begin{frame}{第五步：Deal Screener（19:24）}
+  \commit{864ac33}{Practitioner-focused redesign: summary card + Deal Screener}
+  \vspace{0.4em}
+  \begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+      \textbf{"这笔投资需要申报吗？"}\\[0.4em]
+      \begin{itemize}
+        \item 输入：目标国、行业、拟收购股权比例、\textbf{Your Country}
+        \item 输出：需要申报 / 低于门槛 / 建议确认
+        \item 结合PRISM数据：覆盖范围 + 门槛 + 强制/自愿
+        \item 跳转到该国详情页
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{tcolorbox}[colback=claybg, colframe=prismclay, arc=3pt,
+        left=6pt, right=6pt, top=3pt, bottom=3pt]
+        \small\faLightbulb\; 这个功能是我提需求，\\
+        AI设计了判断逻辑，我review后修改\\
+        了3处数据理解错误
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.47\linewidth}
+      \imgbox{6.5cm}{Deal Screener 抽屉截图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 10. AI问答集成 ─────────────────────────────────────────
+\begin{frame}{第六步：AI问答功能}
+  \begin{columns}[T]
+    \begin{column}{0.55\linewidth}
+      \textbf{在页面内直接用自然语言提问数据}\\[0.6em]
+      支持的模型：
+      \begin{itemize}
+        \item \textbf{Anthropic Claude}（Sonnet / Haiku）
+        \item OpenAI GPT（4o / 4o-mini）
+        \item DeepSeek Chat
+        \item Moonshot Kimi
+        \item 智谱 GLM-4
+        \item 任意OpenAI兼容接口
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{技术设计（AI提出方案，我确认）：}
+      \begin{itemize}
+        \item API Key存在浏览器本地，不经过服务器
+        \item 自动注入当前年份/国家/Tab上下文
+        \item 上下文感知的推荐问题（4个chip）
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      \imgbox{6.5cm}{AI问答抽屉截图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 11. 迭代：修Bug的循环 ──────────────────────────────────
+\begin{frame}{修Bug：占用了大量时间}
+
+  \begin{columns}[T]
+    \begin{column}{0.55\linewidth}
+      \textbf{今天的提交记录（时间线）}\\[0.5em]
+      {\small
+      \begin{tabular}{ll}
+        16:26 & \texttt{d692818} Initial commit \\
+        16:41 & \texttt{ad0a766} Add README \\
+        17:48 & \texttt{2c04ccc} Add info drawer \\
+        18:53 & \texttt{0f22596} Fix template + URL params \\
+        19:24 & \texttt{864ac33} Deal Screener \\
+        19:30 & \texttt{8f4f28e} Fix Changes tab \\
+        19:40 & \texttt{17ee366} Fix 2024→2023引用 \\
+        19:49 & \texttt{1790614} Fix Y轴标签截断 \\
+        20:02 & \texttt{5b3ea60} Fix 2024引用（又一批）\\
+        20:08 & \texttt{c23239b} Fix 播放计时器 \\
+        20:13 & \texttt{b513a2c} 移动端适配 \\
+        \color{prismclay}20:20 & \color{prismclay}\texttt{d3d1a1e} \textbf{Fix 4 bugs（一次4个）}\\
+        20:27 & \texttt{cff73b1} Fix 年份滑块同步 \\
+        20:36 & \texttt{171bbe8} Fix 政策文本排版 \\
+        20:41 & \texttt{9ff92c7} Fix CSS变量 \\
+      \end{tabular}
+      }
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      \vspace{0.5em}
+      \begin{alertblock}{现实情况}
+        21次提交里，\\
+        \textbf{约一半是修Bug}
+      \end{alertblock}
+      \vspace{0.5em}
+      \begin{block}{典型循环}
+        \small
+        1. AI写新功能\\
+        2. 我在浏览器验证\\
+        3. 发现bug（有时是AI引入的）\\
+        4. 截图/描述给Claude\\
+        5. AI修复 $\to$ 回到步骤2
+      \end{block}
+      \vspace{0.5em}
+      \begin{exampleblock}{关键技能}
+        \small
+        能\textbf{清晰描述bug现象}\\
+        比会写代码更重要
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 12. 移动端适配 ─────────────────────────────────────────
+\begin{frame}{移动端适配（20:13）}
+  \commit{b513a2c}{Add mobile-responsive layout with off-canvas rail}
+  \vspace{0.5em}
+  \begin{columns}[T]
+    \begin{column}{0.55\linewidth}
+      \textbf{原问题}：窄屏手机上左侧控制栏占满屏幕\\[0.4em]
+      \textbf{解决方案}（AI设计）：
+      \begin{itemize}
+        \item $<768$ px时侧边栏默认隐藏
+        \item 左上角 ☰ 按钮唤出抽屉
+        \item 选中国家后自动关闭侧边栏
+        \item Tab栏水平滚动
+        \item 图表面板垂直堆叠
+      \end{itemize}
+      \vspace{0.5em}
+      \begin{tcolorbox}[colback=bluebg, colframe=prismblue, arc=3pt,
+        left=6pt, right=6pt, top=3pt, bottom=3pt, fontupper=\small]
+        我只说了"手机上布局不对"，\\
+        AI推断出所有需要改的CSS断点和JS逻辑。\\
+        我验证了3个不同屏幕尺寸。
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      \begin{columns}
+        \begin{column}{0.48\linewidth}
+          \imgbox{5.5cm}{桌面端截图}
+        \end{column}
+        \begin{column}{0.48\linewidth}
+          \imgbox{5.5cm}{移动端截图}
+        \end{column}
+      \end{columns}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 13. 量化统计 ───────────────────────────────────────────
+\begin{frame}{量化：这一天做了什么}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \begin{center}
+      \begin{tikzpicture}
+        \foreach \val/\label/\col [count=\i] in {
+          21/Git提交次数/prismclay,
+          2432/JS代码（行）/prismblue,
+          787/Python代码（行）/prismgreen,
+          1472/HTML模板（行）/prismamber
+        }{
+          \node[rounded corners=4pt, fill=\col!15, draw=\col,
+                minimum width=5.5cm, minimum height=1.1cm,
+                text width=5cm, align=center] at (0, {-\i*1.3}) {
+            {\large\bfseries\color{\col}\val}\\
+            {\small\color{prismsoft}\label}
+          };
+        }
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+    \begin{column}{0.48\linewidth}
+      \begin{center}
+      \begin{tikzpicture}
+        \foreach \val/\label/\col [count=\i] in {
+          7.5小时/开发总时长（一天内）/prismclay,
+          Claude\ Sonnet\ 4.6/使用模型/prismblue,
+          数万token/单次会话用量（约）/prismgreen,
+          21/GitHub\ Pages部署次数/prismamber
+        }{
+          \node[rounded corners=4pt, fill=\col!15, draw=\col,
+                minimum width=5.5cm, minimum height=1.1cm,
+                text width=5cm, align=center] at (0, {-\i*1.3}) {
+            {\large\bfseries\color{\col}\val}\\
+            {\small\color{prismsoft}\label}
+          };
+        }
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+  \vspace{0.5em}
+  \begin{center}
+    \small\color{prismsoft}
+    从 \texttt{16:26 Initial commit} 到 \texttt{20:41 Fix CSS variables}——约4小时15分钟完成核心功能
+  \end{center}
+\end{frame}
+
+%% ─── 14. 三点体会 ───────────────────────────────────────────
+{
+\setbeamercolor{background canvas}{bg=prismink}
+\begin{frame}[plain]{三点体会}
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.32\linewidth}
+      \begin{tcolorbox}[colback=prismclay!30, colframe=prismclay,
+        arc=5pt, left=8pt, right=8pt, top=8pt, bottom=8pt,
+        height=7cm, valign=top]
+        \begin{center}
+          \Large\color{prismclay}\bfseries 01
+        \end{center}
+        \vspace{0.3em}
+        \textbf{\color{white}会描述需求\\比会写代码重要}
+        \vspace{0.5em}
+        \color{prismline}\small
+        我从未写过一行JavaScript。\\[0.3em]
+        但我知道"我要一张按年份着色的世界地图，悬停显示该国指标"。\\[0.3em]
+        清晰的需求描述是最核心的能力。
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.32\linewidth}
+      \begin{tcolorbox}[colback=prismblue!30, colframe=prismblue,
+        arc=5pt, left=8pt, right=8pt, top=8pt, bottom=8pt,
+        height=7cm, valign=top]
+        \begin{center}
+          \Large\color{prismblue}\bfseries 02
+        \end{center}
+        \vspace{0.3em}
+        \textbf{\color{white}Git是你的后悔药}
+        \vspace{0.5em}
+        \color{prismline}\small
+        AI有时会改坏好用的东西。\\[0.3em]
+        今天21次提交，每次都能回退。\\[0.3em]
+        \texttt{git reset} 救过我两次。\\[0.3em]
+        没有版本控制，AI辅助开发风险极高。
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.32\linewidth}
+      \begin{tcolorbox}[colback=prismgreen!30, colframe=prismgreen,
+        arc=5pt, left=8pt, right=8pt, top=8pt, bottom=8pt,
+        height=7cm, valign=top]
+        \begin{center}
+          \Large\color{prismgreen}\bfseries 03
+        \end{center}
+        \vspace{0.3em}
+        \textbf{\color{white}验证是你的责任，\\不是AI的}
+        \vspace{0.5em}
+        \color{prismline}\small
+        AI生成代码很快，\\但它不知道数据含义是否正确。\\[0.3em]
+        Deal Screener的判断逻辑错了3处——都是我catch到的。\\[0.3em]
+        领域知识无法被替代。
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  \begin{center}
+    {\color{prismsoft}\small\faGlobe\;
+    jonebroom.github.io/prism-fdi/ \quad
+    \faGithub\; github.com/jonebroom/prism-fdi}
+  \end{center}
+\end{frame}
+}
+
+\end{document}

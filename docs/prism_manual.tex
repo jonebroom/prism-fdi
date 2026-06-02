@@ -1,0 +1,1002 @@
+%% ============================================================
+%%  PRISM ISM Database — User Manual
+%%  Compile with: pdflatex prism_manual.tex (twice for TOC)
+%% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+% ---- encoding & fonts ----
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ---- page layout ----
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ---- colors ----
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\definecolor{prismblue}{HTML}{4f6f9e}
+\definecolor{prismclay}{HTML}{bf6a4a}
+\definecolor{prismgreen}{HTML}{3f8a5e}
+\definecolor{prismamber}{HTML}{c79a3e}
+\definecolor{prismpurple}{HTML}{7d5ba6}
+\definecolor{lightgray}{HTML}{f4f5f7}
+\definecolor{midgray}{HTML}{e2e5ea}
+\definecolor{darkink}{HTML}{2b3344}
+
+% ---- hyperlinks ----
+\usepackage[colorlinks=true, linkcolor=prismblue, urlcolor=prismblue, citecolor=prismblue,
+            pdftitle={PRISM ISM Database — User Manual},
+            pdfauthor={PRISM Platform},
+            pdfsubject={FDI Screening Mechanism Data Platform}]{hyperref}
+
+% ---- graphics & boxes ----
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, theorems}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{parskip}
+
+% ---- section formatting ----
+\titleformat{\section}{\large\bfseries\color{darkink}}{}{0em}{\thesection\quad}[\vspace{-0.3em}\color{midgray}\rule{\linewidth}{0.8pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{prismblue}}{}{0em}{\thesubsection\quad}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{darkink}}{}{0em}{\thesubsubsection\quad}
+
+% ---- header/footer ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}\textbf{PRISM} ISM Database — User Manual}
+\fancyhead[R]{\small\color{gray}\leftmark}
+\fancyfoot[C]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---- custom boxes ----
+\newtcolorbox{tipbox}[1][]{
+  enhanced, breakable,
+  colback=prismblue!6, colframe=prismblue!60,
+  fonttitle=\bfseries\small, title={#1},
+  left=6pt, right=6pt, top=5pt, bottom=5pt,
+  arc=4pt
+}
+\newtcolorbox{warnbox}[1][]{
+  enhanced, breakable,
+  colback=prismclay!7, colframe=prismclay!60,
+  fonttitle=\bfseries\small, title={#1},
+  left=6pt, right=6pt, top=5pt, bottom=5pt,
+  arc=4pt
+}
+\newtcolorbox{notebox}[1][]{
+  enhanced, breakable,
+  colback=lightgray, colframe=midgray,
+  fonttitle=\bfseries\small, title={#1},
+  left=6pt, right=6pt, top=5pt, bottom=5pt,
+  arc=4pt
+}
+\newtcolorbox{keybox}{
+  enhanced,
+  colback=prismgreen!6, colframe=prismgreen!50,
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=4pt
+}
+
+% ---- misc ----
+\usepackage{calc}
+\setlist[itemize]{itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{itemsep=2pt, topsep=4pt}
+
+% ---- label helpers ----
+\newcommand{\badge}[2]{%
+  \colorbox{#1}{\color{white}\footnotesize\textbf{\strut\,#2\,}}%
+}
+\newcommand{\keycap}[1]{%
+  \texttt{\footnotesize[#1]}%
+}
+\newcommand{\tabname}[1]{\textbf{\color{prismblue}#1}}
+\newcommand{\uielem}[1]{\textit{#1}}
+\newcommand{\fieldname}[1]{\texttt{\small#1}}
+
+%% ============================================================
+\begin{document}
+
+% ---- Title Page ----
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+
+  {\Huge\bfseries\color{prismclay} PRISM}\\[0.4em]
+  {\LARGE\bfseries\color{darkink} ISM Database}\\[0.6em]
+  {\large\color{gray} FDI Screening Mechanism Data Platform}
+
+  \vspace{1.5cm}
+  \color{midgray}\rule{0.5\linewidth}{1pt}\color{black}
+  \vspace{1.5cm}
+
+  {\Large\bfseries User Manual}\\[0.8em]
+  {\normalsize Version 1.0 \quad|\quad Data range: 2007--2023}\\[0.4em]
+  {\normalsize \url{https://jonebroom.github.io/prism-fdi/}}
+
+  \vspace{2cm}
+  \begin{keybox}
+    \centering
+    \textbf{38 Countries}\quad $\cdot$\quad \textbf{17 Years}\quad $\cdot$\quad \textbf{6 Analytical Views}\\
+    \small OECD · EU/EEA · Five Eyes · 650 time-series records · 143 regulations · 141 policy documents
+  \end{keybox}
+
+  \vfill
+  {\small\color{gray} This manual covers all platform features, data fields, and analytical modules.\\
+  Intended for lawyers, investment professionals, compliance teams, and researchers.}
+\end{titlepage}
+
+% ---- TOC ----
+\tableofcontents
+\newpage
+
+%% ============================================================
+\section{Platform Overview}
+\label{sec:overview}
+
+\textbf{PRISM} (Policy Review and Investment Screening Mechanisms) is an interactive data platform that provides comprehensive, time-series coverage of foreign direct investment (FDI) screening mechanisms across 38 countries from 2007 to 2023.
+
+\subsection{What is FDI Screening?}
+
+Foreign direct investment screening refers to government processes that review—and potentially block or impose conditions on—inbound foreign investments on grounds of national security, public order, or strategic economic interests. Since the mid-2010s, the number of countries operating formal screening mechanisms has grown rapidly, driven by geopolitical tensions, the COVID-19 pandemic, and the EU FDI Screening Regulation of 2019.
+
+\subsection{Who is this platform for?}
+
+\begin{itemize}
+  \item \textbf{Legal practitioners and compliance teams} — quickly assess whether a proposed transaction triggers mandatory filing in a target jurisdiction.
+  \item \textbf{Investment professionals} — compare screening regimes across potential target markets and understand deal timeline risks.
+  \item \textbf{Policy researchers and academics} — trace the diffusion and tightening of FDI screening norms over time.
+  \item \textbf{Government officials} — benchmark national mechanisms against peer countries.
+\end{itemize}
+
+\subsection{Data Scope}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Dimension} & \textbf{Coverage} \\
+\midrule
+Countries & 38 (OECD members, EU/EEA states, Five Eyes) \\
+Time range & 2007--2023 (annual observations) \\
+Records & 650 country-year time-series entries \\
+Regulations & 143 individual regulatory instruments \\
+Legislative events & 230 legislative change events \\
+Policy documents & 141 full-text source documents (PDF + HTML) \\
+Sectors tracked & 36 detailed + 8 aggregate categories \\
+Procedural indicators & 13 binary powers + 4 quantitative fields \\
+\bottomrule
+\end{tabularx}
+\caption{PRISM data coverage summary}
+\end{table}
+
+\begin{tipbox}[Data currency]
+All data reflect published information as of late 2023. The 2024 year is intentionally excluded as coverage was incomplete. The platform uses the most recent complete year (2023) as the default view.
+\end{tipbox}
+
+\subsection{Country Groups}
+
+Countries are organised into three overlapping groups used throughout the platform for filtering and colour-coding:
+
+\begin{itemize}
+  \item \badge{prismblue}{OECD} — Organisation for Economic Co-operation and Development members
+  \item \badge{prismgreen}{EU/EEA} — European Union and European Economic Area members
+  \item \badge{prismamber}{Five Eyes} — Australia, Canada, New Zealand, United Kingdom, United States
+\end{itemize}
+
+Countries may belong to more than one group (e.g.\ Australia is both OECD and Five Eyes).
+
+%% ============================================================
+\section{Interface Layout}
+\label{sec:layout}
+
+The PRISM interface is divided into four persistent areas that are always visible, plus drawers that slide in on demand.
+
+\begin{figure}[h]
+\centering
+\begin{tcolorbox}[enhanced, colback=lightgray, colframe=midgray, arc=6pt, width=\linewidth]
+\small
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────────┐
+│  TOPBAR: Logo │ Search │ ⚡ Check Deal │ Ask AI │ ℹ Info    │
+├──────────┬──────────────────────────────────────────────────┤
+│          │  TABBAR: 01 Overview │ 02 Country │ … │ 06 Sectors│
+│  RAIL    ├──────────────────────────────────────────────────┤
+│  Year    │                                                   │
+│  Groups  │              MAIN CONTENT AREA                   │
+│  Country │             (active tab panel)                   │
+│  list    │                                                   │
+└──────────┴──────────────────────────────────────────────────┘
+\end{verbatim}
+\end{tcolorbox}
+\caption{PRISM interface layout schematic}
+\end{figure}
+
+\subsection{Top Bar}
+
+The top bar spans the full width and contains:
+
+\begin{itemize}
+  \item \uielem{PRISM logo} — platform identity; subtitle shows country count and year range.
+  \item \uielem{Global Search box} — full-text search across countries, regulations, and policy documents. Press \keycap{/} anywhere to focus it.
+  \item \uielem{⚡ Check Deal} — opens the Deal Screener drawer (see Section~\ref{sec:screener}).
+  \item \uielem{Ask AI} — opens the AI Data Assistant drawer (see Section~\ref{sec:ai}).
+  \item \uielem{ℹ} — opens the Platform Guide drawer with quick reference information.
+\end{itemize}
+
+\subsection{Control Rail (Sidebar)}
+\label{sec:rail}
+
+The left sidebar contains all global controls that affect the entire platform:
+
+\subsubsection{Year Selector}
+
+\begin{itemize}
+  \item The large year number shows the currently selected year.
+  \item Drag the \uielem{slider} left or right to move between 2007 and 2023.
+  \item Click \uielem{▶ Play Timeline} to animate through all years automatically (one year per second). Click \uielem{❚❚ Pause} to stop. Switching to another tab also stops the animation.
+\end{itemize}
+
+\subsubsection{Country Group Filters}
+
+Three toggle buttons filter which countries appear in all charts and lists:
+
+\begin{itemize}
+  \item \badge{prismblue}{OECD} (19 countries) — click to include/exclude.
+  \item \badge{prismgreen}{EU/EEA} (27 countries) — click to include/exclude.
+  \item \badge{prismamber}{Five Eyes} (5 countries) — click to include/exclude.
+\end{itemize}
+
+\begin{warnbox}[Important]
+At least one group must remain active. If you deactivate all three the last toggle is automatically re-enabled. Country overlap between groups means total active countries may be fewer than the sum of group sizes.
+\end{warnbox}
+
+\subsubsection{Country List}
+
+Displays all countries passing the current group filter. Each row shows:
+\begin{itemize}
+  \item A coloured dot indicating group membership.
+  \item Country name.
+  \item Year the screening mechanism was established (or "—" if none).
+\end{itemize}
+
+Use the \uielem{Filter countries\ldots} search box above the list for quick lookup. Clicking any country selects it, highlights it in the list, and automatically switches to the \tabname{Country} tab to show that country's profile.
+
+\subsection{Tab Bar}
+
+Six analytical tabs are available. Each tab is independent but responds to the global year and country selection set in the rail.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{clX}
+\toprule
+\textbf{No.} & \textbf{Tab name} & \textbf{Purpose} \\
+\midrule
+01 & Overview & World map + global trend line + annual snapshot \\
+02 & Country & In-depth profile for the selected country \\
+03 & Comparison & Multi-country parallel coordinates \\
+04 & Evolution & Coverage type trends, strictness distribution, network \\
+05 & Changes & Global legislative activity by year \\
+06 & Sectors & Industry coverage heatmap and ranking \\
+\bottomrule
+\end{tabularx}
+\caption{The six analytical tabs}
+\end{table}
+
+\subsection{Mobile Usage}
+
+On screens narrower than 768\,px (smartphones and small tablets):
+\begin{itemize}
+  \item The sidebar is hidden by default. Tap \uielem{☰} in the top-left corner to open it.
+  \item Tap outside the sidebar (on the dark overlay) or the \uielem{✕} button to close it.
+  \item Selecting a country automatically closes the sidebar.
+  \item The tab bar becomes horizontally scrollable.
+  \item All chart panels stack vertically.
+\end{itemize}
+
+\subsection{Keyboard Shortcuts}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Key} & \textbf{Action} \\
+\midrule
+\keycap{/} & Focus the global search box \\
+\keycap{Esc} & Close any open drawer \\
+\keycap{Enter} (in search) & Navigate to first result \\
+\keycap{↑}/\keycap{↓} (in search) & Move through results \\
+\bottomrule
+\end{tabular}
+\caption{Keyboard shortcuts}
+\end{table}
+
+%% ============================================================
+\section{Tab 01 — Overview}
+\label{sec:overview-tab}
+
+The Overview tab is the landing view and provides a global snapshot of FDI screening activity for the selected year.
+
+\subsection{World Map}
+
+\begin{itemize}
+  \item Each country with data is shaded according to the selected \uielem{dimension} (chosen from the dropdown in the panel header).
+  \item Darker shading indicates a higher value. Countries not in the active group filter are shown in light grey.
+  \item \textbf{Available map dimensions:}
+    \begin{itemize}
+      \item \fieldname{Strictness Score (0–13)} — sum of all 13 procedural powers.
+      \item \fieldname{Sectors Covered} — number of sectors under the screening mechanism.
+      \item \fieldname{Review Threshold (\%)} — minimum equity stake triggering a review.
+      \item \fieldname{Review Timeframe (days)} — maximum statutory review period.
+    \end{itemize}
+  \item \textbf{Click} any country on the map to open a dark floating card showing key indicators. Click \uielem{View Details →} to jump to that country's full profile.
+  \item The map supports \textbf{zoom and pan}: scroll to zoom, drag to pan. Double-click resets the view.
+\end{itemize}
+
+\subsection{Global Trend Chart}
+
+The line chart on the left of the lower row tracks how many countries have a selected feature active each year, overlaid with a bar chart of new mechanisms established globally per year.
+
+\begin{itemize}
+  \item Use the \uielem{dropdown} to change the tracked feature (e.g.\ National Security Test, Fines, Mitigation powers).
+  \item Two vertical dashed lines mark \textbf{2019} (EU FDI Regulation impetus, blue) and \textbf{2020} (COVID-19 emergency legislation wave, orange).
+  \item \textbf{Click} any year on the chart to jump the global year slider to that year.
+\end{itemize}
+
+\subsection{Annual Snapshot Panel}
+
+The right panel shows a summary for the currently active country set in the selected year:
+
+\begin{itemize}
+  \item \textbf{Countries with mechanism} — how many of the filtered countries have an active screening regime.
+  \item \textbf{Average Strictness} — mean strictness score across all countries with mechanisms.
+  \item \textbf{Average Sectors Covered} — mean sector count.
+  \item \textbf{New Mechanisms This Year} — globally, how many new mechanisms were established.
+  \item \textbf{Coverage Type Distribution} — horizontal bar chart showing how many countries fall into each coverage model (Sectoral, Cross-sectoral, Mixed, Asset-based, etc.).
+\end{itemize}
+
+%% ============================================================
+\section{Tab 02 — Country}
+\label{sec:country}
+
+The Country tab provides the most detailed view of a single country's FDI screening mechanism. Select a country from the sidebar list or by clicking the world map.
+
+\subsection{Practitioner Summary Card}
+
+The top card is designed for quick practical reference:
+
+\subsubsection{Status Badge}
+
+A coloured badge in the top-right corner summarises the overall risk level:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Badge} & \textbf{Colour} & \textbf{Meaning} \\
+\midrule
+\badge{gray}{No mechanism} & Grey & No active screening mechanism in the selected year \\
+\badge{prismgreen}{Screening exists} & Green & Mechanism exists but strictness score is low (0--3) \\
+\badge{prismamber}{Active screening} & Amber & Moderate strictness (4--7) \\
+\badge{prismclay}{Strict screening} & Red-orange & High strictness (8--13) \\
+\bottomrule
+\end{tabular}
+\caption{Country status badge definitions}
+\end{table}
+
+\subsubsection{Filing Requirement Block}
+
+Shows the practical answer to "do I need to file?":
+
+\begin{itemize}
+  \item \textbf{Pre-approval required before closing} — mandatory pre-approval; the transaction cannot close without government sign-off.
+  \item \textbf{Notification mandatory} — filing is required but the transaction may proceed before a decision.
+  \item \textbf{No mandatory filing} — voluntary notification only, or no mechanism.
+  \item \textbf{Threshold} — the minimum equity stake (\%) that triggers the review obligation.
+  \item \textbf{Max review time} — the statutory maximum review period in days.
+  \item \textbf{Notification} — the specific notification regime text from the source data.
+\end{itemize}
+
+\subsubsection{Review Authority Block}
+
+\begin{itemize}
+  \item \textbf{Lead authority} — the government agency that administers screening.
+  \item \textbf{Review criteria} — the legal grounds on which investments may be blocked (national security, net economic benefit, competition, dual-use/export control).
+  \item \textbf{Strictness score} — the count of all active procedural powers out of 13.
+  \item \textbf{Sectors in scope} — the number of sectors covered.
+\end{itemize}
+
+\subsubsection{Scope \& Powers Block}
+
+\begin{itemize}
+  \item Whether greenfield investments (new establishments, not just acquisitions) are covered.
+  \item Whether real estate transactions are covered.
+  \item Whether the mechanism distinguishes between EU and non-EU investors.
+  \item Feature pills listing active powers: Formal call-in, Interagency review, Tiered authority, Mitigation powers, Fines/penalties, Golden share, EU vs.\ non-EU distinction.
+\end{itemize}
+
+\subsubsection{Quick Deal Check Button}
+
+The \uielem{⚡ Check a specific deal for this country} button at the bottom of the card pre-fills the Deal Screener with the currently selected country and opens it immediately.
+
+\subsection{Multi-Dimensional Radar Chart}
+
+Plots the selected country on 8 procedural dimensions simultaneously, with two reference lines:
+
+\begin{itemize}
+  \item \textbf{Red-orange line} — selected country in the current year.
+  \item \textbf{Grey dashed line} — OECD average for the current year.
+  \item \textbf{Blue dotted line} — selected country in a historical comparison year (choose from the \uielem{Compare [year]} dropdown).
+\end{itemize}
+
+\textbf{Radar dimensions:} NS Test, Formal Call-in, Fines, Mitigation, Interagency Review, Net Benefit Test, Enhanced Gov.\ Control, Ownership Review.
+
+\begin{tipbox}[How to use the radar]
+Switch the comparison year to a specific year (e.g.\ 2015) to see how much a country's mechanism has tightened over time. Use the global year slider to examine a particular period.
+\end{tipbox}
+
+\subsection{Key Indicators Panel}
+
+A structured list of all available data fields for the selected country and year, including:
+Lead Authority, Coverage Type, Notification regime, Pre-approval regime, Review Threshold, Review Timeframe, EU vs.\ non-EU difference, COVID-19 temporary legislation flag.
+
+\subsection{Procedural Requirements \& Coverage}
+
+A grid of 16 binary indicators grouped into four categories:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Group} & \textbf{Indicators} \\
+\midrule
+Investigation \& Review Powers & Formal Call-in, Increased Ownership Review, Interagency Review, Tiered Authority, Enhanced Gov.\ Control \\
+Tests \& Standards & National Security Test, Net Benefit Test, Competition Test \\
+Sanctions \& Mechanisms & Fines, Mitigation, Filing Fees, Local Representation, Co-location \\
+Coverage Scope & Greenfield, Real Estate, Export Control/Dual-Use \\
+\bottomrule
+\end{tabularx}
+\caption{Procedural indicators grouped by category}
+\end{table}
+
+Each indicator is displayed as \textcolor{prismgreen}{\textbf{✓}} (present) or \textcolor{gray}{\textbf{✕}} (absent).
+
+\subsection{Regulation Timeline}
+
+A horizontal bubble timeline showing every regulatory instrument recorded for the selected country:
+
+\begin{itemize}
+  \item Each bubble's \textbf{size} is proportional to the number of sectors covered by that regulation.
+  \item Each bubble's \textbf{colour} reflects the coverage type.
+  \item \textbf{Click} any bubble to open a detail drawer with:
+    \begin{itemize}
+      \item Full regulation name, year signed / year effective.
+      \item Lead authority, notification regime, threshold, timeframe.
+      \item Sectors covered count.
+      \item Supersession information (if this regulation replaced an earlier one).
+      \item Policy text excerpt (if a source document is available).
+      \item \uielem{Summarize with AI →} button to send the regulation to the AI assistant.
+      \item \uielem{↓ Download PDF} or \uielem{↗ View Source} link to the original document.
+    \end{itemize}
+\end{itemize}
+
+%% ============================================================
+\section{Tab 03 — Comparison}
+\label{sec:compare}
+
+The Comparison tab uses a \textbf{parallel coordinates} chart to visualise all active countries simultaneously across multiple dimensions.
+
+\subsection{Reading the Chart}
+
+\begin{itemize}
+  \item Each \textbf{vertical axis} represents one indicator.
+  \item Each \textbf{coloured line} represents one country in the selected year.
+  \item Where a line sits on each axis indicates that country's value for that indicator.
+  \item Countries with no mechanism are excluded.
+\end{itemize}
+
+\textbf{Axes displayed:}
+Mechanisms count, Strictness score, Sectors covered, Threshold \%, Timeframe (days), Fines (Yes/No), Mitigation (Yes/No), Interagency review (Yes/No), National Security Test (Yes/No), Net Benefit Test (Yes/No).
+
+\subsection{Interactions}
+
+\begin{itemize}
+  \item \textbf{Drag along any axis} to create a filter range; only lines that pass through the selection remain highlighted, making it easy to find, for example, all countries with a threshold below 25\% and an active NS test.
+  \item \textbf{Hover} over a line to highlight it and see a tooltip with all values.
+  \item \textbf{Click} a line to jump to that country's full profile in the Country tab.
+  \item Use the \uielem{Color by group / Color by strictness} toggle to switch between group-based and strictness-gradient colouring.
+\end{itemize}
+
+\begin{tipbox}[Typical use case]
+Select a target country and drag the Strictness axis to its value. The remaining highlighted countries have similar strictness levels — useful for peer comparison or identifying jurisdictions with comparable compliance burdens.
+\end{tipbox}
+
+%% ============================================================
+\section{Tab 04 — Evolution}
+\label{sec:evolution}
+
+The Evolution tab contains five charts that together illustrate how FDI screening regimes have changed structurally over time.
+
+\subsection{Coverage Type Distribution (Pie Chart)}
+
+A pie chart for the currently selected year showing how many countries fall into each coverage model:
+
+\begin{itemize}
+  \item \badge{prismclay}{Sectoral} — only specific industries are covered.
+  \item \badge{prismblue}{Cross-sectoral} — all sectors are potentially in scope.
+  \item \badge{prismpurple}{Mixed} — a combination of broad and sector-specific rules.
+  \item \badge{prismamber}{Asset-based} — screening is triggered by asset type, not sector.
+  \item \badge{gray}{Draft} — legislation has been proposed but not yet enacted.
+  \item \badge{gray}{Passed (not impl.)} — law passed but implementing regulations not yet in force.
+\end{itemize}
+
+\textbf{Click} any segment to open a drawer listing all countries of that type in the selected year.
+
+\subsection{Notification × Pre-approval Matrix (Bubble Chart)}
+
+A 3×3 matrix plotting countries on two axes:
+
+\begin{itemize}
+  \item \textbf{X-axis (Notification):} Not mandatory · Mandatory (some transactions) · Mandatory (all transactions)
+  \item \textbf{Y-axis (Pre-approval):} Not mandatory · Mandatory (some) · Mandatory (all)
+  \item \textbf{Bubble size:} Number of countries at that combination.
+\end{itemize}
+
+\textbf{Click} any bubble to see the list of countries with that combination of procedural requirements.
+
+\subsection{Coverage Type Evolution (Area Chart)}
+
+A stacked area chart showing, for each year from 2007 to 2023, how many countries operate each coverage model. Read this chart to observe the structural shift from Sectoral to Cross-sectoral mechanisms that accelerated after 2019.
+
+\subsection{Strictness Distribution Over Time (Ridge/Band Chart)}
+
+Plots the \textbf{mean strictness score} per year as a line, surrounded by a band showing the \textbf{minimum and maximum} values. The widening band reflects growing divergence between the strictest and most lenient jurisdictions.
+
+\subsection{Threshold vs.\ Strictness / Timeframe vs.\ Strictness (Scatter Chart)}
+
+A scatter plot for the selected year with:
+\begin{itemize}
+  \item \textbf{X-axis} — Review threshold (\%) or Review timeframe (days), switchable via the \uielem{Threshold/Timeframe} toggle.
+  \item \textbf{Y-axis} — Strictness score (0--13).
+  \item Each point is a country. \textbf{Click} to go to that country's profile.
+\end{itemize}
+
+Countries in the top-left (high strictness, low threshold / short timeframe) impose the most demanding practical burden on investors.
+
+\subsection{Regulation Supersession Network}
+
+A directed network graph where:
+\begin{itemize}
+  \item \textbf{Nodes} are individual regulations, coloured by country group.
+  \item \textbf{Directed edges} point from an old law to the new law that superseded it.
+  \item Clusters of nodes connected by edges represent a country's legislative lineage.
+  \item \textbf{Click} any node to navigate to that country's profile.
+\end{itemize}
+
+%% ============================================================
+\section{Tab 05 — Changes}
+\label{sec:changes}
+
+The Changes tab focuses on legislative activity — what happened, and when.
+
+\subsection{Global Legislative Activity Bar Chart}
+
+A stacked bar chart showing, for each year, how many legislative events occurred globally, broken down by type:
+
+\begin{itemize}
+  \item \badge{prismblue}{New Law} — an entirely new statute creating a screening mechanism.
+  \item \badge{gray}{Amendment} — modifications to an existing law.
+  \item \badge{prismamber}{Exec.\ Order} — presidential/executive orders or emergency decrees.
+  \item \badge{gray}{Reg.\ Impl.} — implementing regulations under a previously enacted law.
+\end{itemize}
+
+\textbf{Click} any bar to select that year; the event list below updates to show all events for that year, and the \textbf{global year slider synchronises} to the clicked year — so switching to the Country or Overview tab will show data for that year.
+
+\subsection{Legislative Events List}
+
+Each event card shows:
+\begin{itemize}
+  \item Year and country.
+  \item Law name or reference (bare reference numbers like \texttt{34/2020} are labelled as "Reference:" to indicate the full name was not available in source data).
+  \item Brief explanation of what changed (if available).
+  \item Event type chip(s): New Law, Amendment, Exec.\ Order, or Implementation.
+  \item A "Supersedes" chip if this legislation replaced an earlier instrument.
+\end{itemize}
+
+\textbf{Click} any event card to open a detail drawer with:
+\begin{itemize}
+  \item Matched mechanism data (lead authority, threshold, strictness, sectors) if a corresponding regulation record can be found.
+  \item Policy text excerpt with the full regulation text (if available).
+  \item \uielem{View [Country] details →} button to go to the Country tab.
+  \item \uielem{Summarize with AI →} to ask the AI assistant about the regulation.
+\end{itemize}
+
+%% ============================================================
+\section{Tab 06 — Sectors}
+\label{sec:sectors}
+
+The Sectors tab analyses which industries are covered by FDI screening across countries and over time.
+
+\subsection{Sector Coverage Heatmap}
+
+A matrix with:
+\begin{itemize}
+  \item \textbf{Rows} — individual sectors (or 8 aggregate categories, switchable).
+  \item \textbf{Columns} — countries, sorted by total sector coverage (most covered first).
+  \item \textbf{Cell colour} — dark = sector is covered; light = not covered.
+\end{itemize}
+
+\textbf{Two display modes:}
+\begin{itemize}
+  \item \uielem{Detailed Sectors} — shows all 36 individual sector names (e.g.\ ``Artificial Intelligence \& Machine Learning'', ``Civil Nuclear'', ``Quantum Technology'').
+  \item \uielem{8 Aggregate Categories} — shows coverage as a percentage (0--100\%) for each of the eight broad categories, with gradient colour.
+\end{itemize}
+
+\subsection{Sector Coverage Ranking (Bar Chart)}
+
+A horizontal bar chart ranking all sectors by the number of countries that include them in their screening mechanism. Sectors covered by more countries appear at the top.
+
+\begin{itemize}
+  \item The chart reflects the currently selected year.
+  \item Click \uielem{▶ Play} to animate through all years, watching the ranking evolve as new sectors are added to national mechanisms. Click \uielem{❚❚ Pause} to stop.
+  \item Switching to a different tab automatically stops the animation.
+\end{itemize}
+
+\textbf{The 8 aggregate sector categories are:}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Category} & \textbf{Typical sub-sectors} \\
+\midrule
+Defense & Defense production, controlled dual-use, export control \\
+Physical Critical Infrastructure & Energy, water, transport, healthcare, telecom \\
+Next-Gen Critical Infrastructure & Space, advanced computing, quantum, AI \\
+Critical Tech \& Dual-Use & Cybersecurity, robotics, biotechnology, advanced materials \\
+Non-tradeable Services & Gambling, tourism, education, civil nuclear \\
+Finance & Banking, insurance, payments \\
+Media & Broadcasting, news, publishing \\
+Sensitive Personal Data & Access to personal data, brain-computer interfaces \\
+\bottomrule
+\end{tabularx}
+\caption{The 8 aggregate sector categories}
+\end{table}
+
+%% ============================================================
+\section{Deal Screener}
+\label{sec:screener}
+
+The Deal Screener answers the practical question: \textbf{``Is this transaction likely to require filing?''}
+
+\begin{tipbox}[How to open]
+Click \uielem{⚡ Check Deal} in the top bar, or click \uielem{⚡ Check a specific deal} on any country's profile card.
+\end{tipbox}
+
+\subsection{Input Fields}
+
+\begin{enumerate}
+  \item \textbf{Target Country} — the country in which the investment target is located.
+  \item \textbf{Sector / Industry} — choose from 8 broad categories or 36 detailed sectors. Leave blank if unsure.
+  \item \textbf{Proposed Acquisition Stake (\%)} — the equity percentage the investor intends to acquire. Leave blank if unknown.
+  \item \textbf{Your Country} — the investor's home country, used to determine EU/EEA status where the mechanism distinguishes between EU and non-EU investors.
+\end{enumerate}
+
+\subsection{Verdict}
+
+After clicking \uielem{Check this deal →}, the screener returns one of five verdict levels:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{llX}
+\toprule
+\textbf{Verdict} & \textbf{Colour} & \textbf{Meaning} \\
+\midrule
+Review likely required & \textcolor{prismclay}{Red-orange} & Sector covered, stake above threshold, mandatory pre-approval \\
+Review may apply & \textcolor{prismamber}{Amber} & Some factors suggest filing, but certainty is limited \\
+Below threshold & \textcolor{prismgreen}{Green} & Stake appears below the recorded threshold \\
+Sector out of scope & \textcolor{prismgreen}{Green} & Selected sector not covered by the mechanism \\
+No mechanism & \textcolor{gray}{Grey} & No active formal mechanism in the selected year \\
+\bottomrule
+\end{tabularx}
+\caption{Deal Screener verdict levels}
+\end{table}
+
+The verdict is accompanied by a plain-language explanation covering: coverage scope, threshold comparison, filing obligation, EU/non-EU distinction (if applicable), maximum review period, and lead authority.
+
+A \uielem{View full [Country] profile →} button allows immediate navigation to the Country tab for deeper review.
+
+\begin{warnbox}[Legal disclaimer]
+The Deal Screener provides an indicative assessment based on publicly available data in the PRISM database. It does not constitute legal advice. Always consult the relevant national authority or qualified legal counsel before proceeding with a transaction.
+\end{warnbox}
+
+%% ============================================================
+\section{AI Data Assistant}
+\label{sec:ai}
+
+The AI Assistant allows natural-language questions about the PRISM data.
+
+\begin{tipbox}[How to open]
+Click \uielem{Ask AI} in the top bar.
+\end{tipbox}
+
+\subsection{Capabilities}
+
+The assistant is context-aware: it knows the currently selected year, country, active group filter, and tab. It can:
+
+\begin{itemize}
+  \item Compare mechanisms across countries (``How does Germany's screening compare to France's in 2022?'').
+  \item Identify trends (``Which countries tightened their mechanisms most after 2019?'').
+  \item Explain data fields (``What does the Net Benefit Test mean?'').
+  \item List countries with specific features (``Which countries cover the AI sector in 2023?'').
+  \item Summarise individual regulations (via the \uielem{Summarize with AI →} button in any policy document drawer).
+\end{itemize}
+
+\subsection{Quick Prompts (Chips)}
+
+The assistant pre-generates 3--4 context-relevant prompt suggestions based on the current tab and selected country. Click any chip to send it immediately.
+
+\subsection{Configuration}
+
+Click the \uielem{⚙} icon to configure the AI backend:
+
+\begin{itemize}
+  \item \textbf{Provider} — Anthropic (Claude), OpenAI, DeepSeek, MiniMax, Zhipu GLM, Moonshot Kimi, or any custom OpenAI-compatible endpoint.
+  \item \textbf{Model} — pre-populated with recommended models per provider; can be overridden manually.
+  \item \textbf{Base URL} — required only for custom providers.
+  \item \textbf{API Key} — stored in browser local storage; never transmitted anywhere except directly to the selected provider's API endpoint.
+\end{itemize}
+
+\begin{tipbox}[Keyboard shortcut]
+Press \keycap{Enter} to send a message. Use \keycap{Shift+Enter} for a line break within the input box.
+\end{tipbox}
+
+\subsection{Limitations}
+
+\begin{itemize}
+  \item The assistant's answers are based on the data context injected at query time, not real-time web access.
+  \item For quantitative questions, the assistant receives the top-8 strictness ranking, the selected country's full profile, and any sector coverage lists mentioned in the query.
+  \item Responses are capped at approximately 250 words (longer for comparison lists).
+  \item The quality of answers depends on the selected AI provider and model.
+\end{itemize}
+
+%% ============================================================
+\section{Global Search}
+\label{sec:search}
+
+The search box in the top bar supports three search modes:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Mode} & \textbf{What it searches} \\
+\midrule
+Countries & Country names; clicking a result selects that country and opens the Country tab \\
+Regulations & Regulation titles and country names from the events database \\
+Policy text & Full-text search across all 141 policy documents; matching passages are highlighted \\
+\bottomrule
+\end{tabularx}
+\caption{Search modes}
+\end{table}
+
+\begin{itemize}
+  \item Use the \uielem{Countries / Regulations / Policy} toggle at the top of the results panel to switch modes.
+  \item Policy text results open a detail drawer with the matched excerpt highlighted in amber and a link to download or view the original document.
+  \item Press \keycap{↑}/\keycap{↓} to navigate results, \keycap{Enter} to select, \keycap{Esc} to close.
+\end{itemize}
+
+%% ============================================================
+\section{URL Sharing}
+\label{sec:url}
+
+PRISM automatically keeps the browser URL in sync with the current state:
+
+\begin{verbatim}
+https://jonebroom.github.io/prism-fdi/?tab=country&country=Germany&year=2021
+\end{verbatim}
+
+\begin{itemize}
+  \item \texttt{tab} — the active tab name.
+  \item \texttt{country} — the selected country (exact English name as used in the data).
+  \item \texttt{year} — the selected year.
+\end{itemize}
+
+Copy the URL from the browser address bar at any time to create a shareable link that will restore the exact same view for another user.
+
+%% ============================================================
+\section{Data Fields Reference}
+\label{sec:fields}
+
+\subsection{Quantitative Fields}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{llX}
+\toprule
+\textbf{Field} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\fieldname{num\_mechanisms} & Integer & Number of distinct screening instruments active \\
+\fieldname{strictness} & 0--13 & Sum of all 13 binary procedural indicators \\
+\fieldname{threshold} & \% (0--100) & Minimum equity acquisition \% triggering review \\
+\fieldname{time\_frame\_days} & Days & Statutory maximum review period \\
+\fieldname{total\_sectors} & Integer & Number of sectors explicitly covered \\
+\bottomrule
+\end{tabularx}
+\caption{Quantitative data fields}
+\end{table}
+
+\subsection{The 13 Procedural Power Indicators}
+
+Each is a binary (0/1) variable coded from official legislation and regulatory guidance:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Indicator} & \textbf{Meaning} \\
+\midrule
+Formal Call-in & Authority can initiate a review on its own motion, without a filing \\
+Increased Ownership Review & Subsequent increases in stake above threshold also require review \\
+Filing Fees & Mandatory fees are charged on filing \\
+Mitigation & Authority can impose conditions (remedies) short of full prohibition \\
+Fines & Monetary penalties can be imposed for non-compliance or violations \\
+National Security Test & Explicit national security standard in the review criteria \\
+Net Benefit Test & Economic benefit to the host country is a review criterion \\
+Competition Test & Effects on market competition are a review criterion \\
+Interagency Review & Multiple government agencies participate in the review \\
+Tiered Authority & Different authorities have jurisdiction depending on sector or deal size \\
+Local Representation & Acquirer must appoint a local representative or board member \\
+Enhanced Gov.\ Control & Government retains a special share or veto right post-approval \\
+Co-location & Physical infrastructure must be co-located in the host country \\
+\bottomrule
+\end{tabularx}
+\caption{The 13 procedural power indicators}
+\end{table}
+
+\subsection{Coverage Type Classification}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\textbf{Type} & \textbf{Definition} \\
+\midrule
+Sectoral & Review is limited to investments in explicitly listed sectors \\
+Cross-sectoral & All sectors potentially subject to review; broadest scope \\
+Mixed & Combines mandatory sectoral rules with discretionary broader review \\
+Asset-based & Triggered by the nature of the asset (e.g.\ critical infrastructure) rather than the sector \\
+Draft & Legislation introduced but not yet enacted \\
+Passed (not implemented) & Law enacted; implementing regulations or effective date not yet in force \\
+\bottomrule
+\end{tabularx}
+\caption{Coverage type classification}
+\end{table}
+
+\subsection{Notification and Pre-approval Regimes}
+
+Both fields use the same vocabulary:
+\begin{itemize}
+  \item \textbf{Not mandatory} — no formal filing obligation; voluntary submission only.
+  \item \textbf{Mandatory (some)} — filing required for transactions meeting specific criteria (sector, threshold, or investor origin).
+  \item \textbf{Mandatory (all)} — filing required for all foreign investments above a de minimis level.
+\end{itemize}
+
+%% ============================================================
+\section{Frequently Asked Questions}
+\label{sec:faq}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}]
+
+\item \textbf{Why does a country appear on the map but show ``No mechanism'' in the Country tab?}\\
+The map shows all 38 countries. A country will show no mechanism if: (a) the selected year predates when its mechanism was established, or (b) the country has never established a formal screening regime.
+
+\item \textbf{The threshold field shows "—". What does that mean?}\\
+Either the country's mechanism applies to all foreign investments without a specific equity threshold, the threshold is defined in subsidiary regulations not captured at this level of detail, or the information was not available in public sources.
+
+\item \textbf{Why are some regulation names shown as "Reference: 34/2020" instead of a full title?}\\
+Some source datasets recorded only the legal reference number (e.g.\ an act number and year) without the full title. These are flagged automatically with the "Reference:" prefix to indicate the name is a bare citation, not a descriptive title.
+
+\item \textbf{How does the strictness score work?}\\
+Strictness is the simple sum of the 13 binary procedural power indicators. A country with all 13 powers active scores 13; a country with only an NS test and fines scores 2. It is a procedural complexity measure, not a measure of how often reviews result in prohibition.
+
+\item \textbf{Can I export the data?}\\
+The platform does not currently include a built-in export function. The underlying dataset is described in the platform's data notes. For research use, please contact the dataset creators.
+
+\item \textbf{The AI assistant says it cannot answer my question. Why?}\\
+The assistant only uses data available in PRISM. Questions requiring information outside the 38-country, 2007--2023 scope, or requiring real-time legal advice, will receive a disclaimer. Ensure your API key and provider are correctly configured.
+
+\item \textbf{Is the Deal Screener output legally reliable?}\\
+No. It provides an indicative, automated assessment based on coded data. FDI screening obligations depend on transaction-specific facts, regulatory interpretation, and guidance that changes frequently. Always verify with the relevant national authority and qualified legal counsel.
+
+\item \textbf{Why does the map show my country in grey even though the group filter includes it?}\\
+The grey shading indicates either: (a) the country has no mechanism in the selected year, or (b) the selected map dimension has no data for that country-year (e.g.\ threshold data is missing). Hover over the country for a tooltip explaining what data is available.
+
+\item \textbf{The URL I shared opens in a different state than expected.}\\
+URL restoration requires the target country name to match exactly. Country names use standard English (e.g.\ ``United States'', ``Republic of Korea''). If the URL was created with a different year than the data range (2007--2023), the year will be clamped to the nearest valid value.
+
+\end{enumerate}
+
+%% ============================================================
+\section{Data Sources and Methodology}
+\label{sec:methodology}
+
+\subsection{Primary Data Source}
+
+The platform is built on the \textbf{PRISM ISM Dataset} (version 2023.12), a structured database of FDI screening mechanisms compiled from official government sources, legislative databases, and academic literature.
+
+\subsection{Coding Methodology}
+
+\begin{itemize}
+  \item Binary indicators are coded \textbf{1} if the feature is explicitly present in operative legislation and \textbf{0} otherwise. Ambiguous cases are coded 0 (conservative approach).
+  \item Threshold values reflect the lowest applicable threshold where tiered thresholds exist.
+  \item Timeframe values reflect the maximum statutory review period at the initial stage (not including possible extension periods).
+  \item Coverage type reflects the primary operative mechanism where multiple instruments co-exist.
+\end{itemize}
+
+\subsection{Known Limitations}
+
+\begin{itemize}
+  \item Sub-national and sector-specific lower thresholds may not be fully captured by the single threshold field.
+  \item Emergency and temporary legislation (including COVID-19 measures) is flagged where identified but may be inconsistently recorded across jurisdictions.
+  \item A small number of historical records (pre-2007) are included for countries with long legislative lineages (e.g.\ Finland 1939) but are not part of the main analytical time series.
+  \item Policy document full texts are sourced from publicly available HTML and PDF versions; formatting artefacts from PDF extraction may appear in the text viewer.
+\end{itemize}
+
+%% ============================================================
+\section{Quick Reference Card}
+\label{sec:quickref}
+
+\begin{tcolorbox}[enhanced, colback=lightgray, colframe=midgray, arc=6pt, title={\textbf{PRISM at a Glance}}, fonttitle=\bfseries]
+\small
+\begin{tabular}{@{}p{4cm}p{9.5cm}@{}}
+\textbf{Open country profile} & Click country in sidebar list, or click country on world map → View Details \\[3pt]
+\textbf{Filter by group} & Toggle OECD / EU/EEA / Five Eyes buttons in the rail \\[3pt]
+\textbf{Change year} & Drag the year slider, or click a year on any time-series chart \\[3pt]
+\textbf{Animate over time} & Click ▶ Play Timeline (stops on tab switch) \\[3pt]
+\textbf{Check a deal} & ⚡ Check Deal → fill country, sector, stake, origin \\[3pt]
+\textbf{Ask a question} & Ask AI → type or click a chip prompt \\[3pt]
+\textbf{Find a regulation} & Press / → switch to Policy mode → search keywords \\[3pt]
+\textbf{Share a view} & Copy the URL from the address bar \\[3pt]
+\textbf{View policy text} & Click any regulation bubble or event card → policy text shown in drawer \\[3pt]
+\textbf{Compare years} & Country tab → radar chart → select "Compare [year]" dropdown \\[3pt]
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{1em}
+\begin{tcolorbox}[enhanced, colback=prismclay!6, colframe=prismclay!40, arc=6pt, title={\textbf{Data Field Quick Reference}}, fonttitle=\bfseries]
+\small
+\begin{tabular}{@{}p{3.5cm}p{10cm}@{}}
+\textbf{Strictness (0–13)} & Sum of 13 binary procedural powers. Higher = more complex mechanism. \\[3pt]
+\textbf{Threshold (\%)} & Minimum equity stake triggering review (blank = applies to all / unknown). \\[3pt]
+\textbf{Timeframe (days)} & Maximum statutory review period at initial stage. \\[3pt]
+\textbf{Coverage type} & Sectoral → Cross-sectoral → Mixed → Asset-based (increasing scope). \\[3pt]
+\textbf{Pre-approval} & Must receive clearance \textit{before} closing the transaction. \\[3pt]
+\textbf{Notification} & Must notify authorities (transaction may close before decision). \\[3pt]
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{2em}
+\hrule
+\vspace{0.5em}
+{\small\color{gray}
+\textbf{PRISM ISM Database} · \url{https://jonebroom.github.io/prism-fdi/}\\
+Data: PRISM ISM Dataset v2023.12 · 38 countries · 2007--2023\\
+This manual was generated automatically from the platform source code and data schema.
+}
+
+\end{document}
