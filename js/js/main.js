@@ -84,8 +84,8 @@
         UI.switchTab(urlTab);
       }
       if(urlCountry){
-        const match=P.DATA.countries.find(c=>c.name===urlCountry||c.iso===urlCountry);
-        if(match){ UI.selectCountry(match.name); if(!urlTab) UI.switchTab('country'); }
+        const match=P.DATA.countries.find(c=>c.country===urlCountry||String(c.iso3n)===urlCountry);
+        if(match){ UI.selectCountry(match.country); if(!urlTab) UI.switchTab('country'); }
       }
 
       // reveal the dashboard immediately — map + search/policy data stream in afterward

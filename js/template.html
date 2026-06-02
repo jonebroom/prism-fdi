@@ -746,6 +746,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn-ai:hover .dot{background:#fff;animation:none;}
 @keyframes pulse{0%{box-shadow:0 0 0 0 oklch(0.72 0.09 38 / 0.6);}70%{box-shadow:0 0 0 7px oklch(0.72 0.09 38 / 0);}100%{box-shadow:0 0 0 0 oklch(0.72 0.09 38 / 0);}}
 
+/* screener button */
+.btn-screener{
+  display:flex;align-items:center;gap:6px;height:36px;padding:0 13px;border-radius:8px;
+  border:1.5px solid var(--clay);background:transparent;color:var(--clay);
+  font-size:12.5px;font-weight:600;letter-spacing:.01em;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.btn-screener:hover{background:var(--clay);color:#fff;}
+
 /* ============ CONTROL RAIL ============ */
 .rail{
   grid-area:rail;
@@ -1003,6 +1012,64 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
   color:var(--ink-soft);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;
   margin-left:6px;transition:background .14s,color .14s;flex-shrink:0;}
 .btn-info:hover{background:var(--paper-2);color:var(--ink);}
+
+/* ===== PRACTITIONER CARD (Country tab) ===== */
+.pcard{padding:0;}
+.pcard-top{display:flex;align-items:center;gap:14px;padding:18px 22px 14px;border-bottom:1px solid var(--line);}
+.pcard-accent{width:10px;height:40px;border-radius:3px;flex-shrink:0;}
+.pcard-identity{flex:1;min-width:0;}
+.pcard-name{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink);line-height:1.1;}
+.pcard-sub{display:flex;align-items:center;gap:7px;margin-top:5px;flex-wrap:wrap;}
+.pcard-status{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid;flex-shrink:0;}
+.pcard-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.pcard-status-lbl{font-size:12px;font-weight:700;letter-spacing:.01em;}
+.pcard-status-cov{font-size:11px;}
+.pcard-nomech{padding:18px 22px;font-size:13px;color:var(--ink-soft);font-style:italic;}
+.pcard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line);}
+@media(max-width:780px){.pcard-grid{grid-template-columns:1fr;}}
+.pcard-block{padding:16px 20px;border-right:1px solid var(--line);}
+.pcard-block:last-child{border-right:none;}
+.pcard-block-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-faint);margin-bottom:9px;}
+.pcard-alert{font-size:12px;font-weight:600;padding:5px 9px;border-radius:6px;background:#fdf0ec;color:#bf6a4a;display:inline-block;margin-bottom:8px;}
+.pcard-alert--warn{background:#fdf8ec;color:#c79a3e;}
+.pcard-alert--ok{background:#ecf5f0;color:#3f8a5e;}
+.pcard-detail-rows{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
+.pcard-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-bottom:1px dashed var(--line);}
+.pcard-row:last-child{border-bottom:none;}
+.pcard-row span{color:var(--ink-soft);}
+.pcard-row strong{color:var(--ink);text-align:right;font-size:11.5px;}
+.pcard-authority{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.4;}
+.pcard-scope-tag{font-size:11.5px;color:var(--ink-soft);padding:2px 0;border-bottom:1px dashed var(--line);margin-bottom:3px;}
+.pcard-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.pcard-pill{font-size:10.5px;padding:3px 7px;border-radius:4px;background:var(--paper-2);color:var(--ink-2);border:1px solid var(--line);}
+.pcard-cta{padding:11px 20px;background:var(--paper-2);border-top:1px solid var(--line);}
+.pcard-cta-btn{font-size:12.5px;font-weight:600;color:var(--clay);background:none;border:none;cursor:pointer;padding:0;letter-spacing:.01em;}
+.pcard-cta-btn:hover{text-decoration:underline;}
+
+/* ===== DEAL SCREENER DRAWER ===== */
+.screener-drawer{width:min(520px,94vw);}
+.scr-wrap{display:flex;flex-direction:column;gap:0;}
+.scr-intro{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:18px;}
+.scr-form{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.scr-field{display:flex;flex-direction:column;gap:5px;}
+.scr-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+.scr-select,.scr-input{width:100%;padding:9px 11px;border-radius:7px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-size:13px;font-family:var(--sans);}
+.scr-select:focus,.scr-input:focus{outline:none;border-color:var(--clay);}
+.scr-stake-row{display:flex;align-items:center;gap:8px;}
+.scr-stake-row .scr-input{flex:1;}
+.scr-unit{font-size:14px;font-weight:600;color:var(--ink-soft);}
+.scr-btn{margin-top:4px;padding:11px 20px;border-radius:8px;background:var(--ink);color:var(--paper);font-size:13.5px;font-weight:600;cursor:pointer;letter-spacing:.01em;transition:background .15s;}
+.scr-btn:hover{background:var(--clay);}
+.scr-verdict{border:2px solid;border-radius:10px;padding:16px 18px;margin-top:4px;}
+.scr-verdict-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.scr-verdict-icon{font-size:16px;}
+.scr-verdict-title{font-size:14px;font-weight:700;}
+.scr-verdict-body{font-size:13px;color:var(--ink);line-height:1.65;}
+.scr-verdict-link{margin-top:12px;}
+.scr-country-link{font-size:12.5px;font-weight:600;color:var(--steel);background:none;border:none;cursor:pointer;padding:0;}
+.scr-country-link:hover{text-decoration:underline;}
+.scr-disclaimer{font-size:11px;color:var(--ink-faint);line-height:1.55;padding:12px 0;border-top:1px solid var(--line);margin-top:8px;}
+
 /* info drawer */
 .info-drawer{width:min(540px,94vw);}
 .info-section{margin-bottom:4px;border-bottom:1px solid var(--line);padding-bottom:16px;padding-top:16px;}
@@ -1080,6 +1147,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
       <span class="kbd">/</span>
       <div id="searchResults" class="search-results"></div>
     </div>
+    <button class="btn-screener" id="screenerOpen" title="Check if a deal requires screening">⚡ Check Deal</button>
     <button class="btn-ai" id="aiOpen"><span class="dot"></span>Ask AI</button>
     <button class="btn-info" id="infoOpen" title="Platform guide &amp; data notes">ℹ</button>
   </header>
@@ -1353,7 +1421,15 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
   </div>
 </aside>
 
-
+<!-- ===== SCREENER DRAWER ===== -->
+<div class="drawer-scrim" id="screenerScrim"></div>
+<aside class="drawer screener-drawer" id="screenerDrawer">
+  <div class="drawer-head">
+    <div><h2>Deal Screener</h2><div class="meta">Does this investment require filing? · Based on PRISM data · <span id="screenerYearLabel"></span></div></div>
+    <button class="drawer-close" id="screenerClose">✕</button>
+  </div>
+  <div class="drawer-body" id="screenerBody"></div>
+</aside>
 
 <script src="74c6b04d-7b3e-47e4-b94c-4624d4d1f9fa"></script>
 <script src="22c67aad-9479-4879-8b1e-6b8df940e6b4"></script>
@@ -1368,6 +1444,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 <script src="94efe1a4-1cbf-4603-b26c-2088068bf595"></script>
 <script src="88352e4e-025f-44e3-b07f-bda43a3a7ed6"></script>
 <script src="e20255b8-0cf8-4163-8ac8-05f169ce4b93"></script>
+<script src="b1c2d3e4-f5a6-7890-abcd-ef1234567890"></script>
 
 
 </body></html>

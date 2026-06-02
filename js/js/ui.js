@@ -132,6 +132,26 @@
     document.getElementById('drawerScrim').classList.remove('open');
   }
 
+  // ---------- SCREENER DRAWER ----------
+  function openScreener(preCountry){
+    const body = document.getElementById('screenerBody');
+    if(body && !body.hasChildNodes()) window.PRISM_SCREENER.mount(body);
+    // pre-fill country if provided
+    if(preCountry){
+      const sel = document.getElementById('scrCountry');
+      if(sel) sel.value = preCountry;
+    }
+    // update year label
+    const yl = document.getElementById('screenerYearLabel');
+    if(yl) yl.textContent = 'Data year: ' + P.STATE.year;
+    document.getElementById('screenerDrawer').classList.add('open');
+    document.getElementById('screenerScrim').classList.add('open');
+  }
+  function closeScreener(){
+    document.getElementById('screenerDrawer').classList.remove('open');
+    document.getElementById('screenerScrim').classList.remove('open');
+  }
+
   // ---------- INFO DRAWER ----------
   function openInfoDrawer(){
     document.getElementById('infoDrawer').classList.add('open');
@@ -170,16 +190,19 @@
     document.getElementById('countrySearch').oninput=(e)=>{ countryFilter=e.target.value.toLowerCase(); buildCountryList(); };
     document.getElementById('drawerClose').onclick=closeDrawer;
     document.getElementById('drawerScrim').onclick=closeDrawer;
+    document.getElementById('screenerOpen').onclick=()=>openScreener();
+    document.getElementById('screenerClose').onclick=closeScreener;
+    document.getElementById('screenerScrim').onclick=closeScreener;
     document.getElementById('infoOpen').onclick=openInfoDrawer;
     document.getElementById('infoClose').onclick=closeInfoDrawer;
     document.getElementById('infoScrim').onclick=closeInfoDrawer;
     document.addEventListener('keydown',e=>{
-      if(e.key==='Escape'){ closeDrawer(); closeInfoDrawer(); P.emit('escape'); }
+      if(e.key==='Escape'){ closeDrawer(); closeInfoDrawer(); closeScreener(); P.emit('escape'); }
       if(e.key==='/' && document.activeElement.tagName!=='INPUT'){ e.preventDefault(); document.getElementById('globalSearch').focus(); }
     });
     buildGroups(); buildCountryList(); setYear(P.STATE.year);
   }
 
-  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer, openInfoDrawer, closeInfoDrawer,
+  window.PRISM_UI = { switchTab, activeTab, selectCountry, setYear, openDrawer, closeDrawer, openInfoDrawer, closeInfoDrawer, openScreener, closeScreener,
     cnName, cnShort, COVERAGE, buildCountryList, initWiring, register:(n,o)=>{TABS[n]=o;} };
 })();

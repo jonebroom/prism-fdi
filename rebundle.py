@@ -32,6 +32,7 @@ JS_UUID_TO_FILE = {
     "94efe1a4-1cbf-4603-b26c-2088068bf595": "search.js",
     "93fca39a-560d-41a2-9a1b-0c7e2799da93": "tab_sectors.js",
     "e20255b8-0cf8-4163-8ac8-05f169ce4b93": "main.js",
+    "b1c2d3e4-f5a6-7890-abcd-ef1234567890": "screener.js",
 }
 
 # ext_resources id → data/ 文件名
@@ -110,8 +111,8 @@ def main():
                 print(f"  SKIP {filename}: 文件不存在")
                 continue
             if uuid not in manifest:
-                print(f"  SKIP {filename}: UUID 不在 manifest 中")
-                continue
+                manifest[uuid] = {"type": "text/javascript", "compressed": True, "data": ""}
+                print(f"  NEW {filename}: created manifest entry")
             old_len = len(manifest[uuid].get("data", ""))
             new_data = encode_file(js_path)
             manifest[uuid]["data"] = new_data
@@ -133,7 +134,7 @@ def main():
     if TEMPLATE_PATH.exists():
         template_html = TEMPLATE_PATH.read_text(encoding="utf-8")
         inner_json = json.dumps(template_html, ensure_ascii=False)
-        outer_json = json.dumps(inner_json, ensure_ascii=False).replace("<\/", "<\\/")
+        outer_json = json.dumps(inner_json, ensure_ascii=False).replace("</", "<\\/")
         tmpl_match = re.search(
             r'(<script type="__bundler/template">)(.*?)(</script>)',
             new_content, re.DOTALL

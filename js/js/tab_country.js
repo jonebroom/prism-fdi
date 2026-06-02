@@ -55,27 +55,118 @@
     if(cur&&arr.includes(parseInt(cur))) cy.value=cur; else cmpYear=null;
   }
 
+  // Helper: plain-language filing requirement summary
+  function filingLine(r){
+    if(!r) return null;
+    const thr = r.threshold!=null ? (r.threshold*100).toFixed(0)+'%' : null;
+    const days = r.time_frame_days!=null ? r.time_frame_days+' days' : null;
+    const pre = r.preapproval && r.preapproval.toLowerCase().includes('mandatory');
+    const notif = r.notification && r.notification.toLowerCase().includes('mandatory');
+    const parts=[];
+    if(pre) parts.push('Pre-approval mandatory');
+    else if(notif) parts.push('Notification mandatory');
+    if(thr) parts.push('threshold ≥'+thr+' equity');
+    if(days) parts.push('reviewed within '+days);
+    return parts.length ? parts.join(' · ') : null;
+  }
+
+  // Helper: risk level for the filing badge
+  function filingRisk(r){
+    if(!r || !r.coverage || ['Draft','Passed (not implemented)'].includes(r.coverage)) return 'none';
+    const score = P.strictness(r);
+    if(score >= 8) return 'high';
+    if(score >= 4) return 'medium';
+    return 'low';
+  }
+
   function drawHead(c,r){
     const meta=P.countryMeta(c);
     const groups=[]; if(meta.oecd)groups.push('OECD'); if(meta.eu_eea)groups.push('EU/EEA'); if(meta.five_eyes)groups.push('Five Eyes');
     const cov=UI.COVERAGE[r&&r.coverage]||{cn:(r&&r.coverage)||'No mechanism',c:'#9aa0aa'};
+    const noMech = !r || !r.coverage || r.coverage==='Draft' || r.coverage==='Passed (not implemented)';
+    const risk = filingRisk(r);
+    const riskLabel = {none:'No mechanism',low:'Screening exists',medium:'Active screening',high:'Strict screening'}[risk];
+    const riskColor = {none:'#9aa0aa',low:'#3f8a5e',medium:'#c79a3e',high:'#bf6a4a'}[risk];
+    const fline = filingLine(r);
+
+    // Review criteria in plain language
+    const criteria=[];
+    if(r&&r.ns_test) criteria.push('National security');
+    if(r&&r.net_benefit_test) criteria.push('Net economic benefit');
+    if(r&&r.competition_test) criteria.push('Competition');
+    if(r&&r.export_control_dualuse) criteria.push('Dual-use / export control');
+
+    // Key procedural flags as pills
+    const flags=[];
+    if(r&&r.formal_call_in) flags.push('Formal call-in');
+    if(r&&r.interagency_review) flags.push('Interagency review');
+    if(r&&r.tiered_authority) flags.push('Tiered authority');
+    if(r&&r.mitigation) flags.push('Mitigation powers');
+    if(r&&r.fines) flags.push('Fines / penalties');
+    if(r&&r.enhanced_gov_control) flags.push('Golden share');
+    if(r&&r.eu_noeu_diff) flags.push('EU vs non-EU distinction');
+
     root.querySelector('#cHead').innerHTML=`
-      <div style="display:flex;align-items:center;gap:22px;padding:20px 24px;flex-wrap:wrap;">
-        <div style="width:14px;height:46px;border-radius:4px;background:${P.groupColor(c)};"></div>
-        <div>
-          <div style="font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);line-height:1;">${c}</div>
-          <div style="font-size:12px;color:var(--ink-soft);margin-top:5px;font-family:var(--mono);">ISO ${meta.iso3n} · Est. ${meta.year_established||'—'}</div>
+      <div class="pcard">
+        <!-- top row: identity -->
+        <div class="pcard-top">
+          <div class="pcard-accent" style="background:${P.groupColor(c)}"></div>
+          <div class="pcard-identity">
+            <div class="pcard-name">${c}</div>
+            <div class="pcard-sub">
+              ${groups.map(g=>`<span class="badge" style="background:var(--paper-2);color:var(--ink-2);"><span class="bd" style="background:${g==='OECD'?P.GROUPS.oecd.hex:g==='EU/EEA'?P.GROUPS.eu.hex:P.GROUPS.fiveeyes.hex}"></span>${g}</span>`).join('')}
+              <span style="font-size:11.5px;color:var(--ink-soft);font-family:var(--mono);">Since ${meta.year_established||'—'}</span>
+            </div>
+          </div>
+          <div class="pcard-status" style="border-color:${riskColor}20;background:${riskColor}10">
+            <span class="pcard-status-dot" style="background:${riskColor}"></span>
+            <span class="pcard-status-lbl" style="color:${riskColor}">${riskLabel}</span>
+            <span class="pcard-status-cov" style="color:var(--ink-soft)">${cov.cn}</span>
+          </div>
         </div>
-        <div style="display:flex;gap:7px;margin-left:8px;">
-          ${groups.map(g=>`<span class="badge" style="background:var(--paper-2);color:var(--ink-2);"><span class="bd" style="background:${g==='OECD'?P.GROUPS.oecd.hex:g==='EU/EEA'?P.GROUPS.eu.hex:P.GROUPS.fiveeyes.hex}"></span>${g}</span>`).join('')}
+        ${noMech ? `<div class="pcard-nomech">No active screening mechanism in ${P.STATE.year} — foreign investments are generally unrestricted.</div>` : `
+        <!-- main grid -->
+        <div class="pcard-grid">
+          <div class="pcard-block">
+            <div class="pcard-block-title">Filing Requirement</div>
+            ${r.preapproval&&r.preapproval.toLowerCase().includes('mandatory')?
+              '<div class="pcard-alert">Pre-approval required before closing</div>' :
+              r.notification&&r.notification.toLowerCase().includes('mandatory')?
+              '<div class="pcard-alert pcard-alert--warn">Notification mandatory</div>' :
+              '<div class="pcard-alert pcard-alert--ok">No mandatory filing</div>'}
+            <div class="pcard-detail-rows">
+              ${r.threshold!=null?`<div class="pcard-row"><span>Threshold</span><strong>≥ ${(r.threshold*100).toFixed(0)}% equity</strong></div>`:''}
+              ${r.time_frame_days!=null?`<div class="pcard-row"><span>Max review time</span><strong>${r.time_frame_days} days</strong></div>`:''}
+              <div class="pcard-row"><span>Notification</span><strong>${r.notification||'—'}</strong></div>
+            </div>
+          </div>
+          <div class="pcard-block">
+            <div class="pcard-block-title">Review Authority</div>
+            <div class="pcard-authority">${r.lead_authority||'Not specified'}</div>
+            <div class="pcard-detail-rows">
+              ${criteria.length?`<div class="pcard-row"><span>Review criteria</span><strong>${criteria.join(', ')}</strong></div>`:''}
+              <div class="pcard-row"><span>Strictness score</span><strong>${P.strictness(r)}/13</strong></div>
+              <div class="pcard-row"><span>Sectors in scope</span><strong>${P.sectorCount(r)} sector${P.sectorCount(r)!==1?'s':''}</strong></div>
+            </div>
+          </div>
+          <div class="pcard-block">
+            <div class="pcard-block-title">Scope & Powers</div>
+            ${r.greenfield_covered?'<div class="pcard-scope-tag">Greenfield investments covered</div>':''}
+            ${r.real_estate_covered?'<div class="pcard-scope-tag">Real estate covered</div>':''}
+            ${r.eu_noeu_diff?'<div class="pcard-scope-tag">Different rules for EU vs non-EU</div>':''}
+            <div class="pcard-pills">${flags.map(f=>`<span class="pcard-pill">${f}</span>`).join('')}</div>
+          </div>
         </div>
-        <div style="flex:1"></div>
-        <div style="display:flex;gap:28px;">
-          <div style="text-align:right"><div class="mono" style="font-size:24px;font-weight:600;color:var(--ink)">${r?r.num_mechanisms:'—'}</div><div style="font-size:11px;color:var(--ink-soft)">Mechanisms</div></div>
-          <div style="text-align:right"><div class="mono" style="font-size:24px;font-weight:600;color:var(--clay)">${r?P.strictness(r):'—'}<span style="font-size:13px;color:var(--ink-faint)">/13</span></div><div style="font-size:11px;color:var(--ink-soft)">Strictness</div></div>
-          <div style="text-align:right"><div class="mono" style="font-size:24px;font-weight:600;color:var(--ink)">${r?P.sectorCount(r):'—'}<span style="font-size:13px;color:var(--ink-faint)">/${P.DATA.sectorNames.length}</span></div><div style="font-size:11px;color:var(--ink-soft)">Sectors Covered</div></div>
+        <!-- quick-check CTA -->
+        <div class="pcard-cta">
+          <button class="pcard-cta-btn" id="cQuickCheck">⚡ Check a specific deal for this country</button>
         </div>
+        `}
       </div>`;
+
+    // Wire quick-check button
+    const qc = root.querySelector('#cQuickCheck');
+    if(qc) qc.onclick = () => window.PRISM_UI.openScreener(c);
   }
 
   function drawKpi(c,r){
