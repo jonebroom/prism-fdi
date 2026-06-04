@@ -97,11 +97,13 @@
   // ---- load ----
   async function load(){
     const f = (p)=>fetch(p).then(r=>r.json());
+    const D = window.__PRISM_DATA;
+    const get = (id, path) => (D && D[id]) ? Promise.resolve(D[id]) : f(dataUrl(id, path));
     // core data needed for first paint
     const [ts,events,changes,yearly,countries] = await Promise.all([
-      f(dataUrl('timeseries','data/timeseries.json')), f(dataUrl('events','data/events.json')),
-      f(dataUrl('changes','data/changes.json')), f(dataUrl('yearly','data/yearly_new.json')),
-      f(dataUrl('countries','data/countries.json'))
+      get('timeseries','data/timeseries.json'), get('events','data/events.json'),
+      get('changes','data/changes.json'), get('yearly','data/yearly_new.json'),
+      get('countries','data/countries.json')
     ]);
     DATA.ts=ts; DATA.events=events; DATA.changes=changes; DATA.yearly=yearly;
     DATA.countries=countries.countries;
