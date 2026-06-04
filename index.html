@@ -83674,4 +83674,11 @@ kbd{display:inline-block;font-family:var(--mono);font-size:10.5px;background:var
   ]
 }
 };</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
 </body></html>

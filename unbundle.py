@@ -4,6 +4,7 @@ unbundle.py — 生成直接加载版 index.html
 """
 import json
 import re
+import time
 from pathlib import Path
 
 BASE_DIR      = Path(__file__).parent
@@ -11,6 +12,7 @@ TEMPLATE_PATH = BASE_DIR / "js" / "template.html"
 JS_DIR        = BASE_DIR / "js" / "js"
 DATA_DIR      = BASE_DIR / "data"
 HTML_PATH     = BASE_DIR / "index.html"
+SW_PATH       = BASE_DIR / "sw.js"
 
 # UUID → 本地 JS 文件（None = 改用 CDN）
 UUID_TO_SCRIPT = {
@@ -105,6 +107,24 @@ def main():
         if p:
             script_paths.append(p)
 
+    # 更新 sw.js 版本号（每次构建不同，确保浏览器拿到新缓存）
+    version = str(int(time.time()))
+    if SW_PATH.exists():
+        sw_content = SW_PATH.read_text(encoding="utf-8")
+        sw_content = re.sub(r"prism-[0-9a-zA-Z_-]+", f"prism-{version}", sw_content)
+        SW_PATH.write_text(sw_content, encoding="utf-8")
+        print(f"  sw.js 版本更新 → prism-{version}")
+
+    sw_register = (
+        "<script>\n"
+        "if('serviceWorker' in navigator){\n"
+        "  window.addEventListener('load',()=>{\n"
+        "    navigator.serviceWorker.register('/sw.js');\n"
+        "  });\n"
+        "}\n"
+        "</script>"
+    )
+
     print("读取并内嵌核心数据...")
     inline_data = build_inline_data()
 
@@ -121,6 +141,7 @@ def main():
         "</head>\n<body>\n"
         + body_block + "\n"
         + inline_data + "\n"   # 数据在 body 末尾，脚本下载与 JSON 解析并行
+        + sw_register + "\n"
         "</body></html>"
     )
 
