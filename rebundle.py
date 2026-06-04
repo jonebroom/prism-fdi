@@ -45,6 +45,7 @@ ID_TO_FILE = {
     "countries":  "countries.json",
     "policy":     "policy_texts.json",
     "search":     "search_index.json",
+    "worldmap":   "world.json",
 }
 
 def encode_file(path: Path) -> str:
