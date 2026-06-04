@@ -51,10 +51,15 @@ GOOGLE_FONTS = (
     '&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"></noscript>'
 )
 
-CDN_SCRIPTS = (
-    '<script src="js/lib/echarts.min.js"></script>\n'
-    '<script src="js/lib/fuse.min.js"></script>'
-)
+def build_preloads(script_paths):
+    """生成 preload 链接，让浏览器尽早开始下载脚本"""
+    lines = []
+    for p in script_paths:
+        lines.append(f'<link rel="preload" as="script" href="{p}">')
+    return "\n".join(lines)
+
+def build_deferred_scripts(script_paths):
+    return "\n".join(f'<script defer src="{p}"></script>' for p in script_paths)
 
 def build_inline_data():
     parts = ["<script>window.__PRISM_DATA = {"]
@@ -76,22 +81,29 @@ def main():
     font_end = next(i for i, l in enumerate(lines)
                     if l.strip().startswith(":root{") or l.strip().startswith(":root "))
 
-    css_block     = "\n".join(lines[font_end:1200])
-    body_block    = "\n".join(lines[1202:1543])
-    scripts_block = "\n".join(lines[1543:1559])
+    css_block  = "\n".join(lines[font_end:1200])
+    body_block = "\n".join(lines[1202:1543])
 
-    # 替换 UUID script src → 真实路径
-    def replace_script(m):
-        uuid = m.group(1)
-        if uuid not in UUID_TO_SCRIPT:
-            return m.group(0)
-        path = UUID_TO_SCRIPT[uuid]
-        return f'<script src="{path}"></script>' if path else ""
-
-    scripts_block = re.sub(
-        r'<script src="([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"></script>',
-        replace_script, scripts_block
-    )
+    # 收集脚本路径（跳过 CDN→None 的，替换 UUID→路径）
+    script_paths = ["js/lib/echarts.min.js", "js/lib/fuse.min.js"]
+    for uuid in [
+        "20fcc60b-425a-4554-9b7c-bfd826df118a",
+        "d8f1a2b3-c4e5-4678-9abc-def012345678",
+        "a253b5ef-0579-413e-89b9-92bf0571eda6",
+        "13e37cb5-088d-4188-911d-8d14ce59f712",
+        "f6ffb756-4b8d-465d-b9c8-e3c66627e344",
+        "3ede55b6-a75e-4dfb-b9ad-3aa7923c8de5",
+        "e3b79dc0-fcea-4c89-b4b5-e2b2b8a0b983",
+        "363f401a-3c1b-486b-b12b-a4c1d1b69a72",
+        "93fca39a-560d-41a2-9a1b-0c7e2799da93",
+        "94efe1a4-1cbf-4603-b26c-2088068bf595",
+        "88352e4e-025f-44e3-b07f-bda43a3a7ed6",
+        "e20255b8-0cf8-4163-8ac8-05f169ce4b93",
+        "b1c2d3e4-f5a6-7890-abcd-ef1234567890",
+    ]:
+        p = UUID_TO_SCRIPT.get(uuid)
+        if p:
+            script_paths.append(p)
 
     print("读取并内嵌核心数据...")
     inline_data = build_inline_data()
@@ -103,12 +115,12 @@ def main():
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
         "<title>PRISM · FDI Screening Mechanism Data Platform</title>\n"
         + GOOGLE_FONTS + "\n"
+        + build_preloads(script_paths) + "\n"
+        + build_deferred_scripts(script_paths) + "\n"
         "<style>\n" + css_block + "\n</style>\n"
         "</head>\n<body>\n"
         + body_block + "\n"
-        + inline_data + "\n"
-        + CDN_SCRIPTS + "\n"
-        + scripts_block + "\n"
+        + inline_data + "\n"   # 数据在 body 末尾，脚本下载与 JSON 解析并行
         "</body></html>"
     )
 
