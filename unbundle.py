@@ -43,8 +43,12 @@ INLINE_DATA_FILES = {
 GOOGLE_FONTS = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-    '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600'
-    '&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">'
+    '<link rel="stylesheet" media="print" onload="this.media=\'all\'" '
+    'href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600'
+    '&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">\n'
+    '<noscript><link rel="stylesheet" '
+    'href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600'
+    '&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"></noscript>'
 )
 
 CDN_SCRIPTS = (
