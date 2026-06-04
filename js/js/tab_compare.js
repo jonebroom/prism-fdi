@@ -6,28 +6,34 @@
   const P=window.PRISM, UI=window.PRISM_UI;
   let chart, root, colorBy='group';
 
-  const AXES=[
-    {name:'Mechanisms',get:r=>r.num_mechanisms,max:6},
-    {name:'Strictness',get:r=>P.strictness(r),max:13},
-    {name:'Sectors',get:r=>P.sectorCount(r),max:37},
-    {name:'Threshold%',get:r=>r.threshold!=null?+(r.threshold*100).toFixed(0):null,max:50},
-    {name:'Timeframe',get:r=>r.time_frame_days,max:300},
-    {name:'Fines',get:r=>r.fines?1:0,max:1,bin:true},
-    {name:'Mitigation',get:r=>r.mitigation?1:0,max:1,bin:true},
-    {name:'Interagency',get:r=>r.interagency_review?1:0,max:1,bin:true},
-    {name:'NS Test',get:r=>r.ns_test?1:0,max:1,bin:true},
-    {name:'Net Benefit',get:r=>r.net_benefit_test?1:0,max:1,bin:true},
-  ];
+  function t(k){ return window.PRISM_I18N ? window.PRISM_I18N.t(k) : k; }
+
+  // AXES 在 mount 时动态构建，确保语言正确
+  function buildAxes(){ return [
+    {key:'cmp_ax_mechanisms', get:r=>r.num_mechanisms,           max:6},
+    {key:'cmp_ax_strictness', get:r=>P.strictness(r),            max:13},
+    {key:'cmp_ax_sectors',    get:r=>P.sectorCount(r),           max:37},
+    {key:'cmp_ax_threshold',  get:r=>r.threshold!=null?+(r.threshold*100).toFixed(0):null, max:50, pct:true},
+    {key:'cmp_ax_timeframe',  get:r=>r.time_frame_days,          max:300, days:true},
+    {key:'cmp_ax_fines',      get:r=>r.fines?1:0,                max:1, bin:true},
+    {key:'cmp_ax_mitigation', get:r=>r.mitigation?1:0,           max:1, bin:true},
+    {key:'cmp_ax_interagency',get:r=>r.interagency_review?1:0,   max:1, bin:true},
+    {key:'cmp_ax_ns_test',    get:r=>r.ns_test?1:0,              max:1, bin:true},
+    {key:'cmp_ax_net_benefit',get:r=>r.net_benefit_test?1:0,     max:1, bin:true},
+  ].map(a=>({...a, name:t(a.key)})); }
+
+  let AXES=[];
 
   function mount(el){
     root=el;
+    AXES=buildAxes();
     el.innerHTML=`
       <div class="panel">
         <div class="panel-head">
-          <div class="titles"><h2>Multi-Country Parallel Coordinates</h2><p id="cmpSub">Current year cross-section · Drag axis range to filter · Hover to highlight</p></div>
+          <div class="titles"><h2>${t('cmp_title')}</h2><p id="cmpSub">${t('cmp_sub')}</p></div>
           <div class="seg" id="cmpColor">
-            <button data-v="group" class="on">Color by group</button>
-            <button data-v="strict">Color by strictness</button>
+            <button data-v="group" class="on">${t('cmp_color_group')}</button>
+            <button data-v="strict">${t('cmp_color_strict')}</button>
           </div>
         </div>
         <div class="panel-body">
@@ -47,19 +53,21 @@
   function legend(){
     if(colorBy==='group'){
       root.querySelector('#cmpLegend').innerHTML=
-        `<div class="lg"><span class="sw" style="background:${P.GROUPS.oecd.hex}"></span>OECD</div>
-         <div class="lg"><span class="sw" style="background:${P.GROUPS.eu.hex}"></span>EU/EEA</div>
-         <div class="lg"><span class="sw" style="background:${P.GROUPS.fiveeyes.hex}"></span>Five Eyes</div>
-         <div class="lg muted" style="margin-left:6px;font-size:11px">Click a line to view country details</div>`;
+        `<div class="lg"><span class="sw" style="background:${P.GROUPS.oecd.hex}"></span>${t('group_oecd')}</div>
+         <div class="lg"><span class="sw" style="background:${P.GROUPS.eu.hex}"></span>${t('group_eu')}</div>
+         <div class="lg"><span class="sw" style="background:${P.GROUPS.fiveeyes.hex}"></span>${t('group_fiveeyes')}</div>
+         <div class="lg muted" style="margin-left:6px;font-size:11px">${t('cmp_legend_click')}</div>`;
     } else {
       const seq=['--seq-1','--seq-3','--seq-5'].map(v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim());
-      root.querySelector('#cmpLegend').innerHTML=`<div class="lg"><span style="font-family:var(--mono);color:var(--ink-faint)">Lenient</span>
+      root.querySelector('#cmpLegend').innerHTML=`<div class="lg">
+        <span style="font-family:var(--mono);color:var(--ink-faint)">${t('cmp_lenient')}</span>
         <span style="display:inline-block;width:120px;height:10px;border-radius:5px;background:linear-gradient(to right,${seq.join(',')})"></span>
-        <span style="font-family:var(--mono);color:var(--ink-faint)">Strict</span></div>`;
+        <span style="font-family:var(--mono);color:var(--ink-faint)">${t('cmp_strict_lbl')}</span></div>`;
     }
   }
 
   function draw(){
+    AXES=buildAxes(); // 每次 draw 前重建，确保语言同步
     legend();
     const yr=P.STATE.year;
     const active=P.activeCountries();
@@ -68,21 +76,30 @@
       const vals=AXES.map(a=>a.get(r));
       rows.push({country:c,value:vals,strict:P.strictness(r)});
     });
-    root.querySelector('#cmpSub').innerHTML=`${yr} cross-section · ${rows.length} countries with mechanisms · Drag axis to filter · Click line for details`;
+    root.querySelector('#cmpSub').innerHTML=t('cmp_sub_live')
+      .replace('{yr}',yr).replace('{n}',rows.length);
     const seq=['--seq-1','--seq-3','--seq-5'].map(v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim());
     const lineColor=(d)=> colorBy==='group'? P.groupColor(d.country)
       : seq[d.strict<=4?0:d.strict<=8?1:2];
     chart.setOption({
       tooltip:Object.assign(P.EC.tip(),{trigger:'item',formatter:p=>{
         const d=p.data; let h=P.tipHead(UI.cnShort(d.country));
-        AXES.forEach((a,i)=>{ h+=P.tipRow(a.name, a.bin?P.fmt.yn(d.value[i]):(d.value[i]==null?'—':d.value[i]+(a.name.includes('%')?'%':a.name==='Timeframe'?' days':''))); });
+        AXES.forEach((a,i)=>{
+          let val;
+          if(a.bin)       val=P.fmt.yn(d.value[i]);
+          else if(d.value[i]==null) val='—';
+          else if(a.pct)  val=d.value[i]+'%';
+          else if(a.days) val=d.value[i]+' '+t('ct_days');
+          else            val=d.value[i];
+          h+=P.tipRow(a.name, val);
+        });
         return h;
       }}),
       parallelAxis:AXES.map((a,i)=>({dim:i,name:a.name,max:a.max,min:0,
         nameTextStyle:{color:P.EC.inkSoft,fontSize:11},
         axisLine:{lineStyle:{color:'#cdd2db'}},
         axisLabel:{color:P.EC.faint,fontSize:10,fontFamily:P.EC.mono,
-          formatter:a.bin?(v=>v>=1?'Yes':v<=0?'No':''):undefined},
+          formatter:a.bin?(v=>v>=1?t('cmp_yes'):v<=0?t('cmp_no'):''):undefined},
         axisTick:{show:false},
         ...(a.bin?{interval:1}:{})
       })),

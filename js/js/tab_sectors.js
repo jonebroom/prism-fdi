@@ -6,26 +6,28 @@
   const P=window.PRISM, UI=window.PRISM_UI;
   let heat, bars, root, mode='detail', raceTimer=null, raceYear=null;
 
+  function t(k){ return window.PRISM_I18N ? window.PRISM_I18N.t(k) : k; }
+
   function mount(el){
     root=el;
     el.innerHTML=`
       <div class="stack">
         <div class="panel">
           <div class="panel-head">
-            <div class="titles"><h2>Sector Coverage Heatmap</h2><p id="secSub">Rows (sectors) × Columns (countries) · Dark = covered that year</p></div>
+            <div class="titles"><h2>${t('sec_heat_title')}</h2><p id="secSub">${t('sec_heat_sub')}</p></div>
             <div class="seg" id="secMode">
-              <button data-v="detail" class="on" id="secDetailBtn">Detailed Sectors</button>
-              <button data-v="aggr">8 Aggregate Categories</button>
+              <button data-v="detail" class="on" id="secDetailBtn">${t('sec_detail_btn')}</button>
+              <button data-v="aggr">${t('sec_aggr_btn')}</button>
             </div>
           </div>
           <div class="panel-body" style="overflow-x:auto;"><div class="chart" id="secHeat"></div></div>
         </div>
         <div class="panel">
           <div class="panel-head">
-            <div class="titles"><h2>Sector Coverage Ranking</h2><p>How many countries include each sector · Click Play to watch coverage spread</p></div>
+            <div class="titles"><h2>${t('sec_bar_title')}</h2><p>${t('sec_bar_sub')}</p></div>
             <div style="display:flex;gap:8px;align-items:center;">
               <span class="tag" id="secYr"></span>
-              <button class="seg-btn" id="secPlay">▶ Play</button>
+              <button class="seg-btn" id="secPlay">${t('sec_play')}</button>
             </div>
           </div>
           <div class="panel-body"><div class="chart" id="secBars" style="height:640px;"></div></div>
@@ -34,7 +36,7 @@
     heat=echarts.init(el.querySelector('#secHeat'));
     bars=echarts.init(el.querySelector('#secBars'));
     const detailBtn=el.querySelector('#secDetailBtn');
-    if(detailBtn) detailBtn.textContent=P.DATA.sectorNames.length+' detailed sectors';
+    if(detailBtn) detailBtn.textContent=P.DATA.sectorNames.length+' '+t('sec_detail_btn');
     el.querySelectorAll('#secMode button').forEach(b=>b.onclick=()=>{
       el.querySelectorAll('#secMode button').forEach(x=>x.classList.toggle('on',x===b));
       mode=b.dataset.v; drawHeat();
@@ -59,7 +61,7 @@
       const seq=['--seq-0','--seq-5'].map(v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim());
       heat.getDom().style.height=Math.max(480,sectors.length*15+120)+'px'; heat.resize();
       heat.setOption({
-        tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(secCN(sectors[p.value[1]]))+P.tipRow(UI.cnShort(cols[p.value[0]]),p.value[2]?'✓ Covered':'Not covered')}),
+        tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(secCN(sectors[p.value[1]]))+P.tipRow(UI.cnShort(cols[p.value[0]]),p.value[2]?t('tip_covered'):t('tip_not_covered'))}),
         grid:{left:160,right:20,top:84,bottom:8},
         xAxis:{type:'category',data:cols.map(c=>UI.cnShort(c)),position:'top',
           axisLabel:{rotate:55,color:P.EC.inkSoft,fontSize:10,interval:0},axisLine:{show:false},axisTick:{show:false},splitArea:{show:false}},
@@ -78,7 +80,7 @@
       const seq=['--seq-0','--seq-2','--seq-4','--seq-5'].map(v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim());
       heat.getDom().style.height='360px'; heat.resize();
       heat.setOption({
-        tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(catCN(cats[p.value[1]]))+P.tipRow(UI.cnShort(cols[p.value[0]]),(p.value[2]*100).toFixed(0)+'% coverage')}),
+        tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(catCN(cats[p.value[1]]))+P.tipRow(UI.cnShort(cols[p.value[0]]),(p.value[2]*100).toFixed(0)+t('tip_coverage_sfx'))}),
         grid:{left:200,right:20,top:84,bottom:8},
         xAxis:{type:'category',data:cols.map(c=>UI.cnShort(c)),position:'top',
           axisLabel:{rotate:55,color:P.EC.inkSoft,fontSize:10,interval:0},axisLine:{show:false},axisTick:{show:false}},
@@ -87,7 +89,7 @@
         series:[{type:'heatmap',data,itemStyle:{borderColor:'#fff',borderWidth:2,borderRadius:3},label:{show:true,formatter:p=>p.value[2]>0?(p.value[2]*100).toFixed(0):'',color:'#fff',fontSize:9,fontFamily:P.EC.mono}}]
       },true);
     }
-    root.querySelector('#secSub').textContent=`${yr} · ${cols.length} countries · ${mode==='detail'?P.DATA.sectorNames.length+' detailed sectors':'8 categories'}`;
+    root.querySelector('#secSub').textContent=`${yr} · ${cols.length} ${t('sec_sub_countries')} · ${mode==='detail'?P.DATA.sectorNames.length+' '+t('sec_sub_detail_sfx'):t('sec_sub_aggr_sfx')}`;
   }
 
   function drawBars(yr){
@@ -100,9 +102,9 @@
     root.querySelector('#secYr').textContent=yr+' ';
     const seq=getComputedStyle(document.documentElement);
     bars.setOption({
-      tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(secCN(p.name))+P.tipRow('Countries',p.value+' / '+active.length)}),
+      tooltip:Object.assign(P.EC.tip(),{formatter:p=>P.tipHead(secCN(p.name))+P.tipRow(t('ov_trend_countries_y'),p.value+' / '+active.length)}),
       grid:{left:170,right:48,top:10,bottom:20},
-      xAxis:P.EC.axis({type:'value',max:active.length,name:'Countries',nameLocation:'middle',nameGap:30}),
+      xAxis:P.EC.axis({type:'value',max:active.length,name:t('ov_trend_countries_y'),nameLocation:'middle',nameGap:30}),
       yAxis:{type:'category',data:top.map(d=>secCN(d.s)),axisLabel:{color:P.EC.inkSoft,fontSize:11,interval:0},axisLine:{show:false},axisTick:{show:false}},
       series:[{type:'bar',data:top.map(d=>d.n),barWidth:'62%',
         itemStyle:{color:p=>{const t=p.value/active.length;const c=['--seq-1','--seq-3','--seq-5'][t<.33?0:t<.66?1:2];return seq.getPropertyValue(c).trim();},borderRadius:[0,4,4,0]},
@@ -111,17 +113,14 @@
     });
   }
 
-  // sector CN labels (concise)
-const SEC_CN={'Defense Production':'Defense Production','Energy Infrastructure':'Energy Infrastructure','Water Infrastructure':'Water Infrastructure','Transportation Infrastructure':'Transportation Infrastructure','Telecommunications Infrastructure':'Telecom Infrastructure','Healthcare Infrastructure':'Healthcare Infrastructure','Education and Training':'Education & Training','Agriculture/Food Security':'Agriculture / Food Security','Finance':'Finance','Media':'Media','Research Institutions':'Research Institutions','Sensitive Personal Data':'Sensitive Personal Data','Controlled Dual-Use':'Controlled Dual-Use','Biotechology':'Biotechnology','Biotechnology':'Biotechnology','Artificial Intelligence and Machine Learning':'AI & Machine Learning','Logistics Technology':'Logistics Technology','Microprocessor Technology':'Microprocessor Technology','Advanced Computing Technology':'Advanced Computing','Data Analytics Technology':'Data Analytics','Quantum Information and Sensing Technology':'Quantum Technology','Additive Manufacturing':'Additive Manufacturing','Robotics':'Robotics','Brain-Computer Interfaces':'Brain-Computer Interfaces','Hypersonics':'Hypersonics','Advanced Materials':'Advanced Materials','Advanced Surveillance Technologies':'Advanced Surveillance','Cyber Security':'Cyber Security','Defense Technologies':'Defense Technologies','Energy Storage':'Energy Storage','Civil Nuclear':'Civil Nuclear','Gambling':'Gambling','Mineral Resources':'Mineral Resources','Tourism':'Tourism','Space':'Space','Critical Supplies':'Critical Supplies'};
-const CAT_CN={'Defense':'Defense','Physical/Conventional Critical Infrastructure':'Physical Critical Infrastructure','Next Gen Critical Infrastructure':'Next-Gen Critical Infrastructure','Critical Technologies and Dual Use':'Critical Tech & Dual-Use','Non-tradeable Services':'Non-tradeable Services','Finance':'Finance','Media':'Media','Access to Personal Sensitive Data':'Sensitive Personal Data'};
-  function secCN(s){ return SEC_CN[s]||s; }
-  function catCN(s){ s=s.trim(); return CAT_CN[s]||s; }
+  function secCN(s){ return window.PRISM_I18N ? window.PRISM_I18N.translateSector(s) : s; }
+  function catCN(s){ return window.PRISM_I18N ? window.PRISM_I18N.translateCat(s) : s; }
 
   function toggleRace(){
     if(raceTimer){ stopRace(); return; }
     raceYear=P.DATA.yearMin;
     const btn=root.querySelector('#secPlay');
-    btn.textContent='❚❚ Pause';
+    btn.textContent=t('sec_pause');
     raceTimer=setInterval(()=>{
       drawBars(raceYear); drawHeat(raceYear);
       root.querySelector('#secYr').textContent=raceYear+' ';
@@ -132,7 +131,7 @@ const CAT_CN={'Defense':'Defense','Physical/Conventional Critical Infrastructure
   function stopRace(){
     if(raceTimer){ clearInterval(raceTimer); raceTimer=null; }
     const btn=root&&root.querySelector('#secPlay');
-    if(btn) btn.textContent='▶ Play';
+    if(btn) btn.textContent=t('sec_play');
   }
 
   function update(){ stopRace(); drawHeat(); drawBars(); }

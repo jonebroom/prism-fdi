@@ -137,18 +137,90 @@
 \end{frame}
 }
 
+%% ─── 网站介绍：PRISM平台一览 ────────────────────────────────
+\begin{frame}{我们建了什么：PRISM平台}
+  \begin{columns}[T]
+    \begin{column}{0.50\linewidth}
+      \textbf{\color{prismclay}PRISM}（Policy Review and Investment Screening Mechanisms）\\
+      是一个交互式外商直接投资审查机制数据平台\\[0.8em]
+      \begin{tcolorbox}[colback=bluebg, colframe=prismblue, arc=3pt,
+        left=6pt, right=6pt, top=4pt, bottom=4pt]
+        \begin{tabular}{ll}
+          \textbf{覆盖国家} & 38个（OECD·EU/EEA·五眼）\\
+          \textbf{时间跨度} & 2007—2023年（17年）\\
+          \textbf{时序记录} & 650条国家-年数据\\
+          \textbf{立法事件} & 143项\\
+          \textbf{政策文本} & 141份原文（PDF+HTML）\\
+          \textbf{行业指标} & 36个细分 + 8个汇总类\\
+        \end{tabular}
+      \end{tcolorbox}
+      \vspace{0.6em}
+      \begin{exampleblock}{访问地址（无需登录）}
+        \centering\small\ttfamily jonebroom.github.io/prism-fdi/
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.47\linewidth}
+      \imgbox{7cm}{平台Overview Tab截图}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%% ─── 六个分析模块 ────────────────────────────────────────────
+\begin{frame}{六个分析模块}
+  \begin{table}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{clX}
+    \toprule
+    \textbf{Tab} & \textbf{名称} & \textbf{功能} \\
+    \midrule
+    01 & Overview  & 世界地图着色·全球趋势折线图·年度快照统计 \\
+    02 & Country   & 单国深度档案：雷达图·KPI卡·法规气泡时间线·13项指标格 \\
+    03 & Comparison & 多国平行坐标图：拖动坐标轴筛选国家子集 \\
+    04 & Evolution & 覆盖类型演变·严格程度分布·通知×预审批矩阵·法规替代网络 \\
+    05 & Changes   & 立法活动柱状图·逐年事件列表·点击同步全局年份滑块 \\
+    06 & Sectors   & 36行业×38国热力图·行业排名赛马动图 \\
+    \bottomrule
+  \end{tabularx}
+  \end{table}
+  \vspace{0.3em}
+  \begin{columns}[T]
+    \begin{column}{0.33\linewidth}
+      \begin{block}{\small 全局控件（左侧栏）}
+        \footnotesize
+        年份滑块（2007—2023）\\
+        ▶ 播放时间轴动画\\
+        OECD / EU/EEA / Five Eyes 筛选\\
+        国家列表（点击跳转）
+      \end{block}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{alertblock}{\small Deal Screener}
+        \footnotesize
+        ⚡ Check Deal\\
+        输入目标国、行业、拟收购比例\\
+        → 自动判断是否需要申报
+      \end{alertblock}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{exampleblock}{\small Ask AI}
+        \footnotesize
+        自然语言提问PRISM数据\\
+        支持Claude·GPT·DeepSeek\\
+        等多个模型后端
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 %% ─── 1. 起点：我有一份数据集 ─────────────────────────────────
 \begin{frame}{起点：我有一份政策数据集}
   \begin{columns}[T]
     \begin{column}{0.52\linewidth}
       \textbf{\color{prismclay}PRISM ISM Dataset（2023.12版）}\\[0.5em]
       \begin{itemize}
-        \item \textbf{38个国家}的外商直接投资（FDI）审查机制
-        \item 时间跨度：\textbf{2007—2023年}（17年）
-        \item \textbf{13项程序性指标}逐年编码
-        \item 650条时间序列记录
-        \item 143项立法事件
-        \item 141份原始政策文本（PDF+HTML）
+        \item \textbf{38个国家} × \textbf{17年}（2007—2023）逐年编码
+        \item \textbf{13项程序性指标}：是否强制预审批、门槛、时限……
+        \item 141份原始政策文本（PDF + HTML）
       \end{itemize}
       \vspace{0.8em}
       \begin{alertblock}{问题}
@@ -328,8 +400,6 @@ def parse_threshold(val):
 \begin{frame}{第二步：界面框架（Initial commit 16:26）}
   \begin{columns}[T]
     \begin{column}{0.5\linewidth}
-      \commit{d692818}{Initial commit: PRISM FDI Screening Platform}
-      \vspace{0.6em}
       \textbf{Claude一次性生成了：}\\[0.4em]
       \begin{itemize}
         \item 左侧控制栏
@@ -445,9 +515,7 @@ def parse_threshold(val):
 \end{frame}
 
 %% ─── 9. Deal Screener ───────────────────────────────────────
-\begin{frame}{第五步：Deal Screener（19:24）}
-  \commit{864ac33}{Practitioner-focused redesign: summary card + Deal Screener}
-  \vspace{0.4em}
+\begin{frame}{第五步：Deal Screener}
   \begin{columns}[T]
     \begin{column}{0.5\linewidth}
       \textbf{"这笔投资需要申报吗？"}\\[0.4em]
@@ -546,42 +614,6 @@ def parse_threshold(val):
         能\textbf{清晰描述bug现象}\\
         比会写代码更重要
       \end{exampleblock}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-%% ─── 12. 移动端适配 ─────────────────────────────────────────
-\begin{frame}{移动端适配（20:13）}
-  \commit{b513a2c}{Add mobile-responsive layout with off-canvas rail}
-  \vspace{0.5em}
-  \begin{columns}[T]
-    \begin{column}{0.55\linewidth}
-      \textbf{原问题}：窄屏手机上左侧控制栏占满屏幕\\[0.4em]
-      \textbf{解决方案}（AI设计）：
-      \begin{itemize}
-        \item $<768$ px时侧边栏默认隐藏
-        \item 左上角 ☰ 按钮唤出抽屉
-        \item 选中国家后自动关闭侧边栏
-        \item Tab栏水平滚动
-        \item 图表面板垂直堆叠
-      \end{itemize}
-      \vspace{0.5em}
-      \begin{tcolorbox}[colback=bluebg, colframe=prismblue, arc=3pt,
-        left=6pt, right=6pt, top=3pt, bottom=3pt, fontupper=\small]
-        我只说了"手机上布局不对"，\\
-        AI推断出所有需要改的CSS断点和JS逻辑。\\
-        我验证了3个不同屏幕尺寸。
-      \end{tcolorbox}
-    \end{column}
-    \begin{column}{0.42\linewidth}
-      \begin{columns}
-        \begin{column}{0.48\linewidth}
-          \imgbox{5.5cm}{桌面端截图}
-        \end{column}
-        \begin{column}{0.48\linewidth}
-          \imgbox{5.5cm}{移动端截图}
-        \end{column}
-      \end{columns}
     \end{column}
   \end{columns}
 \end{frame}

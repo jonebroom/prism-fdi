@@ -23,6 +23,7 @@ HTML_PATH     = BASE_DIR / "index.html"
 JS_UUID_TO_FILE = {
     "13e37cb5-088d-4188-911d-8d14ce59f712": "tab_overview.js",
     "20fcc60b-425a-4554-9b7c-bfd826df118a": "state.js",
+    "d8f1a2b3-c4e5-4678-9abc-def012345678": "i18n.js",
     "a253b5ef-0579-413e-89b9-92bf0571eda6": "ui.js",
     "f6ffb756-4b8d-465d-b9c8-e3c66627e344": "tab_country.js",
     "e3b79dc0-fcea-4c89-b4b5-e2b2b8a0b983": "tab_evolution.js",

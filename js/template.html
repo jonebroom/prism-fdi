@@ -962,11 +962,11 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 
 /* info rows */
 .inforows{display:flex;flex-direction:column;gap:0;}
-.inforow{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+.inforow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
 .inforow:last-child{border-bottom:none;}
-.inforow .ir-k{color:var(--ink-soft);}
+.inforow .ir-k{color:var(--ink-soft);flex-shrink:0;min-width:110px;}
 .inforow .ir-v{font-weight:500;color:var(--ink);text-align:right;font-family:var(--mono);font-size:12.5px;}
-.inforow .ir-v.txt{font-family:var(--sans);font-size:13px;}
+.inforow .ir-v.txt{font-family:var(--sans);font-size:13px;text-align:right;}
 
 /* badges */
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.01em;}
@@ -1069,6 +1069,15 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
   color:var(--ink-soft);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;
   margin-left:6px;transition:background .14s,color .14s;flex-shrink:0;}
 .btn-info:hover{background:var(--paper-2);color:var(--ink);}
+/* 语言切换按钮 */
+.btn-lang{height:32px;padding:0 11px;border-radius:8px;border:1px solid var(--line);background:transparent;
+  color:var(--ink-soft);font-size:12px;font-family:inherit;cursor:pointer;display:flex;align-items:center;
+  gap:4px;margin-left:6px;transition:background .14s,color .14s,border-color .14s;flex-shrink:0;white-space:nowrap;
+  letter-spacing:.02em;}
+.btn-lang:hover{background:var(--paper-2);color:var(--ink);border-color:var(--line-strong);}
+.btn-lang:active{transform:scale(.97);}
+@media(max-width:700px){.btn-lang{font-size:0;width:32px;padding:0;justify-content:center;}
+  .btn-lang::before{content:"🌐";font-size:15px;}}
 
 /* ===== PRACTITIONER CARD (Country tab) ===== */
 .pcard{padding:0;}
@@ -1128,23 +1137,30 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 .scr-disclaimer{font-size:11px;color:var(--ink-faint);line-height:1.55;padding:12px 0;border-top:1px solid var(--line);margin-top:8px;}
 
 /* info drawer */
-.info-drawer{width:min(540px,94vw);}
-.info-section{margin-bottom:4px;border-bottom:1px solid var(--line);padding-bottom:16px;padding-top:16px;}
+.info-drawer{width:min(560px,94vw);}
+.info-section{margin-bottom:0;border-bottom:1px solid var(--line);padding:20px 0;}
 .info-section:last-child{border-bottom:none;}
-.info-section-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-soft);margin-bottom:10px;}
-.info-section-body p{font-size:13px;color:var(--ink);line-height:1.6;margin:0 0 8px;}
+.info-section-title{
+  font-size:12.5px;font-weight:700;letter-spacing:0;text-transform:none;
+  color:var(--ink);margin-bottom:14px;
+  display:flex;align-items:center;gap:0;
+  padding-left:11px;border-left:3px solid #4f6f9e;line-height:1.3;}
+.info-section-body p{font-size:13px;color:var(--ink);line-height:1.65;margin:0 0 9px;}
 .info-section-body p:last-child{margin-bottom:0;}
 /* faq */
-.faq-item{padding:9px 0;border-bottom:1px dashed var(--line);}
-.faq-item:last-child{border-bottom:none;}
-.faq-q{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;}
-.faq-a{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+.faq-item{padding:11px 0;border-bottom:1px solid var(--line);}
+.faq-item:last-child{border-bottom:none;padding-bottom:0;}
+.faq-q{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;line-height:1.4;}
+.faq-a{font-size:13px;color:var(--ink-soft);line-height:1.6;}
 /* chart entries in info drawer */
-.chart-entry{padding:9px 0;border-bottom:1px dashed var(--line);}
-.chart-entry:last-child{border-bottom:none;}
-.chart-name{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:3px;}
-.chart-desc{font-size:12px;color:var(--ink-soft);line-height:1.6;}
+.chart-entry{padding:10px 0;border-bottom:1px solid var(--line);}
+.chart-entry:last-child{border-bottom:none;padding-bottom:0;}
+.chart-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.35;}
+.chart-desc{font-size:13px;color:var(--ink-soft);line-height:1.65;}
+/* kbd */
+kbd{display:inline-block;font-family:var(--mono);font-size:10.5px;background:var(--bg-alt,#f4f5f7);
+  border:1px solid var(--line-strong,#c8cdd6);border-bottom:2px solid var(--line-strong,#c8cdd6);
+  border-radius:3px;padding:1px 5px;color:var(--ink);vertical-align:middle;line-height:1.4;}
 .ai-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);}
 .ai-head .ai-t{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);}
 .ai-head .ai-t .dot{width:8px;height:8px;border-radius:50%;background:var(--clay);}
@@ -1187,8 +1203,8 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 
 <div class="loading" id="loading">
   <div class="spinner"></div>
-  <div class="lt"><b>PRISM</b> FDI Screening Database</div>
-  <div class="ls" id="loadStatus">Loading data…</div>
+  <div class="lt"><b>PRISM</b> <span data-i18n="loading_brand">FDI Screening Database</span></div>
+  <div class="ls" id="loadStatus" data-i18n="loading_status">Loading data…</div>
 </div>
 
 <div class="rail-scrim" id="railScrim"></div>
@@ -1198,19 +1214,20 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
   <header class="topbar">
     <button class="btn-hamburger" id="railOpen" title="Open country selector">☰</button>
     <div class="brand">
-      <div class="mark"><span class="prism">PRISM</span> ISM Database</div>
-      <div class="sub">FDI Screening Mechanism Data Platform · <b>38</b> countries · <b>2007–2023</b></div>
+      <div class="mark"><span class="prism">PRISM</span> <span data-i18n="brand_mark">ISM Database</span></div>
+      <div class="sub"><span data-i18n="brand_sub">FDI Screening Mechanism Data Platform</span> · <b id="brandCnt">38</b> countries · <b>2007–2023</b></div>
     </div>
     <div class="spacer"></div>
     <div class="search-box">
       <span class="ico">⌕</span>
-      <input id="globalSearch" type="text" placeholder="Search countries, regulations, policy text…" autocomplete="off">
+      <input id="globalSearch" type="text" placeholder="Search countries, regulations, policy text…" data-i18n-ph="search_placeholder" autocomplete="off">
       <span class="kbd">/</span>
       <div id="searchResults" class="search-results"></div>
     </div>
-    <button class="btn-screener" id="screenerOpen" title="Check if a deal requires screening">⚡ <span class="scr-btn-text">Check Deal</span></button>
-    <button class="btn-ai" id="aiOpen"><span class="dot"></span><span class="ai-btn-text">Ask AI</span></button>
-    <button class="btn-info" id="infoOpen" title="Platform guide &amp; data notes">ℹ</button>
+    <button class="btn-screener" id="screenerOpen" title="Check if a deal requires screening">⚡ <span class="scr-btn-text" data-i18n="btn_check_deal">Check Deal</span></button>
+    <button class="btn-ai" id="aiOpen"><span class="dot"></span><span class="ai-btn-text" data-i18n="btn_ask_ai">Ask AI</span></button>
+    <button class="btn-lang" id="langToggle" title="切换语言 / Switch language">🌐 中文</button>
+    <button class="btn-info" id="infoOpen" data-i18n-ttl="btn_info_title" title="Platform guide &amp; data notes">ℹ</button>
   </header>
 
   <!-- ===== CONTROL RAIL ===== -->
@@ -1220,7 +1237,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
       <button class="drawer-close" id="railClose" title="Close">✕</button>
     </div>
     <div class="rail-section">
-      <h3>Year <span class="cnt" id="yearCnt"></span></h3>
+      <h3><span data-i18n="rail_year">Year</span> <span class="cnt" id="yearCnt"></span></h3>
       <div class="year-display">
         <span class="yr" id="yearVal">2023</span>
         <span class="rng" id="yearRng">2007 — 2023</span>
@@ -1228,36 +1245,36 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
       <input type="range" class="year-slider" id="yearSlider" min="2007" max="2023" value="2023" step="1">
       <div class="year-ticks"><span>2007</span><span>2015</span><span>2023</span></div>
       <div class="play-row">
-        <button class="play-btn" id="playBtn">▶ Play Timeline</button>
+        <button class="play-btn" id="playBtn" data-i18n="btn_play">▶ Play Timeline</button>
       </div>
     </div>
 
     <div class="rail-section">
-      <h3>Country Groups <span class="cnt">Filter</span></h3>
+      <h3><span data-i18n="rail_groups">Country Groups</span> <span class="cnt" data-i18n="rail_filter">Filter</span></h3>
       <div class="group-list" id="groupList"></div>
     </div>
 
     <div class="rail-section" style="flex:1;display:flex;flex-direction:column;min-height:0;">
-      <h3>Countries <span class="cnt" id="countryCnt"></span></h3>
-      <input type="text" class="country-search" id="countrySearch" placeholder="Filter countries…">
+      <h3><span data-i18n="rail_countries">Countries</span> <span class="cnt" id="countryCnt"></span></h3>
+      <input type="text" class="country-search" id="countrySearch" placeholder="Filter countries…" data-i18n-ph="filter_countries">
       <div class="country-list" id="countryList"></div>
     </div>
 
     <div class="rail-foot">
-      Source · <b>PRISM ISM Dataset</b> (2023.12)<br>
-      Time Series 650 · Regulations 143 · Changes 230 · Policy texts 141
+      <span data-i18n="rail_footer">Source · <b>PRISM ISM Dataset</b> (2023.12)</span><br>
+      <span data-i18n="rail_footer2">Time Series 650 · Regulations 143 · Changes 230 · Policy texts 141</span>
     </div>
   </aside>
 
   <!-- ===== MAIN ===== -->
   <main class="main">
     <nav class="tabbar" id="tabbar">
-      <button class="tab active" data-tab="overview"><span class="tnum">01</span>Overview</button>
-      <button class="tab" data-tab="country"><span class="tnum">02</span>Country</button>
-      <button class="tab" data-tab="compare"><span class="tnum">03</span>Comparison</button>
-      <button class="tab" data-tab="evolution"><span class="tnum">04</span>Evolution</button>
-      <button class="tab" data-tab="changes"><span class="tnum">05</span>Changes</button>
-      <button class="tab" data-tab="sectors"><span class="tnum">06</span>Sectors</button>
+      <button class="tab active" data-tab="overview"><span class="tnum">01</span><span data-i18n="tab_overview">Overview</span></button>
+      <button class="tab" data-tab="country"><span class="tnum">02</span><span data-i18n="tab_country">Country</span></button>
+      <button class="tab" data-tab="compare"><span class="tnum">03</span><span data-i18n="tab_compare">Comparison</span></button>
+      <button class="tab" data-tab="evolution"><span class="tnum">04</span><span data-i18n="tab_evolution">Evolution</span></button>
+      <button class="tab" data-tab="changes"><span class="tnum">05</span><span data-i18n="tab_changes">Changes</span></button>
+      <button class="tab" data-tab="sectors"><span class="tnum">06</span><span data-i18n="tab_sectors">Sectors</span></button>
     </nav>
     <div class="tab-scroll" id="tabScroll">
       <section class="tabpane active" id="pane-overview"></section>
@@ -1288,131 +1305,201 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 <div class="drawer-scrim" id="infoScrim"></div>
 <aside class="drawer info-drawer" id="infoDrawer">
   <div class="drawer-head">
-    <div><h2>Platform Guide</h2><div class="meta">How to use PRISM · Plain-language reference</div></div>
+    <div><h2 data-i18n="info_title">User Manual</h2><div class="meta" data-i18n="info_sub">PRISM ISM Database · Version 1.0 · Data coverage: 2007–2023</div></div>
     <button class="drawer-close" id="infoClose">✕</button>
   </div>
   <div class="drawer-body" id="infoBody">
 
-    <!-- WHAT IS THIS -->
+    <!-- 1. PLATFORM OVERVIEW -->
     <div class="info-section">
-      <div class="info-section-title">What is this platform?</div>
+      <div class="info-section-title">1. Platform Overview</div>
       <div class="info-section-body">
-        <p><strong>PRISM</strong> is a research database that tracks how 38 countries regulate foreign investment — specifically, whether they require government approval before a foreign company can acquire a local business or asset, and how strict those rules are.</p>
-        <p>It covers the period <strong>2007–2023</strong> and is built from official legislation, government announcements, and policy documents. The data reflects the state of each country's rules <em>as of each year</em> — not just the year a law was passed.</p>
+        <p><strong>PRISM</strong> (Policy Review and Investment Screening Mechanisms) is an interactive data platform providing comprehensive time-series data on FDI screening mechanisms across 38 countries from 2007 to 2023.</p>
         <div class="inforows" style="margin-top:10px">
-          <div class="inforow"><span class="ir-k">Countries covered</span><span class="ir-v">38 (OECD, EU, Five Eyes)</span></div>
-          <div class="inforow"><span class="ir-k">Years covered</span><span class="ir-v">2007 – 2023</span></div>
-          <div class="inforow"><span class="ir-k">Data updated to</span><span class="ir-v">End of 2023</span></div>
-          <div class="inforow"><span class="ir-k">Data source</span><span class="ir-v">Official legislation + OECD/IMF reviews + primary research</span></div>
+          <div class="inforow"><span class="ir-k">Countries</span><span class="ir-v">38 (OECD · EU/EEA · Five Eyes)</span></div>
+          <div class="inforow"><span class="ir-k">Coverage</span><span class="ir-v">2007 – 2023 (annual observations)</span></div>
+          <div class="inforow"><span class="ir-k">Records</span><span class="ir-v">650 time-series · 143 laws · 230 changes · 141 policy texts</span></div>
+          <div class="inforow"><span class="ir-k">Sectors tracked</span><span class="ir-v">36 specific + 8 aggregate categories</span></div>
+          <div class="inforow"><span class="ir-k">Indicators</span><span class="ir-v">13 binary procedural powers + 4 quantitative fields</span></div>
+        </div>
+        <p style="margin-top:10px"><strong>Intended users:</strong> legal practitioners &amp; compliance teams, investment professionals, policy researchers, and government officials benchmarking against peers.</p>
+      </div>
+    </div>
+
+    <!-- 2. INTERFACE LAYOUT -->
+    <div class="info-section">
+      <div class="info-section-title">2. Interface Layout</div>
+      <div class="info-section-body">
+        <div class="chart-entry">
+          <div class="chart-name">Top navigation bar</div>
+          <div class="chart-desc">Contains the PRISM logo, global search box, <strong>⚡ Check Deal</strong> screener, AI assistant, and this manual button. Press <kbd>/</kbd> anywhere to focus search. Press <kbd>Esc</kbd> to close any open drawer.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">Left control sidebar</div>
+          <div class="chart-desc"><strong>Year selector</strong> — drag the slider across 2007–2023; click <strong>▶ Play Timeline</strong> to animate year by year. <strong>Country group filters</strong> — toggle OECD / EU/EEA / Five Eyes. <strong>Country list</strong> — click any country to select it and open the Country tab.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">Six analysis tabs</div>
+          <div class="chart-desc">All tabs respond to the global year and country selections in the sidebar.</div>
+        </div>
+        <div class="inforows" style="margin-top:6px">
+          <div class="inforow"><span class="ir-k">01 Overview</span><span class="ir-v txt">World map + global trend line + annual snapshot panel</span></div>
+          <div class="inforow"><span class="ir-k">02 Country</span><span class="ir-v txt">Deep-dive profile for the selected country</span></div>
+          <div class="inforow"><span class="ir-k">03 Compare</span><span class="ir-v txt">Parallel-coordinates chart across all active countries</span></div>
+          <div class="inforow"><span class="ir-k">04 Evolution</span><span class="ir-v txt">Coverage type trends, strictness distribution, network graph</span></div>
+          <div class="inforow"><span class="ir-k">05 Changes</span><span class="ir-v txt">Annual global legislative activity with event cards</span></div>
+          <div class="inforow"><span class="ir-k">06 Sectors</span><span class="ir-v txt">Sector coverage heatmap and ranking chart</span></div>
+        </div>
+        <div class="chart-entry" style="margin-top:10px">
+          <div class="chart-name">Keyboard shortcuts</div>
+          <div class="chart-desc">
+            <div class="inforows">
+              <div class="inforow"><span class="ir-k"><kbd>/</kbd></span><span class="ir-v txt">Focus global search</span></div>
+              <div class="inforow"><span class="ir-k"><kbd>Esc</kbd></span><span class="ir-v txt">Close any open drawer</span></div>
+              <div class="inforow"><span class="ir-k"><kbd>↑</kbd> <kbd>↓</kbd></span><span class="ir-v txt">Navigate search results</span></div>
+              <div class="inforow"><span class="ir-k"><kbd>Enter</kbd></span><span class="ir-v txt">Jump to first search result</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- WHO IS IT FOR -->
+    <!-- 3. TAB GUIDE -->
     <div class="info-section">
-      <div class="info-section-title">Who is this for &amp; what can I do?</div>
+      <div class="info-section-title">3. Tab-by-Tab Guide</div>
       <div class="info-section-body">
         <div class="chart-entry">
-          <div class="chart-name">I'm planning a cross-border acquisition or investment</div>
-          <div class="chart-desc">Use <strong>⚡ Check Deal</strong> (top right) to get a quick read on whether your target country is likely to require government approval. Then go to the <strong>Country tab</strong> to see the full picture: who reviews it, how long it takes, what sectors are covered, and which laws apply.</div>
+          <div class="chart-name">01 Overview</div>
+          <div class="chart-desc">The world map shades countries by your chosen dimension (strictness score, sectors covered, review threshold, or max review days). <strong>Click any country</strong> to see a summary card; click <em>View Profile →</em> to open the full Country tab. The trend line below tracks how many countries had a given feature active each year — click any year on the chart to jump the global slider to that year.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">I need to understand a specific country's rules</div>
-          <div class="chart-desc">Click any country on the map, or use the <strong>search bar</strong> (or press <kbd>/</kbd>) to jump straight to a country. The <strong>Country tab</strong> shows you the current mechanism in plain terms — filing requirements, review authority, timeframe, and which sectors are covered — plus the full history of how the rules have changed over time.</div>
+          <div class="chart-name">02 Country</div>
+          <div class="chart-desc">Practitioner summary card at the top answers "do I need to file?" — showing filing requirement, review authority, threshold, and max review days. Below: a radar chart (8 dimensions vs. OECD average + a comparison year), full field list, 16 binary indicators, and a regulation timeline. <strong>Click any regulation bubble</strong> to open its details drawer with policy text and AI summary link.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">I want to compare rules across multiple countries</div>
-          <div class="chart-desc">The <strong>Compare tab</strong> lines up all countries side by side on key dimensions. The <strong>Overview map</strong> gives a global picture at a glance. Use the year slider on the left to see how the landscape looked in any year from 2007 to 2023.</div>
+          <div class="chart-name">03 Compare</div>
+          <div class="chart-desc">Parallel-coordinates chart with one colored line per country. <strong>Drag on any axis</strong> to filter — only lines passing through the selected range stay highlighted. <strong>Click any line</strong> to navigate to that country's profile. Use the color toggle to switch between group colors and strictness gradient.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">I'm researching policy trends or doing due diligence</div>
-          <div class="chart-desc">The <strong>Evolution tab</strong> shows how rules have tightened globally over time. The <strong>Changes tab</strong> lists every new law and amendment by year — click any entry to read the original legislative text. The <strong>Sectors tab</strong> shows which industries have become subject to screening, and when.</div>
+          <div class="chart-name">04 Evolution</div>
+          <div class="chart-desc">Five charts: coverage-type pie, notification × pre-approval bubble matrix, stacked area over time, strictness band chart (average ± min/max), and scatter plot (threshold or timeframe vs. strictness). The regulation network graph shows replacement relationships — click any node to open that country's profile.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">I have a specific question about the data</div>
-          <div class="chart-desc">Click <strong>Ask AI</strong> (top right) to ask questions in plain language — for example: "Which countries require pre-approval for tech sector deals?" or "How has Germany's screening changed since 2018?"</div>
+          <div class="chart-name">05 Changes</div>
+          <div class="chart-desc">Bar chart of annual global legislative activity broken down by type (New Law · Amendment · Executive Order · Implementing Regulation). <strong>Click any bar</strong> to select that year — the event list below updates and the global year slider syncs. Click any event card to read the policy text.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">06 Sectors</div>
+          <div class="chart-desc">Heatmap rows = sectors, columns = countries. Toggle between 36 specific sectors and 8 aggregate categories (with % coverage shading). The ranking bar chart shows how many countries cover each sector — click <strong>▶ Play</strong> to animate the ranking over time.</div>
         </div>
       </div>
     </div>
 
-    <!-- KEY CONCEPTS -->
+    <!-- 4. DEAL SCREENER -->
     <div class="info-section">
-      <div class="info-section-title">Key concepts explained</div>
+      <div class="info-section-title">4. Deal Screener</div>
+      <div class="info-section-body">
+        <p>Answers the core practical question: <em>"Is this investment likely to require filing?"</em> Open via <strong>⚡ Check Deal</strong> in the top bar, or via the <strong>⚡ Check a specific deal</strong> button on any Country profile card.</p>
+        <div class="chart-entry">
+          <div class="chart-name">Inputs</div>
+          <div class="chart-desc"><strong>Target country</strong> · <strong>Sector</strong> (8 categories or 36 specific; leave blank if unsure) · <strong>Equity stake %</strong> (leave blank if unknown) · <strong>Your Country</strong> (matters where EU vs. non-EU distinction applies)</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">Verdict levels</div>
+          <div class="chart-desc">
+            <div class="inforows">
+              <div class="inforow"><span class="ir-k" style="color:#bf6a4a">Likely subject to review</span><span class="ir-v txt">Sector covered, stake above threshold, mandatory pre-approval</span></div>
+              <div class="inforow"><span class="ir-k" style="color:#c79a3e">Review may apply</span><span class="ir-v txt">Some factors suggest filing, but certainty is limited</span></div>
+              <div class="inforow"><span class="ir-k" style="color:#3f8a5e">Below threshold</span><span class="ir-v txt">Stake is below the recorded trigger threshold</span></div>
+              <div class="inforow"><span class="ir-k" style="color:#3f8a5e">Sector not covered</span><span class="ir-v txt">Selected sector is outside the screening mechanism</span></div>
+              <div class="inforow"><span class="ir-k" style="color:#9aa0aa">No mechanism</span><span class="ir-v txt">No active formal mechanism recorded for selected year</span></div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)"><strong>Disclaimer:</strong> The screener provides guidance based on PRISM data only — it is not legal advice. Always verify with the relevant authority or qualified legal counsel before proceeding.</p>
+      </div>
+    </div>
+
+    <!-- 5. AI ASSISTANT -->
+    <div class="info-section">
+      <div class="info-section-title">5. AI Data Assistant</div>
+      <div class="info-section-body">
+        <p>Supports natural-language queries against PRISM data. The assistant is context-aware — it knows the current year, selected country, active group filters, and active tab.</p>
+        <div class="chart-entry">
+          <div class="chart-name">What it can do</div>
+          <div class="chart-desc">Compare mechanisms across countries · identify trends · explain data fields · list countries with specific features · summarize individual regulations (via <em>Summarize with AI →</em> in any policy drawer)</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">Configuration (⚙ icon)</div>
+          <div class="chart-desc">Choose provider (Anthropic/OpenAI/DeepSeek/MiniMax/GLM/Kimi/custom), model, and API key. Keys are stored only in your browser's local storage and sent directly to the provider — never routed elsewhere.</div>
+        </div>
+        <p style="margin-top:6px;font-size:12px;color:var(--ink-soft)">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> to add a new line. Responses are capped at ~250 words.</p>
+      </div>
+    </div>
+
+    <!-- 6. SEARCH -->
+    <div class="info-section">
+      <div class="info-section-title">6. Global Search</div>
+      <div class="info-section-body">
+        <div class="inforows">
+          <div class="inforow"><span class="ir-k">Countries</span><span class="ir-v txt">By name — click result to select country and open Country tab</span></div>
+          <div class="inforow"><span class="ir-k">Regulations</span><span class="ir-v txt">Regulation titles and country names in the events database</span></div>
+          <div class="inforow"><span class="ir-k">Policy texts</span><span class="ir-v txt">Full-text search across all 141 policy documents; matched paragraphs highlighted in amber</span></div>
+        </div>
+        <p style="margin-top:8px">Use the <strong>Countries / Regulations / Policy</strong> toggle at the top of the results panel to switch mode. Press <kbd>/</kbd> from anywhere to focus the search box.</p>
+      </div>
+    </div>
+
+    <!-- 7. KEY CONCEPTS -->
+    <div class="info-section">
+      <div class="info-section-title">7. Key Concepts</div>
       <div class="info-section-body">
         <div class="chart-entry">
-          <div class="chart-name">What does "screening mechanism" mean?</div>
-          <div class="chart-desc">A formal government process that reviews — and can block or impose conditions on — foreign acquisitions of domestic companies or assets. Not every country has one, and those that do vary greatly in scope and strictness.</div>
+          <div class="chart-name">Strictness score (0–13)</div>
+          <div class="chart-desc">Counts how many of 13 procedural powers exist in law. Measures <em>procedural strength</em>, not likelihood of blocking a deal — enforcement culture and political context also matter.</div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">What is the "strictness score" (0–13)?</div>
-          <div class="chart-desc">A simple count of how many of 13 specific powers or requirements the country's screening mechanism includes — things like whether it can impose conditions, levy fines, or review minority stakes. A score of 0 means no mechanism (or a very bare one); 13 means all features are present. It measures <em>procedural strength</em>, not how likely a deal is to be blocked.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">What is the "review threshold"?</div>
-          <div class="chart-desc">The minimum equity stake (ownership percentage) that triggers a mandatory review. For example, a 10% threshold means acquiring 10% or more of a company may require government approval. Some countries set different thresholds for sensitive sectors.</div>
-        </div>
-        <div class="chart-entry">
-          <div class="chart-name">What does "coverage type" mean?</div>
-          <div class="chart-desc">How broadly the screening rules apply:
-            <div class="inforows" style="margin-top:8px">
-              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#4f6f9e;flex-shrink:0"></span>Cross-sectoral</span><span class="ir-v txt">Applies to all industries — any foreign deal may be reviewed</span></div>
-              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#bf6a4a;flex-shrink:0"></span>Sectoral</span><span class="ir-v txt">Only specific industries (e.g. defense, energy) are covered</span></div>
-              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#7d5ba6;flex-shrink:0"></span>Mixed</span><span class="ir-v txt">A broad screen plus additional rules for high-risk sectors</span></div>
-              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#c79a3e;flex-shrink:0"></span>Asset-based</span><span class="ir-v txt">Triggered by acquiring specific assets (land, infrastructure) rather than companies</span></div>
-              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#9aa0aa;flex-shrink:0"></span>Draft / Not yet in force</span><span class="ir-v txt">Law is proposed or passed but not yet taking effect</span></div>
+          <div class="chart-name">Coverage type</div>
+          <div class="chart-desc">
+            <div class="inforows">
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#4f6f9e;flex-shrink:0"></span>Cross-sectoral</span><span class="ir-v txt">All industries — any foreign deal may be reviewed</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#bf6a4a;flex-shrink:0"></span>Sectoral</span><span class="ir-v txt">Specific industries only (e.g. defense, energy)</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#7d5ba6;flex-shrink:0"></span>Mixed</span><span class="ir-v txt">Broad screen plus sector-specific add-ons</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#c79a3e;flex-shrink:0"></span>Asset-based</span><span class="ir-v txt">Triggered by asset type (land, infrastructure), not sector</span></div>
+              <div class="inforow"><span class="ir-k" style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#9aa0aa;flex-shrink:0"></span>Draft / Not yet in force</span><span class="ir-v txt">Law proposed or passed but not yet effective</span></div>
             </div>
           </div>
         </div>
         <div class="chart-entry">
-          <div class="chart-name">What are "notification" and "pre-approval"?</div>
-          <div class="chart-desc"><strong>Notification</strong> means the investor must inform the government of the deal — but can often proceed while it is reviewed. <strong>Pre-approval</strong> (also called mandatory filing) means the investor must receive government clearance <em>before</em> closing the deal. Pre-approval is the stricter requirement.</div>
+          <div class="chart-name">Notification vs. pre-approval</div>
+          <div class="chart-desc"><strong>Notification</strong>: investor must inform the government — deal can often proceed during review. <strong>Pre-approval</strong>: government clearance required <em>before</em> closing. Pre-approval is the stricter requirement.</div>
+        </div>
+        <div class="chart-entry">
+          <div class="chart-name">The 13 strictness indicators</div>
+          <div class="chart-desc">
+            <div class="inforows">
+              <div class="inforow"><span class="ir-k">Formal Call-in</span><span class="ir-v txt">Gov. can open review without a filing</span></div>
+              <div class="inforow"><span class="ir-k">Ownership Review</span><span class="ir-v txt">Triggered on incremental stake increases</span></div>
+              <div class="inforow"><span class="ir-k">Filing Fees</span><span class="ir-v txt">Fee required to submit a filing</span></div>
+              <div class="inforow"><span class="ir-k">Mitigation</span><span class="ir-v txt">Approval with binding conditions (e.g. asset divestiture)</span></div>
+              <div class="inforow"><span class="ir-k">Fines</span><span class="ir-v txt">Penalties for completing a deal without approval</span></div>
+              <div class="inforow"><span class="ir-k">National Security Test</span><span class="ir-v txt">Nat. security explicitly named as grounds</span></div>
+              <div class="inforow"><span class="ir-k">Net Benefit Test</span><span class="ir-v txt">Economic benefit assessed (common in Canada)</span></div>
+              <div class="inforow"><span class="ir-k">Competition Test</span><span class="ir-v txt">Market competition also considered</span></div>
+              <div class="inforow"><span class="ir-k">Interagency Review</span><span class="ir-v txt">Multiple agencies formally involved (e.g. CFIUS)</span></div>
+              <div class="inforow"><span class="ir-k">Tiered Authority</span><span class="ir-v txt">Different approval levels by deal size or sector</span></div>
+              <div class="inforow"><span class="ir-k">Local Representation</span><span class="ir-v txt">Local directors/legal rep required post-close</span></div>
+              <div class="inforow"><span class="ir-k">Enhanced Gov. Control</span><span class="ir-v txt">Golden share retained in strategic companies</span></div>
+              <div class="inforow"><span class="ir-k">Co-location</span><span class="ir-v txt">Sensitive data/infrastructure must stay in-country</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- THE 13 INDICATORS -->
+    <!-- 8. FAQ -->
     <div class="info-section">
-      <div class="info-section-title">The 13 strictness indicators — plain language</div>
-      <div class="info-section-body">
-        <p style="margin-bottom:10px">These are the specific powers and requirements we check for in each country's law. Each one scores 1 point if present.</p>
-        <div class="inforows">
-          <div class="inforow"><span class="ir-k">Formal Call-in</span><span class="ir-v txt">Government can open a review on its own, even if the investor didn't file</span></div>
-          <div class="inforow"><span class="ir-k">Ownership Review</span><span class="ir-v txt">Review is triggered when an investor increases their ownership stake past a threshold</span></div>
-          <div class="inforow"><span class="ir-k">Filing Fees</span><span class="ir-v txt">Investors must pay a fee to submit a filing</span></div>
-          <div class="inforow"><span class="ir-k">Mitigation</span><span class="ir-v txt">Government can approve a deal but attach binding conditions (e.g. sell off certain assets, share data with authorities)</span></div>
-          <div class="inforow"><span class="ir-k">Fines</span><span class="ir-v txt">Financial penalties exist for deals completed without approval or in violation of conditions</span></div>
-          <div class="inforow"><span class="ir-k">National Security Test</span><span class="ir-v txt">The law explicitly names national security as a reason to block or review a deal</span></div>
-          <div class="inforow"><span class="ir-k">Net Benefit Test</span><span class="ir-v txt">The deal is assessed on whether it benefits the national economy — not just security (common in Canada)</span></div>
-          <div class="inforow"><span class="ir-k">Competition Test</span><span class="ir-v txt">The review also considers whether the deal harms market competition</span></div>
-          <div class="inforow"><span class="ir-k">Interagency Review</span><span class="ir-v txt">Multiple government ministries or agencies are formally involved in the decision (like CFIUS in the US)</span></div>
-          <div class="inforow"><span class="ir-k">Tiered Authority</span><span class="ir-v txt">Different levels of government sign off depending on deal size or sector (e.g. ministry for small deals, cabinet for large ones)</span></div>
-          <div class="inforow"><span class="ir-k">Local Representation</span><span class="ir-v txt">The acquired company must appoint local directors or legal representatives after the deal closes</span></div>
-          <div class="inforow"><span class="ir-k">Enhanced Gov. Control</span><span class="ir-v txt">Government retains a special veto share ("golden share") in strategic companies even after privatisation</span></div>
-          <div class="inforow"><span class="ir-k">Co-location</span><span class="ir-v txt">Sensitive data or infrastructure must be stored or operated within the country</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- HOW TO USE THE TOOLS -->
-    <div class="info-section">
-      <div class="info-section-title">Quick tips for using the platform</div>
-      <div class="info-section-body">
-        <div class="inforows">
-          <div class="inforow"><span class="ir-k">Year slider (left panel)</span><span class="ir-v txt">Move it to see what any country's rules looked like in a specific year — all charts update instantly</span></div>
-          <div class="inforow"><span class="ir-k">▶ Play button</span><span class="ir-v txt">Animates through 2007–2023 automatically — watch how rules spread across the globe</span></div>
-          <div class="inforow"><span class="ir-k">Search bar (or press /)</span><span class="ir-v txt">Find a country or regulation instantly by name</span></div>
-          <div class="inforow"><span class="ir-k">⚡ Check Deal</span><span class="ir-v txt">Quick tool: enter a country, sector, and stake % to get an indicative screening assessment</span></div>
-          <div class="inforow"><span class="ir-k">Click any country (map)</span><span class="ir-v txt">Opens that country's full profile directly</span></div>
-          <div class="inforow"><span class="ir-k">Click a regulation (timeline)</span><span class="ir-v txt">Opens the original law text and key details in a side panel</span></div>
-          <div class="inforow"><span class="ir-k">Ask AI</span><span class="ir-v txt">Ask anything in plain English — the AI has access to all the data</span></div>
-          <div class="inforow"><span class="ir-k">Share a link</span><span class="ir-v txt">The URL updates as you navigate — copy it to share a specific country + year view</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="info-section">
-      <div class="info-section-title">Common questions</div>
+      <div class="info-section-title">8. Common Questions</div>
       <div class="info-section-body">
         <div class="faq-item">
           <div class="faq-q">Does this tell me definitively whether my deal needs approval?</div>
@@ -1428,7 +1515,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
         </div>
         <div class="faq-item">
           <div class="faq-q">Why does the year filter affect some charts but not others?</div>
-          <div class="faq-a">The year slider changes the "snapshot year" for cross-sectional views (map, country profiles, sector heatmap). Charts that show trends over time (like the Global Trend or Strictness Distribution) always show the full 2007–2023 range — the selected year is highlighted as a reference point.</div>
+          <div class="faq-a">The year slider changes the "snapshot year" for cross-sectional views (map, country profiles, sector heatmap). Charts that show trends over time always show the full 2007–2023 range — the selected year is marked as a reference point only.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q">How current is the data?</div>
@@ -1448,7 +1535,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 <div class="drawer-scrim" id="screenerScrim"></div>
 <aside class="drawer screener-drawer" id="screenerDrawer">
   <div class="drawer-head">
-    <div><h2>Deal Screener</h2><div class="meta">Does this investment require filing? · Based on PRISM data · <span id="screenerYearLabel"></span></div></div>
+    <div><h2 data-i18n="scr_drawer_title">Deal Screener</h2><div class="meta"><span data-i18n="scr_drawer_sub">Does this investment require filing? · Based on PRISM data</span> · <span id="screenerYearLabel"></span></div></div>
     <button class="drawer-close" id="screenerClose">✕</button>
   </div>
   <div class="drawer-body" id="screenerBody"></div>
@@ -1457,6 +1544,7 @@ input[type=range].year-slider::-webkit-slider-thumb:active{cursor:grabbing;trans
 <script src="74c6b04d-7b3e-47e4-b94c-4624d4d1f9fa"></script>
 <script src="22c67aad-9479-4879-8b1e-6b8df940e6b4"></script>
 <script src="20fcc60b-425a-4554-9b7c-bfd826df118a"></script>
+<script src="d8f1a2b3-c4e5-4678-9abc-def012345678"></script>
 <script src="a253b5ef-0579-413e-89b9-92bf0571eda6"></script>
 <script src="13e37cb5-088d-4188-911d-8d14ce59f712"></script>
 <script src="f6ffb756-4b8d-465d-b9c8-e3c66627e344"></script>

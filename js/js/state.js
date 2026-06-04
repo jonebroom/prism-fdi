@@ -34,25 +34,51 @@
     'ns_test','net_benefit_test','competition_test','interagency_review','tiered_authority',
     'local_representation','enhanced_gov_control','colocation'];
 
-  const PROC_LABELS = {
+  // PROC_LABELS — Proxy 实现运行时翻译（i18n.js 加载后自动生效）
+  const _PROC_LABELS_EN = {
     formal_call_in:'Formal Call-in', review_increased_ownership:'Increased Ownership Review', filing_fees:'Filing Fees',
     mitigation:'Mitigation', fines:'Fines', ns_test:'National Security Test', net_benefit_test:'Net Benefit Test',
     competition_test:'Competition Test', interagency_review:'Interagency Review', tiered_authority:'Tiered Authority',
     local_representation:'Local Representation', enhanced_gov_control:'Enhanced Gov. Control', colocation:'Co-location',
     greenfield_covered:'Greenfield', real_estate_covered:'Real Estate', export_control_dualuse:'Export Control / Dual-Use'
   };
+  const PROC_LABELS = new Proxy(_PROC_LABELS_EN, {
+    get(target, prop) {
+      const raw = target[prop];
+      if (raw === undefined) return undefined;
+      const i18n = window.PRISM_I18N;
+      if (!i18n) return raw;
+      const k = 'proc_' + prop;
+      const tr = i18n.t(k);
+      return tr !== k ? tr : raw;
+    }
+  });
 
-  // radar dims (8)
-  const RADAR_DIMS = [
-    {field:'ns_test', label:'NS Test'},
-    {field:'formal_call_in', label:'Formal Call-in'},
-    {field:'fines', label:'Fines'},
-    {field:'mitigation', label:'Mitigation'},
-    {field:'interagency_review', label:'Interagency Review'},
-    {field:'net_benefit_test', label:'Net Benefit Test'},
-    {field:'enhanced_gov_control', label:'Enhanced Gov. Control'},
-    {field:'review_increased_ownership', label:'Ownership Review'},
+  // RADAR_DIMS — 运行时取翻译标签
+  const _RADAR_DIMS = [
+    {field:'ns_test',                    labelKey:'radar_ns_test'},
+    {field:'formal_call_in',             labelKey:'radar_formal_call_in'},
+    {field:'fines',                      labelKey:'radar_fines'},
+    {field:'mitigation',                 labelKey:'radar_mitigation'},
+    {field:'interagency_review',         labelKey:'radar_interagency_review'},
+    {field:'net_benefit_test',           labelKey:'radar_net_benefit_test'},
+    {field:'enhanced_gov_control',       labelKey:'radar_enhanced_gov_control'},
+    {field:'review_increased_ownership', labelKey:'radar_review_increased_ownership'},
   ];
+  // 每次访问都返回带当前语言 label 的新数组
+  const RADAR_DIMS = new Proxy(_RADAR_DIMS, {
+    get(target, prop) {
+      const val = target[prop];
+      if (typeof prop === 'string' && !isNaN(prop)) {
+        const item = val;
+        if (!item) return item;
+        const i18n = window.PRISM_I18N;
+        const label = i18n ? i18n.t(item.labelKey) : item.labelKey;
+        return Object.assign({}, item, {label});
+      }
+      return val;
+    }
+  });
 
   // map: data country name -> echarts world geojson feature name
   const MAP_NAME = {
@@ -162,8 +188,16 @@
   const fmt = {
     pct:(v)=> v==null?'—':(Math.round(v*1000)/10)+'%',
     num:(v)=> v==null?'—':v,
-    days:(v)=> v==null?'—':v+' days',
-    yn:(v)=> v?'Yes':'No',
+    days:(v)=> {
+      if(v==null) return '—';
+      const u=window.PRISM_I18N?window.PRISM_I18N.t('ct_days'):'days';
+      return v+' '+u;
+    },
+    yn:(v)=> {
+      const I=window.PRISM_I18N;
+      if(!I) return v?'Yes':'No';
+      return v?I.t('val_yes'):I.t('val_no');
+    },
   };
 
   // ECharts shared theme bits

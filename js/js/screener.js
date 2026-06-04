@@ -1,13 +1,13 @@
 /* ============================================================
-   PRISM — Deal Screener
-   Answers: "Do I need to file for this deal?"
-   Uses existing timeseries data fields only.
+   PRISM — Deal Screener（国际化版）
    ============================================================ */
 (function(){
   'use strict';
   const P = window.PRISM;
 
-  // Sector categories from timeseries (sector_categories field)
+  function t(k){ return window.PRISM_I18N ? window.PRISM_I18N.t(k) : k; }
+  function fmt(str, vars){ return str.replace(/\{(\w+)\}/g, (_,k)=>vars[k]??''); }
+
   const SECTOR_CATS = [
     'Defense',
     'Physical/Conventional Critical Infrastructure',
@@ -19,65 +19,62 @@
     'Access to Personal Sensitive Data',
   ];
 
-  // Broader sector names from detailed sectors field
   function getSectorNames(){
     return (P.DATA.sectorNames||[]).slice();
   }
 
   function mount(el){
+    const cn = k => window.PRISM_UI ? window.PRISM_UI.cnName(k) : k;
     el.innerHTML = `
       <div class="scr-wrap">
-        <div class="scr-intro">Answer a few questions to check whether a foreign investment is likely to trigger screening in a given country.</div>
+        <div class="scr-intro">${t('scr_intro')}</div>
 
         <div class="scr-form">
           <div class="scr-field">
-            <label class="scr-label">Target Country</label>
+            <label class="scr-label">${t('scr_target')}</label>
             <select class="scr-select" id="scrCountry">
-              <option value="">— Select country —</option>
-              ${P.DATA.countries.map(c=>`<option value="${c.country}">${c.country}</option>`).join('')}
+              <option value="">${t('scr_select_country')}</option>
+              ${P.DATA.countries.map(c=>`<option value="${c.country}">${cn(c.country)}</option>`).join('')}
             </select>
           </div>
           <div class="scr-field">
-            <label class="scr-label">Sector / Industry</label>
+            <label class="scr-label">${t('scr_sector')}</label>
             <select class="scr-select" id="scrSector">
-              <option value="">— Select sector —</option>
-              <optgroup label="Broad Categories">
-                ${SECTOR_CATS.map(s=>`<option value="cat:${s}">${s}</option>`).join('')}
+              <option value="">${t('scr_select_sector')}</option>
+              <optgroup label="${t('scr_broad')}">
+                ${SECTOR_CATS.map(s=>`<option value="cat:${s}">${window.PRISM_I18N?window.PRISM_I18N.translateCat(s):s}</option>`).join('')}
               </optgroup>
-              <optgroup label="Specific Sectors" id="scrSectorDetailed"></optgroup>
+              <optgroup label="${t('scr_specific')}" id="scrSectorDetailed"></optgroup>
             </select>
           </div>
           <div class="scr-field">
-            <label class="scr-label">Proposed Acquisition Stake (%)</label>
+            <label class="scr-label">${t('scr_stake')}</label>
             <div class="scr-stake-row">
               <input class="scr-input" id="scrStake" type="number" min="0" max="100" step="1" placeholder="e.g. 25">
               <span class="scr-unit">%</span>
             </div>
           </div>
           <div class="scr-field">
-            <label class="scr-label">Your Country</label>
+            <label class="scr-label">${t('scr_origin')}</label>
             <select class="scr-select" id="scrOrigin">
-              <option value="">— Select country —</option>
-              <option value="__unknown">Unknown / Not disclosed</option>
-              ${P.DATA.countries.map(c=>`<option value="${c.country}" data-eu="${c.eu_eea||0}">${c.country}</option>`).join('')}
+              <option value="">${t('scr_select_country')}</option>
+              <option value="__unknown">${t('scr_unknown')}</option>
+              ${P.DATA.countries.map(c=>`<option value="${c.country}" data-eu="${c.eu_eea||0}">${cn(c.country)}</option>`).join('')}
             </select>
           </div>
-          <button class="scr-btn" id="scrRun">Check this deal →</button>
+          <button class="scr-btn" id="scrRun">${t('scr_run')}</button>
         </div>
 
         <div class="scr-result" id="scrResult" style="display:none"></div>
 
-        <div class="scr-disclaimer">
-          ⚠ This tool provides an indicative assessment based on publicly available data in the PRISM database. It does not constitute legal advice. Always consult the relevant national authority or legal counsel before proceeding.
-        </div>
+        <div class="scr-disclaimer">${t('scr_disclaimer')}</div>
       </div>`;
 
-    // Populate detailed sectors
     const detailedGroup = el.querySelector('#scrSectorDetailed');
     getSectorNames().forEach(s => {
       const opt = document.createElement('option');
       opt.value = 'sec:' + s;
-      opt.textContent = s;
+      opt.textContent = window.PRISM_I18N ? window.PRISM_I18N.translateSector(s) : s;
       detailedGroup.appendChild(opt);
     });
 
@@ -92,49 +89,44 @@
     const sectorVal = document.getElementById('scrSector').value;
     const stakeRaw = parseFloat(document.getElementById('scrStake').value);
     const originEl = document.getElementById('scrOrigin');
-    const originCountry = originEl.value;  // country name, '' or '__unknown'
-    // Derive EU/EEA status from the selected investor country
+    const originCountry = originEl.value;
     const selectedOpt = originEl.options[originEl.selectedIndex];
     const isEuInvestor = selectedOpt && selectedOpt.dataset.eu === '1';
     const origin = originCountry === '' || originCountry === '__unknown'
       ? 'any'
       : isEuInvestor ? 'eu' : 'non-eu';
     const resultEl = document.getElementById('scrResult');
+    const cName = window.PRISM_UI ? window.PRISM_UI.cnName(country) : country;
 
-    if(!country){ showError(resultEl,'Please select a target country.'); return; }
+    if(!country){ showError(resultEl, t('scr_err_country')); return; }
 
     const r = P.rec(country, P.STATE.year);
-    const stake = isNaN(stakeRaw) ? null : stakeRaw / 100; // normalise to 0-1
+    const stake = isNaN(stakeRaw) ? null : stakeRaw / 100;
 
-    // --- No mechanism ---
     if(!r || !r.coverage || r.coverage === 'Draft'){
-      showResult(resultEl, 'none', 'No formal screening mechanism',
-        `Based on available data, <strong>${country}</strong> does not have an active formal FDI screening mechanism in ${P.STATE.year}. Foreign investments are generally not subject to mandatory review.`,
+      showResult(resultEl, 'none', t('scr_no_mech_title'),
+        fmt(t('scr_no_mech_body'), {c: cName, yr: P.STATE.year}),
         [country]);
       return;
     }
 
     if(r.coverage === 'Passed (not implemented)'){
-      showResult(resultEl, 'warn', 'Mechanism enacted but not yet in force',
-        `${country} has passed screening legislation as of ${P.STATE.year}, but implementing regulations may not yet be in effect. Monitor for implementation date.`,
+      showResult(resultEl, 'warn', t('scr_not_impl_title'),
+        fmt(t('scr_not_impl_body'), {c: cName, yr: P.STATE.year}),
         [country]);
       return;
     }
 
-    // --- Analyse ---
-    const threshold = r.threshold; // 0-1 or null
+    const threshold = r.threshold;
     const isMandatory = r.preapproval && r.preapproval.toLowerCase().includes('mandatory');
     const isNotifMandatory = r.notification && r.notification.toLowerCase().includes('mandatory');
     const isCrossSectoral = r.coverage === 'Cross-sectoral' || r.coverage === 'Mixed';
-    const euDiff = r.eu_noeu_diff && origin === 'eu';
 
-    // Check sector coverage
-    let sectorCovered = null; // null = unknown/not checked
+    let sectorCovered = null;
     if(sectorVal){
       if(sectorVal.startsWith('cat:')){
         const catName = sectorVal.slice(4).trim();
         const cats = r.sector_categories || {};
-        // Find best match key
         const matchKey = Object.keys(cats).find(k => k.trim().toLowerCase() === catName.toLowerCase());
         if(matchKey !== undefined) sectorCovered = cats[matchKey] === 1 || cats[matchKey] === true;
       } else if(sectorVal.startsWith('sec:')){
@@ -145,79 +137,61 @@
       }
     }
 
-    // Threshold check
     let aboveThreshold = null;
     if(stake !== null && threshold !== null){
       aboveThreshold = stake >= threshold;
     }
 
-    // Build verdict
     const points = [];
-    let verdict, title, body;
+    let verdict, title;
+    const covLabel = (window.PRISM_UI&&window.PRISM_UI.COVERAGE[r.coverage]||{cn:r.coverage}).cn;
 
-    // Coverage scope
     if(isCrossSectoral){
-      points.push(`<strong>${country}</strong> applies <strong>${r.coverage.toLowerCase()}</strong> screening — applies to most or all foreign acquisitions.`);
+      points.push(fmt(t('scr_cross'), {c: cName, cov: covLabel}));
     } else {
       if(sectorCovered === true){
-        points.push(`The selected sector is <strong>within scope</strong> of ${country}'s screening mechanism.`);
+        points.push(fmt(t('scr_sec_in'), {c: cName}));
       } else if(sectorCovered === false){
-        points.push(`The selected sector does <strong>not appear to be covered</strong> by ${country}'s screening mechanism based on available data.`);
+        points.push(fmt(t('scr_sec_out'), {c: cName}));
       } else {
-        points.push(`${country} applies <strong>${r.coverage.toLowerCase()}</strong> screening. Sector coverage for your specific industry could not be determined from available data.`);
+        points.push(fmt(t('scr_sec_unk'), {c: cName, cov: covLabel}));
       }
     }
 
-    // Threshold check
     if(aboveThreshold === true){
-      points.push(`Your proposed stake of <strong>${(stake*100).toFixed(0)}%</strong> is at or above the recorded review threshold of <strong>${(threshold*100).toFixed(0)}%</strong>.`);
+      points.push(fmt(t('scr_above'), {s: (stake*100).toFixed(0), thr: (threshold*100).toFixed(0)}));
     } else if(aboveThreshold === false){
-      points.push(`Your proposed stake of <strong>${(stake*100).toFixed(0)}%</strong> is <strong>below</strong> the recorded review threshold of <strong>${(threshold*100).toFixed(0)}%</strong>. However, sector-specific thresholds may be lower.`);
+      points.push(fmt(t('scr_below'), {s: (stake*100).toFixed(0), thr: (threshold*100).toFixed(0)}));
     } else if(threshold !== null){
-      points.push(`Review threshold: <strong>≥ ${(threshold*100).toFixed(0)}% equity</strong>.`);
+      points.push(fmt(t('scr_thr_only'), {thr: (threshold*100).toFixed(0)}));
     }
 
-    // Filing type
     if(isMandatory){
-      points.push(`<strong>Pre-approval is mandatory</strong> — you must receive approval before closing the transaction.`);
+      points.push(t('scr_pre_mand'));
     } else if(isNotifMandatory){
-      points.push(`<strong>Notification is mandatory</strong> — filing is required even if pre-approval is not.`);
+      points.push(t('scr_notif_mand'));
     }
 
-    // EU difference
     if(r.eu_noeu_diff && origin !== 'any'){
-      if(origin === 'eu'){
-        points.push(`This mechanism treats EU and non-EU investors differently. As an EU investor you may be subject to <strong>lighter scrutiny</strong>.`);
-      } else {
-        points.push(`This mechanism treats EU and non-EU investors differently. As a non-EU investor you may face <strong>stricter review conditions</strong>.`);
-      }
+      points.push(t(origin === 'eu' ? 'scr_eu_lighter' : 'scr_eu_stricter'));
     }
 
-    // Timeframe
-    if(r.time_frame_days) points.push(`Maximum review period: <strong>${r.time_frame_days} days</strong> from notification.`);
+    if(r.time_frame_days) points.push(fmt(t('scr_timeframe'), {d: r.time_frame_days}));
+    if(r.lead_authority)  points.push(fmt(t('scr_authority'), {a: r.lead_authority}));
 
-    // Authority
-    if(r.lead_authority) points.push(`Lead authority: <strong>${r.lead_authority}</strong>.`);
-
-    // Determine verdict
     const likelyCovered = isCrossSectoral || sectorCovered === true;
     const likelyAbove = aboveThreshold === true || (aboveThreshold === null && stake === null);
 
     if(likelyCovered && likelyAbove && isMandatory){
-      verdict = 'high';
-      title = 'Review likely required';
+      verdict = 'high'; title = t('scr_high_title');
     } else if(likelyCovered && aboveThreshold === false){
-      verdict = 'low';
-      title = 'Below threshold — verify sector rules';
+      verdict = 'low';  title = t('scr_low_title');
     } else if(sectorCovered === false){
-      verdict = 'ok';
-      title = 'Sector appears out of scope';
+      verdict = 'ok';   title = t('scr_ok_title');
     } else if(likelyCovered || isMandatory){
-      verdict = 'warn';
-      title = 'Review may apply — verify with authority';
+      verdict = 'warn'; title = t('scr_warn_title');
     } else {
-      verdict = 'warn';
-      title = 'Insufficient data — consult authority';
+      verdict = 'warn'; title = t('scr_insuf_title');
     }
 
     showResult(resultEl, verdict, title, points.join(' '), [country]);
@@ -232,6 +206,7 @@
       none:  {bg:'#f4f5f7', border:'#9aa0aa', dot:'#9aa0aa', icon:'○'},
     };
     const c = colors[verdict] || colors.none;
+    const cName = countries&&countries[0] ? (window.PRISM_UI?window.PRISM_UI.cnName(countries[0]):countries[0]) : '';
     el.style.display = '';
     el.innerHTML = `
       <div class="scr-verdict" style="background:${c.bg};border-color:${c.border}">
@@ -240,10 +215,10 @@
           <span class="scr-verdict-title" style="color:${c.dot}">${title}</span>
         </div>
         <div class="scr-verdict-body">${body}</div>
-        ${countries&&countries.length?`<div class="scr-verdict-link"><button class="scr-country-link" data-c="${countries[0]}">View full ${countries[0]} profile →</button></div>`:''}
+        ${countries&&countries.length?`<div class="scr-verdict-link"><button class="scr-country-link" data-c="${countries[0]}">${fmt(t('scr_view_profile'),{c:cName})}</button></div>`:''}
       </div>`;
     el.querySelectorAll('.scr-country-link').forEach(btn => {
-      btn.onclick = () => { window.PRISM_UI.selectCountry(btn.dataset.c); window.PRISM_UI.switchTab('country'); };
+      btn.onclick = () => { window.PRISM_UI.closeScreener(); window.PRISM_UI.selectCountry(btn.dataset.c); window.PRISM_UI.switchTab('country'); };
     });
     el.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
@@ -252,6 +227,12 @@
     el.style.display = '';
     el.innerHTML = `<div class="scr-verdict" style="background:#fdf0ec;border-color:#bf6a4a"><div class="scr-verdict-body" style="color:#bf6a4a">${msg}</div></div>`;
   }
+
+  // 语言切换后重建 screener 表单
+  if(window.PRISM) window.PRISM.on('lang', ()=>{
+    const body = document.getElementById('screenerBody');
+    if(body && body.hasChildNodes()){ body.innerHTML=''; mount(body); }
+  });
 
   window.PRISM_SCREENER = { mount };
 })();
