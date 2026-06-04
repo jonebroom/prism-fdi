@@ -4,3 +4,19 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# LaTeX 编译产物
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# 临时文件
+C：*
+.claude/

@@ -1,0 +1,307 @@
+%% ============================================================
+%%  PRISM 平台演示指南
+%%  编译：xelatex demo_script.tex（两遍）
+%% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{ctex}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+
+\definecolor{prismblue}{HTML}{4f6f9e}
+\definecolor{prismclay}{HTML}{bf6a4a}
+\definecolor{prismgreen}{HTML}{3f8a5e}
+\definecolor{prismamber}{HTML}{c79a3e}
+\definecolor{darkink}{HTML}{2b3344}
+\definecolor{lightgray}{HTML}{f4f5f7}
+\definecolor{midgray}{HTML}{e2e5ea}
+\definecolor{demobg}{HTML}{fdf0ec}
+\definecolor{demoline}{HTML}{bf6a4a}
+
+\usepackage[colorlinks=true, linkcolor=prismblue, urlcolor=prismblue,
+            pdftitle={PRISM 平台演示指南}]{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fontawesome5}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+%% ─── 标题格式 ────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{darkink}}{}{0em}{\thesection\quad}[\vspace{-0.3em}\color{midgray}\rule{\linewidth}{0.8pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{prismblue}}{}{0em}{\thesubsection\quad}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{darkink}}{}{0em}{\thesubsubsection\quad}
+
+%% ─── 页眉页脚 ────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}\textbf{PRISM} 平台演示指南}
+\fancyhead[R]{\small\color{gray}\leftmark}
+\fancyfoot[C]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%% ─── 自定义框 ────────────────────────────────────────────────
+\newtcolorbox{demobox}[1][]{
+  enhanced, breakable,
+  colback=demobg, colframe=prismclay!70,
+  fonttitle=\bfseries\small,
+  title={\faDesktop\; 演示},
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  arc=4pt, #1
+}
+
+\newtcolorbox{tipbox}[1][]{
+  enhanced, breakable,
+  colback=prismblue!6, colframe=prismblue!50,
+  fonttitle=\bfseries\small, title={#1},
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=4pt
+}
+
+\newcommand{\uielem}[1]{\textit{#1}}
+\newcommand{\keycap}[1]{\texttt{\footnotesize[#1]}}
+\newcommand{\tabname}[1]{\textbf{\color{prismblue}#1}}
+
+\setlist[itemize]{itemsep=2pt, topsep=3pt}
+\setlist[enumerate]{itemsep=2pt, topsep=3pt}
+
+%% ============================================================
+\begin{document}
+
+%% ─── 封面 ────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\Huge\bfseries\color{prismclay} PRISM}\\[0.4em]
+  {\LARGE\bfseries\color{darkink} FDI 审查机制数据平台}\\[0.6em]
+  {\large\color{gray} 现场演示指南}
+
+  \vspace{1.5cm}
+  \color{midgray}\rule{0.5\linewidth}{1pt}\color{black}
+  \vspace{1.5cm}
+
+  {\normalsize\url{https://jonebroom.github.io/prism-fdi/}}\\[0.6em]
+  {\normalsize\color{gray} 本文档供演示者参考，说明各功能模块的核心内容\\及现场应展示的操作步骤。}
+
+  \vfill
+  {\small\color{gray} 社科数据分析方法课 · 2026 年 6 月}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%% ============================================================
+\section{平台概览}
+
+PRISM（Policy Review and Investment Screening Mechanisms）是一个交互式外商直接投资审查机制数据平台，覆盖 38 个国家 2007 至 2023 年间的逐年编码记录。平台提供六个分析模块、合规初步筛查工具、AI 数据助手与政策原文全文检索，公开访问，无需登录。
+
+\subsection{数据范围}
+
+平台基于 PRISM ISM Dataset（版本 2023.12），每条记录对应一个国家的某一年，包含 13 项程序性二元指标（是否存在正式传唤权、跨机构审查、罚款等）及 4 项量化字段（门槛比例、审查时限、覆盖行业数、机制数量）。除时序数据外，平台还收录了 141 份原始政策文件供全文检索。
+
+\subsection{界面结构}
+
+界面由四个固定区域组成：左侧控件栏、顶部工具栏、标签导航栏和主内容区。左侧栏中的年份滑块、分组开关与国家列表是作用于全平台的全局控件，任意一项调整均会同步更新所有图表。顶栏提供搜索框、Deal Screener 入口和 AI 助手入口。
+
+\begin{demobox}
+  打开 \url{https://jonebroom.github.io/prism-fdi/}，向听众指出界面四个区域。\textbf{拖动年份滑块}，让听众看到地图颜色随年份实时变化；依次点击 \uielem{OECD}、\uielem{EU/EEA}、\uielem{Five Eyes} 开关，展示分组筛选对列表和图表的联动效果。
+\end{demobox}
+
+%% ============================================================
+\section{Tab 01 — Overview：全球概览}
+
+Overview 是平台打开时的默认视图，展示所选年份全球 FDI 审查活动的横截面快照。
+
+\subsection{世界地图}
+
+地图按所选维度对各国着色，颜色越深表示数值越高。可选维度包括：严格程度评分（0–13，所有程序指标之和）、覆盖行业数、审查门槛（触发审查的最低持股比例）、最长审查时限（天数）。点击任意国家弹出浮动卡片，显示该国关键指标；点击"View Details →"跳转至国家详情页。
+
+\subsection{全球趋势图}
+
+左下方折线图追踪每年拥有某项程序特征的国家数量，叠加显示当年全球新建机制数量的柱状图。图中两条垂直虚线分别标注 2019 年（EU FDI 审查条例的推动节点）和 2020 年（新冠疫情应急立法浪潮）。点击图中任意年份即可跳转至该年。
+
+\subsection{年度快照面板}
+
+右下角面板汇总当前筛选范围内的年度数据：有效机制国家数、平均严格程度、平均覆盖行业数、本年新建机制数，以及各覆盖类型的横向条形分布。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 点击地图维度下拉菜单，切换至"Sectors Covered"，观察着色变化。
+    \item 点击地图上的\textbf{德国（Germany）}，查看浮动卡片，随后点击"View Details →"。
+    \item 在趋势图上点击 \textbf{2020} 年，让全局滑块同步跳转，观察地图与快照面板的变化。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Tab 02 — Country：国家详情}
+
+Country Tab 提供单一国家 FDI 审查机制的深度档案，是合规实务查询最常用的模块。
+
+\subsection{从业者摘要卡}
+
+摘要卡顶部右侧的颜色徽章概括机制严格程度：灰色表示无机制，绿色为低严格度（0–3），琥珀色为中（4–7），红橙色为高（8–13）。卡片主体显示申报要求（是否强制预审批、门槛比例、最长审查时限）和审查机构信息（主管机构、审查依据）。卡片底部的 \uielem{⚡ Check a specific deal} 按钮可预填该国信息并直接打开 Deal Screener。
+
+\subsection{雷达图}
+
+雷达图在 8 个程序维度上同时展示三条参考线：红橙线为当前年份该国数值，灰色虚线为 OECD 均值，蓝色点线为用户从下拉菜单选择的历史对比年。通过历史对比可以直观看出某国机制在哪些维度上随时间收紧。
+
+\subsection{法规气泡时间线}
+
+时间线上每个气泡代表一项监管文书，气泡大小与覆盖行业数成正比，颜色对应覆盖类型。点击气泡展开详情抽屉，包含法规全名、生效年份、政策原文摘录、AI 摘要按钮以及 PDF 下载链接。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 在左侧列表中点击\textbf{德国}，跳转到国家详情页，指出摘要卡各区块的含义。
+    \item 在雷达图"Compare"下拉中选择 \textbf{2015}，对比两年变化。
+    \item 点击时间线上一个较大的气泡（如德国 2017 年法规），在抽屉中展示政策原文摘录与下载链接。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Tab 03 — Comparison：多国比较}
+
+Comparison Tab 使用平行坐标图，将所有有效国家在同一视图中展示，横跨多个量化与二元指标。每条彩色线代表一个国家，线在各竖轴上的位置反映该指标的取值。
+
+核心交互是在坐标轴上拖动选区：只有穿过选区的线保持高亮，其余线变为浅灰色，从而快速筛选满足特定条件组合的国家子集。例如，在严格程度轴选取 8 以上，同时在门槛轴选取 25\% 以下，即可找出"高严格、低门槛"的司法管辖区。悬停某条线显示完整指标；点击直接跳转至该国详情页。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 切换至 Comparison Tab，在\textbf{严格程度}轴拖动选区至高分段，观察高亮效果。
+    \item 悬停一条高亮线，展示 tooltip；随后点击该线跳转至对应国家详情。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Tab 04 — Evolution：机制演变}
+
+Evolution Tab 包含五张图，从不同角度展示 FDI 审查制度在 2007 至 2023 年间的结构性演变。
+
+\textbf{覆盖类型饼图}：显示当年各国机制按覆盖类型（地域型、跨行业型、混合型、资产型等）的分布，点击某扇区可查看对应国家名单。
+
+\textbf{覆盖类型演变面积图}：以堆叠面积追踪各类型国家数量的历年变化，可观察到跨行业型机制自 2019 年起急速扩张。
+
+\textbf{通知 × 预审批气泡矩阵}：3×3 矩阵，将各国按通知义务（无强制、部分强制、全面强制）和预审批义务两个维度定位，气泡大小代表该组合的国家数量。
+
+\textbf{严格程度分布带状图}：均值折线加上最小/最大值区间带，区间随时间扩大反映各国分化加剧。
+
+\textbf{散点图（门槛/时限 × 严格程度）}：每个点代表一个国家，左上角区域（高严格、低门槛或短时限）代表实际合规负担最重的司法管辖区。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 切换至 Evolution Tab，点击饼图"Cross-sectoral"扇区，查看国家列表。
+    \item 指向堆叠面积图中 2019 年附近的跨行业型增长区域，说明趋势背景。
+    \item 拖动全局年份滑块，观察散点图中各国分布的历年变化。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Tab 05 — Changes：立法动态}
+
+Changes Tab 聚焦"发生了什么、在哪一年"。
+
+上方的堆叠柱状图展示全球每年的立法事件数量，按类型分色：新建机制（New Law）、修订（Amendment）、行政令（Exec. Order）、配套实施细则（Reg. Impl.）。点击某年的柱子，下方事件列表更新为该年全部事件，同时全局年份滑块同步跳转。
+
+事件列表中每张卡片包含国家、法规名称、变化说明和事件类型标签。点击卡片展开详情抽屉，显示主管机构、门槛、严格程度等机制数据，以及政策原文摘录和"Summarize with AI →"按钮。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 切换至 Changes Tab，点击柱状图中 \textbf{2019} 年的柱，观察事件列表更新。
+    \item 在事件列表中展开一张事件卡，指出政策原文摘录与 AI 摘要按钮。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Tab 06 — Sectors：行业覆盖}
+
+Sectors Tab 从行业维度分析各国审查范围。
+
+热力图以行（行业）× 列（国家）的矩阵形式展示覆盖情况，各列按覆盖行业总数从多到少排列，深色格子表示该行业被纳入审查。细分模式展示 36 个具体行业，汇总模式展示 8 个大类并以覆盖率渐变着色。
+
+右侧横向条形图对各行业按被覆盖国家数排名，点击"▶ 播放"按钮可逐年动态演变，直观展示各行业被纳入审查的时序。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 切换至 Sectors Tab，在热力图中定位\textbf{AI \& Machine Learning}行业，观察哪些国家覆盖了该行业。
+    \item 点击右上角切换按钮，切换至"8 Aggregate Categories"模式。
+    \item 点击排名图的"\textbf{▶ Play}"，播放赛马动画。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{Deal Screener：合规初步筛查}
+
+Deal Screener 回答一个具体的合规实务问题：这笔跨境投资在目标国是否可能需要申报？点击顶栏的 \uielem{⚡ Check Deal} 或国家详情页的快捷按钮均可打开。
+
+\subsection{输入字段}
+
+需填写四项信息：目标国（投资标的所在国）、行业（36 个细分类或 8 个汇总类，可不填）、拟收购股权比例（可不填）、Your Country（投资方所在国，用于判断是否适用 EU/非 EU 差异待遇）。
+
+\subsection{判断结果}
+
+提交后返回五级判断：\textit{Review likely required}（红橙，强制预审批且超过门槛）、\textit{Review may apply}（琥珀，部分因素指向申报）、\textit{Below threshold}（绿，低于门槛）、\textit{Sector out of scope}（绿，行业不在范围内）、\textit{No mechanism}（灰，无机制）。结论附英文说明，包含覆盖范围、门槛对比、最长审查时限和主管机构，并提供"View full profile →"跳转链接。
+
+\begin{tipbox}[注意]
+  Deal Screener 基于 PRISM 公开数据提供初步评估，不构成法律意见。适用于快速筛查或学术研究，正式交易前仍须咨询专业律师。
+\end{tipbox}
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 点击顶栏"\textbf{⚡ Check Deal}"，打开筛查抽屉。
+    \item 填入示例：目标国 \textbf{Germany}，行业 \textbf{Artificial Intelligence \& Machine Learning}，股权比例 \textbf{30\%}，Your Country \textbf{China}。
+    \item 点击"Check this deal →"，展示判断结果与英文说明文字。
+    \item 点击"View full Germany profile →"，演示联动跳转至国家详情页。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{AI 数据助手}
+
+点击顶栏 \uielem{Ask AI} 打开 AI 数据助手。助手具有上下文感知能力，自动注入当前选定的年份、国家和所在 Tab，可直接提问而无需重复背景信息。
+
+助手支持 Anthropic Claude、OpenAI GPT、DeepSeek、Moonshot Kimi、智谱 GLM 及任意 OpenAI 兼容接口，API Key 存储于浏览器本地，不经过任何中间服务器。打开抽屉时会根据当前上下文生成 3–4 条推荐提问，可点击芯片直接发送。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 点击"Ask AI"，打开助手抽屉，指出当前上下文信息（年份、国家）已自动注入。
+    \item 手动输入问题：\textbf{「2019 年后哪些国家新建了跨行业审查机制？」}，展示回答内容。
+    \item （可选）演示点击推荐问题芯片的快捷提问方式。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\section{全文检索}
+
+按 \keycap{/} 键聚焦顶栏搜索框，搜索框支持三种模式（通过上方切换按钮选择）：
+
+\textbf{国家模式}：按名称匹配，点击结果直接跳转至该国详情页。
+
+\textbf{法规模式}：搜索法规标题与国家名。
+
+\textbf{政策原文模式}：对全部 141 份政策文件进行全文检索。命中段落以琥珀色高亮显示，并提供 PDF 下载或原始来源链接。
+
+\begin{demobox}
+  \begin{enumerate}
+    \item 按 \keycap{/} 键激活搜索框，输入关键词 \textbf{"national security"}。
+    \item 切换至"Policy"模式，展示全文检索结果列表。
+    \item 点击一条结果，打开抽屉查看带高亮的原文摘录。
+  \end{enumerate}
+\end{demobox}
+
+%% ============================================================
+\vspace{2em}
+\hrule
+\vspace{0.8em}
+{\small\color{gray}
+\textbf{PRISM FDI 审查机制数据平台} · \url{https://jonebroom.github.io/prism-fdi/}\\
+数据：PRISM ISM Dataset v2023.12 · 38 国 · 2007—2023
+}
+
+\end{document}
